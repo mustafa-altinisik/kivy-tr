@@ -20,4 +20,4 @@ Programı çalıştırdığınızda aşağıdaki gibi bir pencere açılacaktır
 
    ``merhaba_dunya.py`` programının ekran görüntüsü
 
-hhh
+
