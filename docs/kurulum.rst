@@ -11,8 +11,6 @@ Dolayısı ile Python 3.4 ile çalışılacaktır.
 Windows'da Kurulum
 ==================
 
-Makinanızda Python Var mı?
--------------------------
 Bu belgeyi okumaya başlamış iseniz, muhtemelen bilgisayarınızda Python kuruludur. Eğer kurulu değilse 
 `Python'un İndirme Sayfası <https://www.python.org/downloads/windows/>`_'na giderek işletim sisteminize uygun 
 olan 3.4 sürümünün son paketini indiriniz. Bu belge hazırlanırken 3.4.4 sürümü var idi. Belgenin üzerinde çalışıldığı 
@@ -51,4 +49,4 @@ Artık Kivy'nin kurulumuna geçebiliriz. Bunun için komut satırında iken (siy
       
 Kurulum bitti, artık kivy'i python içerisinden çağırabilirsiniz.
   	  
- 
+
