@@ -14,6 +14,7 @@ Kivy Mobil Programlama
    kivy-hakkinda
    belge-hakkinda
    kurulum
+   merhaba-dunya
 
 Dizinler ve Tablolar
 ====================

@@ -16,9 +16,9 @@ Bu belgeyi okumaya başlamış iseniz, muhtemelen bilgisayarınızda Python kuru
 olan 3.4 sürümünün son paketini indiriniz. Bu belge hazırlanırken 3.4.4 sürümü var idi. Belgenin üzerinde çalışıldığı 
 Makinada 64 bitlik Windows 7 kurulu olduğundan şu paket indirildi "Windows x86-64 MSI installer" (python-3.4.4.amd64.msi). 
 İndirdiğiniz msi dosyası üzerine çift tıklayın, eğer Windows'unuzun yönetici parolasını biliyorsanız, en iyisi tüm kullanıcılar için kurmaktır. 
-Bunun için "Install for all users" seçili iken "Next" düğmesine tıkladığınızda kurulacak olan patikanın ``C:\\Python34\\`` olmasına 
+Bunun için "Install for all users" seçili iken "Next" düğmesine tıkladığınızda kurulacak olan patikanın ``C:\Python34\`` olmasına 
 özen gösterin. Birkaç tıklamadan sonra size yönetici parolası soarcaktır. Python 3.4 sürümü çalışabilir python.exe 
-dosyasının bulunduğu ``C:\\Python34\\`` patikasını çevre değişkenine eklemez. Bunun için önce bir komut satırı açın 
+dosyasının bulunduğu ``C:\Python34\`` patikasını çevre değişkenine eklemez. Bunun için önce bir komut satırı açın 
 (Başlat'a tıklayın "Programları ve dosyaları ara" kutucuğuna ``cmd`` yazın ve klavyeden "Enter" tuşuna basın. 
 Bu size siyah siyah bir pencere açacaktır. Bu pencerede aşağıdaki komutu işletin:
 
@@ -48,5 +48,7 @@ Artık Kivy'nin kurulumuna geçebiliriz. Bunun için komut satırında iken (siy
       python -m pip install kivy
       
 Kurulum bitti, artık kivy'i python içerisinden çağırabilirsiniz.
-  	  
 
+Linux'da Kurulum  	  
+=================
+Değişik Linux dağıtımlarında kurulum birbirinden farklıdır. Burada sadece Debian Jessie'de nasıl kurulacağını anlatacağız.
