@@ -221,7 +221,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'KivyMobilProgramlama.tex', u'Kivy Mobil Programlama Documentation',
+    (master_doc, 'KivyMobilProgramlama.tex', u'Kivy Mobil Programlama',
      u'Mustafa Başer', 'manual'),
 ]
 
@@ -251,7 +251,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'kivymobilprogramlama', u'Kivy Mobil Programlama Documentation',
+    (master_doc, 'kivymobilprogramlama', u'Kivy Mobil Programlama',
      [author], 1)
 ]
 
@@ -265,7 +265,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'KivyMobilProgramlama', u'Kivy Mobil Programlama Documentation',
+    (master_doc, 'KivyMobilProgramlama', u'Kivy Mobil Programlama',
      author, 'KivyMobilProgramlama', 'One line description of project.',
      'Miscellaneous'),
 ]

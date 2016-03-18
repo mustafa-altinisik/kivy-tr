@@ -11,8 +11,7 @@ Kivy Mobil Programlama
 .. toctree::
    :maxdepth: 2
 
-   kivy-hakkinda
-   belge-hakkinda
+   giris
    kurulum
    merhaba-dunya
 
