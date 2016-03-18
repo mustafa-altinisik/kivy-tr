@@ -13,9 +13,10 @@ Kivy Mobil Programlama
 
    kivy-hakkinda
    belge-hakkinda
+   kurulum
 
 Dizinler ve Tablolar
-==================
+====================
 
 * :ref:`genindex`
 * :ref:`search`
