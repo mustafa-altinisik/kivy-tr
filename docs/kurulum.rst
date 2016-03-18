@@ -51,4 +51,4 @@ Artık Kivy'nin kurulumuna geçebiliriz. Bunun için komut satırında iken (siy
       
 Kurulum bitti, artık kivy'i python içerisinden çağırabilirsiniz.
   	  
-
+ 
