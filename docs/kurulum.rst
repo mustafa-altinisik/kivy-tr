@@ -11,7 +11,7 @@ Dolayısı ile Python 3.4 ile çalışılacaktır.
 Windows'da Kurulum
 ==================
 
-Makinanızda Python Varmı?
+Makinanızda Python Var mı?
 -------------------------
 Bu belgeyi okumaya başlamış iseniz, muhtemelen bilgisayarınızda Python kuruludur. Eğer kurulu değilse 
 `Python'un İndirme Sayfası <https://www.python.org/downloads/windows/>`_'na giderek işletim sisteminize uygun 
