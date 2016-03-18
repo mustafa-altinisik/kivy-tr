@@ -1,2 +1,2 @@
 # kivy-tr
-Turkish kivy documentation project
+Kivy Belge Projesi
