@@ -18,7 +18,6 @@ Dizinler ve Tablolar
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
 
 
