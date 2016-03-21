@@ -4,10 +4,10 @@ Giriş
 
 Bu belge Kivy ile mobil programlamayı öğretmek amacı ile hazırlanmıştır.
 
-
 Kivy Hakkında
 **************
-Kivy mobil cihazlarda da çalışabilecek programların yazılabileceği bir Python modülüdür.
+Kivy mobil cihazlarda da çalışabilecek programların yazılabileceği bir Python modülüdür. Diğer bir deyişle Mobil GUI Toolkit 
+(Mobil Grafik Kullanıcı Arayüzü Aracı) diyebiliriz.
 Kivy ile yazacağınız programlar hemen her platformda çalışabilir. Bu platformları şöyle sıralaybiliriz;
 
 * Masaüstü Bilgisayarlar: :index:`Linux`, Mac OS X, Windows
@@ -43,3 +43,18 @@ Belgeye katkıda bulunanlar
 * |author|
 
 Katkıda bulunmak için mbaser <at> mail.com adresine mail atabilirsiniz.
+
+Ne Bilmeliyim?
+**************
+Bu doküman sadece Kivy üzerinde yoğunlaşacaktır. Kivy ile program yazabilmek için Python bilmeniz gerekir. Python'u çeşitli
+web sitelerinden ya da bu dokümanın yazarı tarafından yazılmış Dikeyeksen yayınlarındaki `Python <http://www.dikeyeksen.com/products/python>`_
+kitabından öğrenebilirsiniz. Kitabın birinci kısmını öğrendiğiniz varsayılmıştır.
+
+Bunun dışında komut satırına (Windows için cmd) aşina olmanız gerekmektedir. Böylelikle :ref:`paketleme` bölümünde anlatacağımız 
+sanal makina üzerinde paketleme işini yapabilirsiniz.
+
+UYARI
+*****
+Bu belgede anlatılan içerik ve yayınlanan programlar ve kurulmu anlatılan programlmarın/paketlerin neden olabileceği sorunlardan
+belgenin yazarı sorumlu tutulamaz.
+

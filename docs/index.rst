@@ -13,7 +13,10 @@ Kivy Mobil Programlama
 
    giris
    kurulum
-   merhaba-dunya
+   merhabaDunya
+   kivyDili
+   paketleme
+
 
 Dizinler ve Tablolar
 ====================
