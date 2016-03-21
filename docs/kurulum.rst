@@ -47,7 +47,13 @@ Artık Kivy'nin kurulumuna geçebiliriz. Bunun için komut satırında iken (siy
       
       python -m pip install kivy
       
-Kurulum bitti, artık kivy'i python içerisinden çağırabilirsiniz.
+Kurulum bitti, artık kivy'i python içerisinden çağırabilirsiniz. Düzgün kurulup kurulmadığını Python komut satırından aşağıdaki kodları çalıştırarak deneyebilirsiniz. Kurulum düzgün ise pencere başlığı "Bos Pencere" olan siyah ve boş bir pencere açılacaktır.
+
+::
+
+>>> from kivy.ui.label import Label
+>>> App(title="Bos Pencere").run()
+
 
 Linux'da Kurulum  	  
 =================
