@@ -51,7 +51,7 @@ Kurulum bitti, artık kivy'i python içerisinden çağırabilirsiniz. Düzgün k
 
 ::
 
->>> from kivy.ui.label import Label
+>>> from kivy.app import App
 >>> App(title="Bos Pencere").run()
 
 
