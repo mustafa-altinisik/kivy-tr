@@ -95,11 +95,13 @@ konularda anlatılacaktır.
 
 Programımız çalıştığında :ref:`kullaniciGirisImg` deki gibi bir pencere açılacaktır. 
 
+
 .. _kullaniciGirisImg:
 
 .. figure:: ./resimler/girisFormu.png
 
    Giriş Formu
-   
+
+
 İkinci yöntem olarak, bir pencerenin görüntülenmesi ve pencere düzeni ve diğer birçok işlem için Kivy ``kv`` dili kullanılabilir,
 bu muhteşem dil :ref:`kivyDili` bölümünde anlatılmaktadır.
