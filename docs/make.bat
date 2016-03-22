@@ -6,7 +6,11 @@ set path "%path%;C:\Python34;C:\Python34\Scripts"
 if "%SPHINXBUILD%" == "" (
 	set SPHINXBUILD=sphinx-build
 )
-set BUILDDIR=_build
+
+IF "%BUILDDIR%"=="" (
+    set BUILDDIR=_build
+)
+
 set ALLSPHINXOPTS=-d %BUILDDIR%/doctrees %SPHINXOPTS% .
 set I18NSPHINXOPTS=%SPHINXOPTS% .
 if NOT "%PAPER%" == "" (
