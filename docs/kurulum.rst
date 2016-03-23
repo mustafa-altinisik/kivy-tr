@@ -49,12 +49,42 @@ Artık Kivy'nin kurulumuna geçebiliriz. Bunun için komut satırında iken (siy
       
 Kurulum bitti, artık kivy'i python içerisinden çağırabilirsiniz. Düzgün kurulup kurulmadığını Python komut satırından aşağıdaki kodları çalıştırarak deneyebilirsiniz. Kurulum düzgün ise pencere başlığı "Bos Pencere" olan siyah ve boş bir pencere açılacaktır.
 
-::
+.. _kurulumDogrulama:
 
->>> from kivy.app import App
->>> App(title="Bos Pencere").run()
+::
+  
+  >>> from kivy.app import App
+  >>> App(title="Bos Pencere").run()
 
 
 Linux'da Kurulum  	  
 =================
-Değişik Linux dağıtımlarında kurulum birbirinden farklıdır. Burada sadece Debian Jessie'de nasıl kurulacağını anlatacağız.
+Değişik Linux dağıtımlarında kurulum birbirinden farklıdır. Burada sadece Debian Jessie'de (8.3) nasıl kurulacağını anlatacağız. Linux'a kurmak
+bana her zaman Windows'a kurmaktan daha kolay gelir. Öncelikle ``add-apt-repository`` programına ihtiyacınız var. Sisteminizde kurulu değilse
+root yetkileri ile şu şekilde kurabilirsiniz:
+
+.. code-block:: console
+
+  # apt-get install software-properties-common
+
+
+Şimdi yazılım havuzunu apt kaynaklarına ekleyelim:
+
+.. code-block:: console
+
+  # add-apt-repository ppa:kivy-team/kivy
+
+
+Şimdi Kivy'i kurma zamanı:
+
+.. code-block:: console
+
+  # apt-get install python-kivy
+
+
+
+
+kurulumun doğru gerçekleştiğini :ref:`yukarıda <kurulumDogrulama>` anlattığım gibi ile anlayabilirsiniz.
+
+
+

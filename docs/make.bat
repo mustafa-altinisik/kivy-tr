@@ -2,7 +2,7 @@
 
 REM Command file for Sphinx documentation
 
-set path "%path%;C:\Python34;C:\Python34\Scripts"
+set path="%path%;C:\Python34;C:\Python34\Scripts"
 if "%SPHINXBUILD%" == "" (
 	set SPHINXBUILD=sphinx-build
 )
@@ -60,7 +60,7 @@ goto sphinx_ok
 
 :sphinx_python
 
-set SPHINXBUILD=c:\Python34\scripts\sphinx-build.exe
+REM set SPHINXBUILD=c:\Python34\scripts\sphinx-build.exe
 %SPHINXBUILD% 2> nul
 if errorlevel 9009 (
 	echo.

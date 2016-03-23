@@ -1,3 +1,5 @@
+.. _merhabaDunyaBolumu:
+
 ###############
 Merhaba Dünya
 ###############
@@ -7,7 +9,7 @@ ve Kivy'i öğrenmeye bununla başlayacağız. IDLE'e kullanarak aşağıdaki pr
 
 .. literalinclude:: ./programlar/merhabaDunya.py
     :linenos:
-    :caption: :download:`merhabaDunya.py<./programlar/merhabaDunya.py>`
+    :caption: merhabaDunya.py
     :name: merhabaDunya
     :language: python
 
@@ -66,6 +68,8 @@ klasörüne koymuş iseniz:
 	
 şeklinde yazılmalıdır.
 
+.. _merhabaDunyaPencereDuzenleri:
+
 Pencere Düzenleri
 =================
 Bir pencereye birden fazla grafik parçacığı (widget) koyacaksanız, bir pencere düzeni oluşturmalısınız. Kivy programlarındaki pencere düzenleri iki şekilde oluşturulabilir: 
@@ -84,14 +88,18 @@ tanesi Düğme (``Button``). Bir tanede boş grafik parçacığı (``Widget``). 
 
 .. literalinclude:: ./programlar/girisFormu.py
     :linenos:
-    :caption: :download:`girisFormu.py<./programlar/girisFormu.py>`
+    :caption: girisFormu.py
     :name: girisFormu
     :language: python
     
 
-Sizce 25. satırı ``duzen.add_widget(Widget())`` neden yazmışızdır? Programımız şimdilik bir işe yaramamaktadır. Tek yaptığı bir giriş penceresi
+Programımız şimdilik bir işe yaramamaktadır. Tek yaptığı bir giriş penceresi
 oluşturmak ve bunu kullanıcıya göstermektir. Düğmenin nasıl kullanılacağı, metin kutularındaki değerlerin nasıl alınacağı ileriki 
-konularda anlatılacaktır.
+konularda anlatılacaktır. Burada  ``GridLayout()`` ile ızgara pencere düzeni oluşturulmuştur. Bu sınıfa verilen ``cols=2`` parametresi
+ızgaranın iki sütundan oluşacağını söylemktedir. Kaç satırdan oluşuacağını belirtmiyoruz. Bir garfik parçacığına (burada ızgara pencere
+düzeni) bir başka grafik parçacığını ``add_widget()`` ile ekliyoruz. Buradaki ızgaramız iki sütunlu olduğundan
+ızgara düzenine eklenen her iki parçacık bir satırda bulunur ve daha sonra yeni satıra geçilir. 
+Şimdi size bir soru: Sizce 25. satırı ``duzen.add_widget(Widget())`` neden yazmışızdır? 
 
 Programımız çalıştığında :ref:`kullaniciGirisImg` deki gibi bir pencere açılacaktır. 
 
