@@ -74,6 +74,12 @@ root yetkileri ile şu şekilde kurabilirsiniz:
 
   # add-apt-repository ppa:kivy-team/kivy
 
+Paketleri güncelleyelim:
+
+.. code-block:: console
+
+  # apt-get update
+
 
 Şimdi Kivy'i kurma zamanı:
 
