@@ -46,7 +46,7 @@ Bir diğer yöntem ise, ``build()`` işlevi altında ``return`` etmeden hemen ö
 
 ::
 	
-	title = 'Benim Kivy Programım'
+	self.title = 'Benim Kivy Programım'
 	
 Benzer şekilde pencere için kullanılacak olan simgeyi de ``icon`` özelliğini kullanarak yapabilirsiniz. Son durumda ``build()``
 işlevini şu şekilde yazabilirsiniz:
