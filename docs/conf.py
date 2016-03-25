@@ -288,3 +288,6 @@ rst_epilog = """
 	.. |copyright| replace:: %s
 	""" % (time.ctime(), author, copyright)
 
+
+numfig = True
+numfig_secnum_depth = 1

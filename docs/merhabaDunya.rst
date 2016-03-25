@@ -13,7 +13,7 @@ ve Kivy'i öğrenmeye bununla başlayacağız. IDLE'e kullanarak aşağıdaki pr
     :name: merhabaDunya
     :language: python
 
-Programı çalıştırdığınızda :ref:`merhabaDunyaImg` deki gibi bir pencere açılacaktır.
+Programı çalıştırdığınızda :numref:`Şekil %s <merhabaDunyaImg>`'deki gibi bir pencere açılacaktır.
 
 
 
@@ -101,7 +101,7 @@ düzeni) bir başka grafik parçacığını ``add_widget()`` ile ekliyoruz. Bura
 ızgara düzenine eklenen her iki parçacık bir satırda bulunur ve daha sonra yeni satıra geçilir. 
 Şimdi size bir soru: Sizce 25. satırı ``duzen.add_widget(Widget())`` neden yazmışızdır? 
 
-Programımız çalıştığında :ref:`kullaniciGirisImg` deki gibi bir pencere açılacaktır. 
+Programımız çalıştığında :numref:`Şekil %s <kullaniciGirisImg>` 'deki gibi bir pencere açılacaktır. 
 
 
 .. _kullaniciGirisImg:

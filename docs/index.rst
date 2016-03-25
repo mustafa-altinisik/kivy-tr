@@ -10,6 +10,7 @@ Kivy Mobil Programlama
 
 .. toctree::
    :maxdepth: 2
+   :numbered:
 
    giris
    kurulum
