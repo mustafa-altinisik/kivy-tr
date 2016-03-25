@@ -16,6 +16,7 @@ Kivy Mobil Programlama
    kurulum
    merhabaDunya
    kivyDili
+   olaylarFonksiyonlar
    paketleme
 
 

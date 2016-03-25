@@ -60,7 +60,7 @@ goto sphinx_ok
 
 :sphinx_python
 
-REM set SPHINXBUILD=c:\Python34\scripts\sphinx-build.exe
+set SPHINXBUILD=c:\Python34\scripts\sphinx-build.exe
 %SPHINXBUILD% 2> nul
 if errorlevel 9009 (
 	echo.

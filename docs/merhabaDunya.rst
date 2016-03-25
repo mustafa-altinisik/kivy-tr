@@ -9,6 +9,7 @@ ve Kivy'i öğrenmeye bununla başlayacağız. IDLE'e kullanarak aşağıdaki pr
 
 .. literalinclude:: ./programlar/merhabaDunya.py
     :linenos:
+    :tab-width: 4
     :caption: merhabaDunya.py
     :name: merhabaDunya
     :language: python
@@ -88,6 +89,7 @@ tanesi Düğme (``Button``). Bir tanede boş grafik parçacığı (``Widget``). 
 
 .. literalinclude:: ./programlar/girisFormu.py
     :linenos:
+    :tab-width: 4
     :caption: girisFormu.py
     :name: girisFormu
     :language: python

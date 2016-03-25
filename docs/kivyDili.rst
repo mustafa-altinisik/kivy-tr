@@ -15,6 +15,7 @@ Bu kodda hiçbir değişiklik yapmadan birçok pencere oluşturacağız.
 
 .. literalinclude:: ./programlar/kivyDili/1/main.py
     :linenos:
+    :tab-width: 4
     :caption: main.py
     :name: main1
     :language: python
@@ -25,6 +26,7 @@ Gördüğünüz gibi bu program hiçbirşey döndürmüyor. Sadece basit bir pen
 
 .. literalinclude:: ./programlar/kivyDili/1/girisformu0.kv
     :linenos:
+    :tab-width: 4
     :caption: girisformu.kv
     :name: girisformu1
     
@@ -48,6 +50,7 @@ sınıfı ile oluşturulur. O halde ``kv`` dilinde ``BoxLayout`` ile kutu pencer
 
 .. literalinclude:: ./programlar/kivyDili/2/girisformu.kv
     :linenos:
+    :tab-width: 4
     :caption: girisformu.kv
     :name: girisformu2
 
@@ -68,6 +71,7 @@ eklemelisiniz.
 
 .. literalinclude:: ./programlar/kivyDili/2/girisformu1.kv
     :linenos:
+    :tab-width: 4
     :caption: girisformu.kv
     :name: girisformu3
 
@@ -89,6 +93,7 @@ programını :numref:`Liste %s <girisformu4>`'deki gibi yazın. Metin kutuların
 
 .. literalinclude:: ./programlar/kivyDili/2/girisformu4.kv
     :linenos:
+    :tab-width: 4
     :caption: girisformu.kv
     :name: girisformu4
 
@@ -106,6 +111,7 @@ yerleştirilmiş (dikey yönelimli), yatay yönelimli kutulardan oluşmaktadır.
 
 .. literalinclude:: ./programlar/kivyDili/2/girisformu5.kv
     :linenos:
+    :tab-width: 4
     :caption: girisformu.kv
     :name: girisformu5
 
@@ -128,6 +134,7 @@ bildirmek durumundasınız. Aksi halde anlamsız olacaktır.
 
 .. literalinclude:: ./programlar/kivyDili/2/girisformu6.kv
     :linenos:
+    :tab-width: 4
     :caption: girisformu.kv
     :name: girisformu6
 
@@ -146,5 +153,22 @@ Bunun anlamı dikey boyutun yarısı 1. yatay kutu tarafından kaplanacaktır. G
 
    Boyutlandırılmış Giriş Formu
 
-``kv`` dili ile pencereleri oluşturmayı öğrencidiğimize göre, şimdi biraz bu pencereleri işler hale getirmeye geldi. Sonraki bölümde
+İkisi Bir Arada
+================
+
+Aslında bu kadar küçük programlar için ``kv`` içeriğini farklı bir dosyaya yazmaya gerek yok. Bunun yerine Python programı içerisine
+``kv`` içeriğini de yazabiliriz. :numref:`Liste %s <main3>`'de bunu görüyorsunuz.
+
+.. literalinclude:: ./programlar/kivyDili/3/main.py
+    :linenos:
+    :caption: main.py
+    :name: main3
+    :tab-width: 4
+    :language: python
+
+Gördüğünüz gibi, ``kv`` içeriği bir Python programı içerisindeki bir cümleden alınıyor ve ``Builder`` nesnesinin ``load_string()``
+özelliği ile yükleniyor. Şimdilik neden ana pencerenin ``self.root`` değişkenine aktarılıp ``build()`` tarafından döndürüldüğünden
+bahsetmeyeceğiz. Çeşitli pencere düzenleri, ve grafik parçacığı büyüklükleri ile deneyiniz.
+
+``kv`` dili ile pencereleri oluşturmayı öğrendiğimize göre, şimdi biraz bu pencereleri işler hale getirmeye geldi. Sonraki bölümde
 garfik parçacıkları ile kullanıcı etkileşmesinin nasıl gerçekleştiğini göreceğiz. 
