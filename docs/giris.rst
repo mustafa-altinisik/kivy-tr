@@ -10,7 +10,7 @@ Kivy mobil cihazlarda da çalışabilecek programların yazılabileceği bir Pyt
 (Mobil Grafik Kullanıcı Arayüzü Aracı) diyebiliriz.
 Kivy ile yazacağınız programlar hemen her platformda çalışabilir. Bu platformları şöyle sıralaybiliriz;
 
-* Masaüstü Bilgisayarlar: :index:`Linux`, Mac OS X, Windows
+* Masaüstü Bilgisayarlar: Linux, Mac OS X, Windows
 * Talbletler: Android cihaziar, iPad, iPhone
 
 Kivy dokunmatik ekranlar için optimize edilmiş olmasına rağmen, geliştirilen uygulamalar

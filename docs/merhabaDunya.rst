@@ -80,7 +80,7 @@ Bir pencereye birden fazla :index:`Grafik Parçacığı` (widget) koyacaksanız,
 
 
 :index:`Izgara Pencere Düzeni`
------------------------------
+-------------------------------
 
 Bu belge kapsamında ``kv`` dili kullanılacaktır. Ancak bir fikir vermesi açısından kodlayarak nasıl yapıldığını basit bir örnek
 ile açıklamaya çalışalım. Şöyle bir pencereye ihtiyacımız olsun:

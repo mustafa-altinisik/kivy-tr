@@ -78,7 +78,8 @@ Bu programla kullanacağımız ``kv`` dosyasını da :numref:`olaylar_kv3`'da g�
     :name: olaylar_kv3
 
 ``kv`` dosyasında etiket için neden ``markup: True`` dediğimizi sonra açaıklayacağız. Programımızı çalıştıralım ve 
-üstteki metin kutusuna adımızı yazalım. "Değiştir" düğmesine tıkladığımızda, metin kutusundaki isim etiket üzerine yazılacaktır. Programın çalışmış halini :numref:`Şekil %s <olaylar1Img>` 'de görüyorsunuz.
+üstteki metin kutusuna adımızı yazalım. "Değiştir" düğmesine tıkladığımızda, metin kutusundaki isim etiket üzerine yazılacaktır.
+Programın çalışmış halini :numref:`Şekil %s <olaylar1Img>` 'de görüyorsunuz.
 
 .. _olaylar1Img:
 
@@ -86,7 +87,80 @@ Bu programla kullanacağımız ``kv`` dosyasını da :numref:`olaylar_kv3`'da g�
 
    Girilen metnin etikete yazılması
    
-Renkler
-=======
-Şimdi biraz renkelnelim. 
+:index:`İşaret Dili` (:index:`markup`)
+=======================================
 
+Etiket ve düğmelerde renklerin kullanımı çok kolay.  :numref:`olaylar_kv3`'deki ``kv`` dosyasının 8. satırında ``markup: True``
+bulunmaktadır. Bunun anlamı bu etiket metni için işaret dilinin (markup) kullanılacağıdır. Eğer program içerisinde
+bir etiket tanımlamış olsaydık, işaret dilini etkinleştirmek için
+
+::
+
+  etiket = Label(markup=True)
+
+diyebilirdik. Ya da daha önceden tanımlanmış bir ``etiket`` nesnesi için:
+
+::
+
+  etiket.markup=True
+  
+ 
+şeklinde aktifleştirebilirdik. Keşke Kivy tıpkı Qt gibi standart html'yi desteklemiş olsa idi, ancak ne yazıkki standart
+html yerine kendi içerisinde birtakım işaretler vardır. Önce  :numref:`olaylar_main2`'deki programda kullanıcının adını
+etikete yazarken kırmızı reknte yazmayı deneyelim. Bunun için 7. satırı aşağıdaki gibi değiştirin:
+
+::
+ 
+  self.root.ids.etiket.text='Merhaba [color=#FF0000] %s [/color] !' % girilen_metin
+  
+Artık isim kırmızı renkli olacaktır. Burada anlaşılacağı gibi Kivy işaretleri [işaret] ile başlamakta ve
+[/işaret] ile bitirlmektedir. Sonucu :numref:`Şekil %s <olaylar2Img>` 'de görüyorsunuz.
+
+.. _olaylar2Img:
+
+.. figure:: ./resimler/olaylar2Img.png
+
+   Etiketlerde renk kullanımı
+   
+Kullanabileceğimiz diğer işaretler şöyle:
+
+[b][/b]
+	Kalın metin
+[i][/i]
+	İtalik metin
+[u][/u]
+	Altı çizili metin
+[s][/s]
+    Üstü çizili metin
+[font=<str>][/font]
+    Yazıtıpi belirtimi. Örneğin ``[font=DejaVuSerif.ttf]Merhaba Kivy![/font]``
+[size=<integer>][/size]
+    Yazıtıpi boyutunu belirtir
+[color=#<color>][/color]
+    Yazı rengini değiştirir
+[ref=<str>][/ref]
+    Metne bir link (bağ) konulur. Bu bağa tıklandığında "ref" de verilen değer, işleve gönderilir.
+[sub][/sub]
+    Alt simge olarak gösterilir
+[sup][/sup]
+    Üst simge olarak gösterilir
+    
+Basit bir diğer örnek olarak ``ref``'i kullanalım.  :numref:`olaylar_main2`'deki programda etiket üzerindeki metne
+tıklandığında ekrana (komut satırına) ``Selam Melike !`` yazacaktır.
+
+
+.. literalinclude:: ./programlar/olaylar/4/main.py
+    :linenos:
+    :tab-width: 4
+    :caption: main.py
+    :name: olaylar_main4
+    :language: python
+
+
+Eğer ``yazdir()`` işlevini şu şekilde değiştirecek olursanız:
+
+::
+  
+  nesne.text = deger
+  
+Bu durumda, etiketteki "Merhaba  Fatih !" metine tıkladığınızda, bu metin yerine "Merhaba  Melike !" görünecektir.

@@ -1,5 +1,3 @@
-
-
 from kivy.app import App
 
 class olayUyg(App):
