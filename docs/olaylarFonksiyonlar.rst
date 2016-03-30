@@ -181,7 +181,7 @@ ile nasıl yapılacağına bakalım. :numref:`olaylar_main5`'deki programı ince
 
 Bu programın ana düzeni bir tane düğmeden oluşmaktadır. Bu düğmeye tıklandığında ``self.popAc()`` işlevi çağrılmaktadır.
 Popup penceremiz bu işlevde açılmaktadır. Öncelikle açılacak pencerenin içeriğini hazırlamak gerek. Bu içerikte sadece
-bir etiket bulunmaktadır. Siz istediğiniz bir pencere düzeni kullanarak içeriği istediğiniz gibi oluşturabilirsiniz. Bu içerik ``popup`` nesnesinin ``content`` parametresine verilmiştir. Genelde 17. satırda bulunan ``bind(on_touch_down=popup.dismiss)`` bağlantısını genellikle yapmayız. Biz burada tam birörnek olsun diye verdik. 
+bir etiket bulunmaktadır. Siz istediğiniz bir pencere düzeni kullanarak içeriği istediğiniz gibi oluşturabilirsiniz. Bu içerik ``popup`` nesnesinin ``content`` parametresine verilmiştir. Genelde 17. satırda bulunan ``bind(on_touch_down=popup.dismiss)`` bağlantısını genellikle yapmayız. Biz burada tam bir örnek olsun diye verdik. 
 :index:`on_touch_down` olayı bir grafik parçacığına dokunulduğunu ifade eden olaydır. Burada Popup penceresindeki 
 içeriğe dokunulduğunda pencerenin kapanmasını sağlayan :index:`dismiss` işlevi aktifleştirilmiştir. Bu programda (200,200)
 boyutlarında bir Popup penceresi açılır. Normalde Popup penceresinin dışındaki bir alana dokunulduğunda Popup kapanır.
