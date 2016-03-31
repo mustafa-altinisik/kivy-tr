@@ -1,7 +1,12 @@
 BoxLayout:
-	Button:
-		id: dugme
-    	text: 'Değiştir'
-    	on_press: self.text='Tıkladın ve değiştim.'app.metni_degistir()
- 
-
+    orientation: 'vertical'
+    TextInput:
+        id: metin_girdisi
+    Label:
+        text: 'Adınızı yukarıya yazın...'
+        id: etiket
+        markup: True
+    Button:
+        id: dugme
+        text: 'Değiştir'
+        on_press: app.metni_degistir()

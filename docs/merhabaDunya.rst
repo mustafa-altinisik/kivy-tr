@@ -27,15 +27,15 @@ Programı çalıştırdığınızda :numref:`Şekil %s <merhabaDunyaImg>`'deki g
 Biraz bu program üzerinde konuşalım. Buraya kadar geldiğinize göre ``import`` satırlarını
 biliyor olmalısınız, bu nedenle burayı geçiyorum. Bütün Kivy programları bir ana
 sınıf tarafından yönetilir. Bu anasınıf Kivy'deki ``App`` sınıfını içerir. Bu programdaki ana
-sınıfımız ``ilkUygulama()``  dır. Ana sınıftaki ``build()`` işlevi mutlaka bir pencer düzeni döndürür
+sınıfımız ``ilkUygulama()``  dır. Ana sınıftaki :index:`build()` işlevi mutlaka bir pencer düzeni döndürür
 ve bu düzen program açıldığında kullanıcnın ilk gördüğü penceredir. Buradaki program
-çok basit olduğundan bir pencere düzeni döndürmek yerine sadece bir etiket (``Label``) döndürmüştür,
+çok basit olduğundan bir pencere düzeni döndürmek yerine sadece bir :index:`etiket` (:index:`Label`) döndürmüştür,
 ve bu etikat ana pencere olarak karşımıza çıkmaktadır. Uygulamanın çalıştırılması,
 ana sınıfın ``run()`` özelliği ile yapılır. Buradaki ``ilkUygulama().run()`` satırı
 uygulamamızın çalışmasını sağlar.
 
 Eğer pencere ismi verilmemişse, pencerinin başlığında ana sınıfın ismi görünecektir. Pencere başlığını
-değiştirmek için, ``title`` özelliğini kullanabiliriz. Sınıf tanımlanır tanımlanmaz hemen altında (``def build(self):``
+değiştirmek için, :index:`title` özelliğini kullanabiliriz. Sınıf tanımlanır tanımlanmaz hemen altında (``def build(self):``
 ile aynı hizada) aşağıdaki satırı ekleyerek yapabilirsiniz:
 
 ::
@@ -49,7 +49,7 @@ Bir diğer yöntem ise, ``build()`` işlevi altında ``return`` etmeden hemen ö
 	
 	self.title = 'Benim Kivy Programım'
 	
-Benzer şekilde pencere için kullanılacak olan simgeyi de ``icon`` özelliğini kullanarak yapabilirsiniz. Son durumda ``build()``
+Benzer şekilde pencere için kullanılacak olan simgeyi de :index:`icon` özelliğini kullanarak yapabilirsiniz. Son durumda ``build()``
 işlevini şu şekilde yazabilirsiniz:
 
 ::
@@ -73,7 +73,7 @@ klasörüne koymuş iseniz:
 
 Pencere Düzenleri
 =================
-Bir pencereye birden fazla grafik parçacığı (widget) koyacaksanız, bir pencere düzeni oluşturmalısınız. Kivy programlarındaki pencere düzenleri iki şekilde oluşturulabilir: 
+Bir pencereye birden fazla :index:`Grafik Parçacığı` (widget) koyacaksanız, bir pencere düzeni oluşturmalısınız. Kivy programlarındaki pencere düzenleri iki şekilde oluşturulabilir: 
 
 * Pencere düzenleri kodlarıya
 * Kivy ``kv`` dili ile
@@ -88,8 +88,8 @@ ile açıklamaya çalışalım. Şöyle bir pencereye ihtiyacımız olsun:
 
 .. figure:: ./resimler/kullaniciGirisMockups.png
 
-Bunun için altı adet grafik parçacığına (aslında pencere düzeni ile yedi) ihtiyacımız var. İki tanesi etiket (``Label``) iki tanesi metin kutusu (``TextInput``) ve bir
-tanesi Düğme (``Button``). Bir tanede boş grafik parçacığı (``Widget``). Bu programı :numref:`girisFormu` gibi yazabiliriz.
+Bunun için altı adet grafik parçacığına (aslında pencere düzeni ile yedi) ihtiyacımız var. İki tanesi etiket (``Label``) iki tanesi :index:`Metin Kutusu` (:index:`TextInput`) ve bir
+tanesi :index:`Düğme` (index:`Button`). Bir tanede boş grafik parçacığı (:index:`Widget`). Bu programı :numref:`girisFormu` gibi yazabiliriz.
 
 .. literalinclude:: ./programlar/girisFormu.py
     :linenos:

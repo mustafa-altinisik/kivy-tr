@@ -59,4 +59,34 @@ Bu düğmeye bastırıldığında çağrılacak olan işlevi ``app``'ın bir öz
 içerisinde tanımlanmış grafik parçacıklarına erişmek için ``self.root.ids``'nin bir özelliği ile eriştiğimizi anlarsınız. ``kv``'deki
 bir nesneye erişmek için o nesnenin ``id`` ile verilmiş ismini kullanıyoruz.
 
+Kullanıcının metin gireceği bir metin kutusu, altında bir etiket ve onun altında da bir düğme bulunan bir program yazalım. Bu programı
+yazmadaki amacımız, metin kutusuna girilen değeri etikette görüntülemktir. Programımızı :numref:`olaylar_main3`'da görüyorsunuz.
+
+.. literalinclude:: ./programlar/olaylar/3/main.py
+    :linenos:
+    :tab-width: 4
+    :caption: main.py
+    :name: olaylar_main3
+    :language: python
+
+Bu programla kullanacağımız ``kv`` dosyasını da :numref:`olaylar_kv3`'da görüyorsunuz.
+
+.. literalinclude:: ./programlar/olaylar/3/olayuyg.kv
+    :linenos:
+    :tab-width: 4
+    :caption: olayuyg.kv
+    :name: olaylar_kv3
+
+``kv`` dosyasında etiket için neden ``markup: True`` dediğimizi sonra açaıklayacağız. Programımızı çalıştıralım ve 
+üstteki metin kutusuna adımızı yazalım. "Değiştir" düğmesine tıkladığımızda, metin kutusundaki isim etiket üzerine yazılacaktır. Programın çalışmış halini :numref:`Şekil %s <olaylar1Img>` 'de görüyorsunuz.
+
+.. _olaylar1Img:
+
+.. figure:: ./resimler/olaylar1Img.png
+
+   Girilen metnin etikete yazılması
+   
+Renkler
+=======
+Şimdi biraz renkelnelim. 
 

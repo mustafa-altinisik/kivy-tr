@@ -1,8 +1,11 @@
-# -*- coding: utf-8 -*-
+
 
 from kivy.app import App
 
 class olayUyg(App):
-    pass
+
+    def metni_degistir(self):
+        girilen_metin = self.root.ids.metin_girdisi.text
+        self.root.ids.etiket.text='Merhaba %s !' % girilen_metin
         
-olayUyg().run()    
+olayUyg().run()  
