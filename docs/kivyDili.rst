@@ -168,7 +168,25 @@ Aslında bu kadar küçük programlar için ``kv`` içeriğini farklı bir dosya
 
 Gördüğünüz gibi, ``kv`` içeriği bir Python programı içerisindeki bir cümleden alınıyor ve ``Builder`` nesnesinin ``load_string()``
 özelliği ile yükleniyor. Şimdilik neden ana pencerenin ``self.root`` değişkenine aktarılıp ``build()`` tarafından döndürüldüğünden
-bahsetmeyeceğiz. Çeşitli pencere düzenleri, ve grafik parçacığı büyüklükleri ile deneyiniz.
+bahsetmeyeceğiz. Çeşitli pencere düzenleri, ve grafik parçacığı büyüklükleri ile deneyiniz. Buradaki bir diğer değişiklik, parolanın yazılacağı metin kutusunun
+gerçek bir parola alanı olduğudur. Bunu ``password: True`` özelliği ile yaptık.
+Artık bu alana yazılırken, yazılan karakterler görüntülenmez yerine yıldız (``*``)
+görüntülenir.
+
+Bir metin kutusuna (TextInput), parola alanı yapacaksak, :index:`password`
+özelliğinin değerini ``True`` yapmalısınız. Bunu kod ile yapmak istiyorsanız
+
+::
+
+  parola = TextInput(password=True)
+  
+ya da, daha sonra yapmak için:
+
+::
+
+  parola = TextInput()
+  parola.password=True
+
 
 ``kv`` dili ile pencereleri oluşturmayı öğrendiğimize göre, şimdi biraz bu pencereleri işler hale getirmeye geldi. Sonraki bölümde
 garfik parçacıkları ile kullanıcı etkileşmesinin nasıl gerçekleştiğini göreceğiz. 

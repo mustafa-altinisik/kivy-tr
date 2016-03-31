@@ -14,6 +14,7 @@ BoxLayout:
 		Label:
 			text: "Parola:"
 		TextInput:
+			password: True
 	BoxLayout:
 		Widget:
 		Button:
