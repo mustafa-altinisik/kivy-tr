@@ -28,9 +28,10 @@ Biraz bu program üzerinde konuşalım. Buraya kadar geldiğinize göre ``import
 biliyor olmalısınız, bu nedenle burayı geçiyorum. Bütün Kivy programları bir :index:`ana sınıf` tarafından yönetilir.
 Bu ana sınıf Kivy'deki ``App`` sınıfını içerir. Bu programdaki ana
 sınıfımız ``ilkUygulama()``  dır. Ana sınıftaki :index:`build()` işlevi mutlaka bir pencere düzeni döndürür
-ve bu düzen program açıldığında kullanıcnın ilk gördüğü penceredir. Buradaki program
+ve bu düzen program açıldığında kullanıcnın ilk gördüğü penceredir. Ana sınıf tarafından oluşturulan penecereye
+:index:`Ana Pencere` diyoruz. Buradaki program
 çok basit olduğundan bir pencere düzeni döndürmek yerine sadece bir :index:`etiket` (:index:`Label`) döndürmüştür,
-ve bu etikat ana pencere olarak karşımıza çıkmaktadır. Uygulamanın çalıştırılması,
+ve bu etiket Ana Pencere olarak karşımıza çıkmaktadır. Uygulamanın çalıştırılması,
 ana sınıfın ``run()`` özelliği ile yapılır. Buradaki ``ilkUygulama().run()`` satırı
 uygulamamızın çalışmasını sağlar.
 
