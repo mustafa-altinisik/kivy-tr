@@ -17,6 +17,7 @@ Kivy Mobil Programlama
    merhabaDunya
    kivyDili
    olaylarFonksiyonlar
+   metinDuzenleyici
    paketleme
 
 

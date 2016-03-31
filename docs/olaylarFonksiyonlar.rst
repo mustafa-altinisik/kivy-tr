@@ -1,8 +1,8 @@
 .. _olaylarBolumu:
 
-########################
-Olaylar ve Fonksiyonları
-########################
+################
+Olaylar ve Popup
+################
 
 Türkçe'de "Ortaya çıkan, oluşan durum" olarak tanımladığımız :index:`olay` (:index:`event`), Kivy için de geçerlidir.
 Örneğin  "düğmeye bastırmak", "bastırılmayı bırakmak", "seçim yapmak", "bir tuşa basmak" gibi birçok durum birer 
@@ -186,4 +186,90 @@ bir etiket bulunmaktadır. Siz istediğiniz bir pencere düzeni kullanarak içer
 içeriğe dokunulduğunda pencerenin kapanmasını sağlayan :index:`dismiss` işlevi aktifleştirilmiştir. Bu programda (200,200)
 boyutlarında bir Popup penceresi açılır. Normalde Popup penceresinin dışındaki bir alana dokunulduğunda Popup kapanır.
 Eğer otomatik olarak kapanmasını istemiyorsanız :index:`auto_dismiss` parametresinin değerini ``False`` yapmalısınız. Yani
-``auto_dismiss=False`` kullanmalısınız. 
+``auto_dismiss=False`` kullanmalısınız.
+
+``kv`` dili ile bir Popup oluştruracağız. Biraz daha karmaşık bir program oluşturalım. Ana penceremizde bir etiket olsun,
+etiketin altında bir düğme ve bu düğmeye bastırılınca bir Popup açılsın. Bu Popup biraz daha farklı olsun, sanki *ModalView* gibi
+davransın. Açılan Popup penceresine bir metin kutusu ve hemen yanına bir düğme ekleyelim. Popup dışarı bir yere tıklanınca
+kapanmasın. Üzerindeki düğmeye bastırılınca önce yapacağı işi yapsın sonra da kapansın. Önce ``kv`` dosyasından başlayalım.
+Daha önce bir ``kv`` dosyasında sadece ana pencereyi tanımlamıştık, oysaki bir programda birden çok pencere olabilir ve bunların
+hepsi bir ``kv`` dosyasında tanımlanabilir. Eğer birden fazla pencere tanımlanacaksa, programda (bize ``main.py``) her pencereya ait
+bir sınıf tanımlanmadır. Bu sınıfa ait pencere düzeni ``kv`` dosyasında *<sınıfAdı>:* ile belirtilir. 'deki ``kv`` 
+:numref:`olaylar_kv6`'dosyasını inceleyin.
+
+
+.. literalinclude:: ./programlar/olaylar/6/olayuyg.kv
+    :linenos:
+    :tab-width: 4
+    :caption: olayuyg.kv
+    :name: olaylar_kv6
+
+Burada ``<olayUyg>`` daha önceden da kullandığımız, ana sınıfımızın (``olayUyg()``) penceresini oluşturmak için kullanılacaktır.
+``<PopUpPencere>`` bloğundaki tanımlar ise, programımızda ``PopUpPencere()`` isimli bir sınıf tanımlanacak ve o sınıfın pencere
+düzenini oluşturacaktır. Dikkat etmiş iseniz, ana sınıfımıza ait grafi parçacıkların kodları en soldan başlamaktadır, 
+diğer bir deyişle (``<olayUyg>:``) ile aynı hizada başlıyor. Hemen altında ``BoxLayout:`` düzeni tanımlanıyor. Diğer sınıflara ait
+pencere düzenlerini tanımlarken ise *<sınıfAdı>:* en soldan, bunun altındaki kodlar bir içerden tanımlanıyor. Aslında ana pencereye ait
+kodlar tanımlanırken *<anaSinifAdı>:* yazmaya da gerek yoktur. Ancak kod okunurluğu açısından bu satırı ekliyoruz. 
+Buna göre :numref:`olaylar_kv6`'deki ilk satır yazılmasa da düzgün çalışır.
+
+Dosya yapısından sonra birazda kodlardan konuşalım. Ana sınıfın penceresin oluşturan ``<olayUyg>`` bloğunda bir kutu düzeni oluşturuluyor.
+Bu bir etiket (``size_hint_y: 3`` ile pencerenin %75'ini kaplar), altında bir düğme oluşturuluyor. Bu düğme tüm yüksekliğin %25'ini
+kaplamaktadır. Düğmeye bastırıldığında uygulamadaki (diğer bir deyişle programımızda tanımlı ana sınıfımız olan ``olayUyg()``)
+``popAc()`` işlevi çağrılıyor. ``kv`` dosyalarında ana sınıftaki tüm nesnelere ``ap``'ın bir özelliği olarak erişilebileceğini tekrar
+hatırlatalım. İkinci penceremiz (``<PopUpPencere>``) açılacak olan Popup'ın düzenini oluşturmak için kullanılacaktır. Buradan
+programda bu düzeni kullanacak olan sınıfın ``PopUpPencere()`` olacağını anlıyoruz. İlk defa bir pencerenin piksel olarak
+büyüklüğünü nasıl belirleyebileceğimizi görüyoruz. Bunu :index:`size` ile yapıyoruz. Eğer bir grafik parçacığında ``size`` parametresini
+kullanırsanız, ``size_hint``'i mutlaka ``None`` yapmalısınız. ``size`` parametresine bir tüp atanır ve bu tüp grafik parçacığının 
+piksel olarak (eni, boyu) şeklindedir. Burada eni 300, boyu 100 piksel olan bir pencere açılacaktır. Daha önce oralnları 
+``size_hint_x`` ve ``size_hint_y`` olarak vermiştik. İkisini bir arada vermek için :index:`size_hint` kullanabilirsiniz. Yine
+bu parametre bir tüp alır ve (en_oranı, boy_oranı) şeklindedir. Popup pencerenin dışında bir yere tıklandığında kapanmasını
+önlemek için ``auto_dismiss: False`` satırını kullandık. Gelelim düğmeye: düğmeye bastırıldığında ``on_press`` uygulamanın
+bir özelliğine erişebilmektedir. Bu özelliği ``ap``'dan alabiliyoruz. Fakat düğmeye bastırıldığında, düğmeye ait sınıftaki 
+bir işlevi çağırmak istiyoruz. Bu durumda, düğmenin sınıfını (``PopUpPencere()``) na sınıfın bir özelliğ yaparsak, o zaman düğme sınıfındaki
+nesnelere ``ap``'ı kullanarak erişebiliriz. İşte bu anlattıklarımız programımızın (numref:`olaylar_main6`) 14. satırında:
+
+::
+
+  self.popup=PopUpPencere()
+  
+şeklinde yazarak ``PopUpPencere()`` sınıfını ana sınıfın bir özelliği haline getiriyoruz. Bir sınıfta bir nesneyi ``self``'in
+özelliği yaparsanız, bu özellik o sınıfınızın bir özelliği olur ve o sınıf içerisinden her yerden erişilebilir. Böylelikle `
+``PopUpPencere()`` sınıfına ait özelliklere, ana sınıf içerisinden ``self.popup``'ın bir özelliği olarak erişilebilir. ``kv`` dosyasında
+ana sınıf ``app`` olarak erişiliyordu, bu durumda ``app.popup`` nesnesi ``PopUpPencere()`` sınıfını temsil edecektir.
+Eğer ``PopUpPencere()`` sınıfının içerisinden ana sınıfımıza ait özelliklere erişmek istyorsak, ``PopUpPencere()``'da çağırdığımız
+işlevlere ana sınıfın kendisini argüman olarak göndermemiz gerekir. Eğer program kodundan çağırıyorsak ``self``'i, ``kv`` dosyasında
+çağırıyorsak ``ap``'ı argüman olarak göndermeliyiz. Elbette işlevde bu argümanı alacak bir parametre bulunmalıdır. 
+:numref:`olaylar_kv6`'dosyasında Popup penceredeki düğmeye bastırıldığında ``app.popup.olayDugme(app)`` işlevini çağırdık. 
+``PopUpPencere()`` sınıfında tanımlanacak ``olayDugme()`` işlevi ``app``'ı alacaktır. 
+Bunu :numref:`olaylar_main6`'deki 6. satırda görüyorsunuz.
+
+:numref:`olaylar_kv6` ``kv`` dosyasını kullanacak olan programımız :numref:`olaylar_main6`'da yazılmştır.
+
+.. literalinclude:: ./programlar/olaylar/6/main.py
+    :linenos:
+    :tab-width: 4
+    :caption: main.py
+    :name: olaylar_main6
+    :language: python
+
+Bu programda ``olayDugme()`` işevi ana penceredeki etikete erişiyor ve Popup'da girilen ismi ana pencerenin etiketine yazıyor. 
+``kv`` dosyasındaki ``on_press: app.popup.olayDugme(app)`` satırı, ana sınıfı (``app``) bu işeleve gönderiyor, bu işlevin ``uyg``
+parametresine atanıyor. Böylelikle ``uyg.root.ids`` kullanılarak ana penceredeki tanımlanmış grafik parçacıklarına erişebiliyoruz.
+
+Programımızı çalıştırıp alttaki düğmeye bastırdığımızda elde edeceğimiz görüntü :numref:`Şekil %s <olaylar3Img>`'deki gibi olacaktır.
+
+.. _olaylar3Img:
+
+.. figure:: ./resimler/olaylar3Img.png
+
+   Popup'ın açılması
+   
+Adımızı yazıp "Tamam" düğmesine bastırdığımızda Popup kapanacak ve :numref:`Şekil %s <olaylar4Img>`'deki gibi olacaktır.
+
+.. _olaylar4Img:
+
+.. figure:: ./resimler/olaylar4Img.png
+
+   Popup işevinden Ana Penceredeki metnin değiştirilmesi.
+   
+Artık basit bir uygulama yazabiliriz. Şu can sıkıcı ve hiçbir işe yaramayan :ref:`metinDuzenleyiciBolumu` yazacak kadar bilgi sahibi olduk.

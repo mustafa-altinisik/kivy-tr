@@ -1,0 +1,27 @@
+<olayUyg>:
+BoxLayout:
+    orientation: "vertical"
+    Label:
+        id: ana_pencere_etiket
+        markup: True
+        text: "Aşağıdaki düğmeye tıklarsan [b][i]Popup[/i][/b] pencere açılır."
+        size_hint_y: 3
+    Button:
+        text: "Popup Açma Düğmesi"
+        on_press: app.popAc()
+        size_hint_y: 1
+
+<PopUpPencere>:
+    size_hint: (None, None)
+    size: (300, 100)
+    auto_dismiss: False
+    title: "Adınız:"
+    #on_touch_down: self.dismiss()
+    BoxLayout:
+        TextInput:
+            id: girilen_ad
+            size_hint_x: 3
+        Button:
+            text: "Tamam"
+            size_hint_x: 1
+            on_press: app.popup.olayDugme(app)
