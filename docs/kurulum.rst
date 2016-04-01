@@ -59,29 +59,8 @@ Kurulum bitti, artık kivy'i python içerisinden çağırabilirsiniz. Düzgün k
 
 Linux'da Kurulum  	  
 =================
-Değişik Linux dağıtımlarında kurulum birbirinden farklıdır. Burada sadece Debian Jessie'de (8.3) nasıl kurulacağını anlatacağız. Linux'a kurmak
-bana her zaman Windows'a kurmaktan daha kolay gelir. Öncelikle ``add-apt-repository`` programına ihtiyacınız var. Sisteminizde kurulu değilse
-root yetkileri ile şu şekilde kurabilirsiniz:
-
-.. code-block:: console
-
-  # apt-get install software-properties-common
-
-
-Şimdi yazılım havuzunu apt kaynaklarına ekleyelim:
-
-.. code-block:: console
-
-  # add-apt-repository ppa:kivy-team/kivy
-
-Paketleri güncelleyelim:
-
-.. code-block:: console
-
-  # apt-get update
-
-
-Şimdi Kivy'i kurma zamanı:
+Değişik Linux dağıtımlarında kurulum birbirinden farklıdır. Burada sadece Debian Jessie'de (8.3) nasıl kurulacağını anlatacağız. 
+Tek yapmanız gereken:
 
 .. code-block:: console
 
