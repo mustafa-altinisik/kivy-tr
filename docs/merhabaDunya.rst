@@ -1,8 +1,13 @@
 .. _merhabaDunyaBolumu:
 
 ###############
-Merhaba Dünya
+Temel Bilgiler
 ###############
+
+Bu bölümde Kivy'e giriş düzeyinde temel bilgiler verilecektir.
+
+Merhaba Dünya
+=============
 
 Hemen her programlma dilinde ilk yazılan program "Merhaba Dünya" cümlesinin yazılmasıdır. Bu belgede de bu geleneği bozmayacağız
 ve Kivy'i öğrenmeye bununla başlayacağız. IDLE'e kullanarak aşağıdaki program kodunu yazın ve :ref:`merhabaDunya` olarak kaydedin.
@@ -74,6 +79,7 @@ klasörüne koymuş iseniz:
 
 Pencere Düzenleri
 =================
+
 Bir pencereye birden fazla :index:`Grafik Parçacığı` (widget) koyacaksanız, bir pencere düzeni oluşturmalısınız. Kivy programlarındaki pencere düzenleri iki şekilde oluşturulabilir: 
 
 * Pencere düzenleri kodlarıya
