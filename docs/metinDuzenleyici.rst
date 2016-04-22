@@ -11,6 +11,9 @@ dikkat etmeleri gerektiği, nereleri düşünmeleri gerektiğine bir ışık tut
 yazmak için ne kadar çok yapılacak iş olduğunu göreceksiniz. Bir programı yazmaya başlayınca, düşünmenin sınırı
 ve yapılacakların sonu olmadığını göreceksiniz. Biz burada bir yol açalım, gerisini size bırakacağız.
 
+Ana Pencere
+===========
+
 Buradaki metin düzenleyici basitçe bir metin alanı ve kullanıcıya dosyasını açıp kaydedebileceği birkaç seçenek
 sunmaktan ibaret (tamamı bu değildir elbette) olacak. O halde öncelikle ana penceremizi hazırlayalım, bunun için
 şimdilik metin alanımızı ve altına işlem yapmayan birkaç düğme koyalım. Daha sonra bu düğmelere işlerlik
@@ -64,11 +67,62 @@ Bir düğme koyduysanız, ona tıklandığında ne yapılması gerektiğini siz 
 söylendikten sonra gelin, bu düğmelere işlerlik kazandıralım. Öncelikle "Farklı Kaydet" düğmesinden başlayalım.
 Neden mi? Çünkü "Kaydet" dedğimizde, daha önceden bir dosya adı verilmemişse "Farklı Kaydet" çağrılacaktır.
 
+Farklı Kaydet
+=============
+
 Bir dosyayı kaydetmek için, öncelikle kaydedilecek klasörün belirtilmesi ve daha sonra da dosya adının 
 girilmesi gerekir. Eğer kullanıcıya basitçe bir metin kurtusu sağlayıp buraya dosyanın tam patikasını yazmasını
-isterseniz (örneğin ``C:\dosyalarım\devlerim\fizik\newton.txt`` şeklinde), kusura bakmayın ama programınızı
+isterseniz (örneğin ``C:\dosyalarım\odevlerim\fizik\newton.txt`` şeklinde), kusura bakmayın ama programınızı
 kimse kullanmaz. 1990'lı yıllarda olsaydınız buna kimse itirtaz etmezdi ancak şimdi GUI (Grafik Kullanıcı Arayüzü)
 icat edildi. O halde klasörler arasında gezinti yapabilecek bir arayüze ihtiyacımız var. Bun kendiniz yapabilirsiniz.
-Nasıl mı? ``os.listdir()``'i biliyorsunuz.
+Nasıl mı? ``os.listdir()``'i biliyorsunuz. Her bir elemanı ızgara düzenine bir düğme olarak yerleştirip gezinti
+sağlayabilirsiniz. Ama bunu yapmayın. Çünkü Kivy geliştiricileri bizim için daha iyisini yapmış:
+:index:`FileChooserListView`. Bu grafik parçacığı bize dizinler arası gezinti yapmamızı sağlayacak bir araç
+sunmaktadır. Bu parçacığın :index:`filters` özelliği sayesinde, hangi dosyaları liseteleyeciğimizi de 
+belirtebiliyoruz. Üstelik bir seçim yaptığımızda :index:`on_selection` olayı sayesinde, seçim ile ilgili
+işlemlerimizi yapabiliyoruz. O halde bu parçacığı en üste koyalım, altına bir adet dosya adının yazılabileceği
+metin kutusu, onun altına da iki adet düğme: "Kaydet", "Vazgeç". O halde metin düzenleyicimizin pencerelerinin
+oluşturulduğu ``metinduzenleyici.kv`` dosyasına aşağıdaki gibi yeni bir form ekleyelim:
+
+::
+
+  <farkliKaydetForm>:
+      title: "Dosya Kaydet"
+      size_hint: (.9, .9)
+      BoxLayout:
+          orientation: 'vertical'
+           
+          FileChooserListView:
+              size_hint_y: 80
+              id: dosya_secim
+              filters: ['*.*']
+              path: app.son_patika
+              on_selection: pass
+
+          BoxLayout:
+              size_hint_y: 10
+              Label:
+                  text: "Dosya Adı:"
+                  size_hint_x: 20
+              TextInput:
+                  id: dosya_adi
+                  size_hint_x: 80
+      
+          BoxLayout:
+              size_hint_y: 10                
+              Button:
+                  text: "Kaydet"
+                  on_press: pass
+              Button:
+                  text: "Vazgeç"
+                  on_press: root.dismiss()            
 
 
+Ana pencerede "Farklı Kaydet" düğmesine tıklandığında
+
+``build()`` işlevine aşağıdaki satırları eklememiz gerekecek.
+::
+  self.son_patika= os.getcwd()
+  self.son_dosya=''
+
+mnmnnm
