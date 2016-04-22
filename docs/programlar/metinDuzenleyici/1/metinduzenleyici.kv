@@ -1,49 +1,20 @@
 <metinDuzenleyici>:
 BoxLayout:
     orientation: "vertical"
+    exit_on_escape: False
     TextInput:
         size_hint_y: 90
         id: metin
         multiline: True
-
+        
     BoxLayout:
         size_hint_y: 10
-        
         Button:
             text: "Aç"
-            on_press: app.dosyaAcDialog()
-
         Button:
             text: "Kaydet"
-
         Button:
             text: "Farklı Kaydet"
-        
         Button:
-            text: "Bul ve Değiştir"
-            on_press: app.metin_sec()
+            text: "Yeni"
 
-
-<dosyaAcForm>:
-    BoxLayout:
-        orientation: 'vertical'
-        
-        FileChooserListView:
-            size_hint_y: 90
-            id: dosya_secim
-            filters: ['*.*']
-            #path: app.son_patika
-    
-        BoxLayout:
-            size_hint_y: 10
-            Button:
-                text: "Aç"
-                on_press: app.dosya_yukle(dosya_secim.selection)
-            
-            Button:
-                text: "Vazgeç"
-                on_press: app.dosya_ac.dismiss()
-                
-            
- 
-    

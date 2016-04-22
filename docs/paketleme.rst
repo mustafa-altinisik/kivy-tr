@@ -173,5 +173,7 @@ Sanal Linux Makina
 *******************
 
 Windows kullanıcıları için Linux'u ve diğer paketleri kurmadan (epeyce zahmetli bir iş), programlarını apk haline getirebilecekleri
-bir sanal makina hazırlanmış "...." adresine konulmuştur.
+bir sanal makina disk görüntüsü hazırlanmış "...." adresine konulmuştur. Sanal makine disk görüntüsü Oracle VirtualBox 5.0.16 r105871
+sürümü ile hazırlanmıştır. Kullanıcılar mutlaka bu sürümü indirmelidir. Diğer sürümlerde windows-linux bağlantısı
+sağlanamayabilir ve ana makinanızın dosyalarına erişiminiz olamayabilir.
 
