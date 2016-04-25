@@ -81,7 +81,8 @@ Paket haline getirmek için önce başlatalım:
 
 Daha sonra buildozer.spec dosyasını düzenleyelim. Ben sadece aşağıdaki değişiklikleri yaptım:
 
-.. code-block::
+::
+
   # (str) Title of your application
   title = Kivy Metin Duzenleyici
 
