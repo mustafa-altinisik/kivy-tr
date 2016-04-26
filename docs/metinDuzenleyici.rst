@@ -245,7 +245,34 @@ kimin nesi? Kimsenin birşeyi değil! Sadece aşağıdaki kodlardan oluşan gari
         icerik.bind(on_touch_down=popup.dismiss)
         popup.open()
 
-Bu işlevi ``build()`` den hemen önce tanımlayabilirsiniz. "Farklı Kaydet" bitti. Şimdi sıra geldi "Kaydet"e
+Bu işlevi ``build()`` den hemen önce tanımlayabilirsiniz.
+
+Aslında düzenlenen bir dosyayı bu şekilde doğrudan yazmak
+akıllı bir programcını yapacağı iş değildir. Eğer bir nedenden dolayı dosya yazılamaz ise, program sonlanır ve 
+kullanıcının önceki yeazdıkları da dahil olmak üzere kaybolur. Bu şekilde kaydedilirken bir problem çıkması durumunda
+çoğu zaman boş bir dosya elde edilir. Olası durumları kontrol ettik, ancak birde kontrol edemediğimiz durumlar var. Öreğin
+tam yazma aşamasında, elektrik kesilirse! Bu durumda kullanıcıya boş bir dosya verir bol küfür alırsınız. Tüm
+programlama dillerinde diske yazma işlemi doğrudan gerçekleşmez, belirli bir buffer büyüklüğü vardır bu dolduğunda diske
+yazılır daha sonra buffer'in tekrar dolması beklenir (hızdan tasaffur, disk kullanımından tasarruf gibi nedenlerle).
+Bu nedenle dosya kapatılana kadar  (``close()``) yazma işleminden emin olmazsınız 
+[her harfi yazdıktan sonra ``flush()`` kullanmamışsanız :-)]. En iyisi önce dosyayı geçici olarak yazmak, daha sonra
+dosya adını değiştirmektir. Örneğin:
+
+::
+
+    F=open(dosya_tam_isim+'~', 'w')
+    F.write(self.root.ids.metin.text)
+    F.close()
+    os.rename(dosya_tam_isim+'~', dosya_tam_isim)
+    
+Burada da yine dikkat etmemiz gereken şey, ``dosya_tam_isim`` dosyasının yazılabilir olduğundan emin olmaktır.
+Bunuda
+
+::
+
+    os.access(dosya_tam_isim, os.W_OK)
+
+ile kontrol edebilirsiniz. "Farklı Kaydet" bitti. Şimdi sıra geldi "Kaydet"e
 
 Kaydet
 ======
