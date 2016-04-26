@@ -1,0 +1,20 @@
+<dosyaAcForm>:
+    title: "Dosya Aç"
+    size_hint: (.9, .9)
+    BoxLayout:
+        orientation: 'vertical'
+        
+        FileChooserListView:
+            size_hint_y: 90
+            id: dosya_secim
+            filters: ['*.*']
+            path: app.son_patika
+    
+        BoxLayout:
+            size_hint_y: 10            
+            Button:
+                text: "Aç"
+                on_press: app.dosyaAcIslevi(dosya_secim); root.dismiss()
+            Button:
+                text: "Vazgeç"
+                on_press: root.dismiss()

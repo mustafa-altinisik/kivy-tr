@@ -295,5 +295,87 @@ tıklandığında bir işlev çağırmalıyız ve tüm işi bu işelve yaptırtm
         else: self.farkliKaydetDialog()
 
 Burada dikkat ederseniz, öncelikle dosya adının olup olmadığına bakılıyor. Dosya adı var ise doğrudak ``dosyaKaydet()``
-işlevi çağrılıyor. Bunu daha önce yazmıştık. Dosya adı yok ise, ``farkliKaydetDialog()`` işlevi çağrılıoyor.
+işlevi çağrılıyor. Bunu daha önce yazmıştık. Dosya adı yok ise, ``farkliKaydetDialog()`` işlevi çağrılıyor.
 Bunu da "Farklı Kaydet" kesitinde yazmıştık. Çok kolaymış değil mi?
+
+Aç
+======
+
+Var olan bir dosyayı açmak için kullanacağımız bu düğme, eğer dikkatli olmazsak başımıza iş açabilir. Sebep?
+Eğer düzenlenmekte olan bir dosya kaydedilmeden, başka bir dosya açılmaya kalkışılırsa ve siz bunu kullanıcya bildirmemişseniz,
+bu durumda istenmedik laflar işitebilirsiniz (merak etmeyin, nasıl olas programı kullanan uzakta olacağından duymazsınız).
+İşitmeseniz bile buna dikkat etmek iyi bir programcı olduğunuzu gösterir. Peki bir metnin değiştiğini ve kaydedildiğini
+nasıl anlayacağız? Bunu bizim için yapacak bir kimse yok. Bu nedenle başımızın çaresine bakmalıyız.
+
+Önce metnin değişip değişmediğini bilmemiz gerekiyor, bunu tanımlayacağımız
+``self.metin_degisti`` değişkeni ile takip edebiliriz. O halde ``build()`` işlevi altına aşağıdaki satırı ekleyelim:
+
+::
+
+    self.metin_degisti=False
+	
+Değerini ``False`` yaptık çünkü başlangıçta bir netnin içeriği değişmemiştir. Metin değiştikçe bunun 
+değerini ``True``, kaydettikçe değerini ``False`` yapmalıyız. Önce kaydettiğimizde değerin ``False`` olması
+için ``dosyaKaydet()`` işlevindeki ``F.close()`` satırından hemen sonra şu satırı eklemeliyiz:
+
+::
+
+    self.metin_degisti=False
+
+Bu tamam, peki metnin değiştiğini nasıl anlayacağız? Bunu bize Kivy söyleyebilir. ``TextInput`` perçacığının
+``text``'ine bir işlev bağlarsak, metin değiştikçe bu işlev çağrılır. O halde ``build()`` işlevinin altına aşağıdaki
+satırı eklemeliyiz:
+
+::
+
+    self.root.ids.metin.bind(text=self.metinDegisti)
+	
+Bize gerekli olan ``metinDegisti()`` işlevini ``build()`` den hemen önce şöyle tanımlayabiliriz:
+
+::
+
+    def metinDegisti(self, nesne, deger):
+        self.metin_degisti=True
+
+Şu ana kadar dosya açma ile ilgili birşey yapmadık, sadece metnin değişip değişmediğini takip ettik.
+Öncelikle dosya açılma işlemini tıpkı "Kaydet"de olduğu gibi, bir dizin tarayıcı oluşturmamız gerekiyor.
+Bunu yine ``FileChooserListView`` ile yapabiliriz. Bunun için bir form ve bu formu oluşturacak ``kv``
+kodlarına ihtiyacımız var. ``metinduzenleyici.kv`` dosyasına aşağıdaki kodu ekleyin:
+
+.. literalinclude:: ./programlar/metinDuzenleyici/4/dosyaAcForm.kv
+    :linenos:
+    :tab-width: 4
+    :caption: dosyaAcForm
+    :name: metin_duzenleyici_dosyaAcForm
+
+Bu ``kv`` formunu kullanacak sınıfı tanımlamak gerekiyor. Bunu ``class metinDuzenleyici(App)`` satırından önce aşağıdaki
+kodları ekleyerek yapabiliriz:
+
+::
+
+	class yeniDosyaForm(Popup):
+		pass
+
+
+Şimdide "Aç" düğmesine tıklandığında çağrılacak olan işlevi ``kv`` dosyasında belirtelim. 
+Bunun için :numref:`metin_duzenleyici_kv1`'deki 14. satırı aşağıdaki satırı şöyle değiştirelim:
+
+::
+
+    on_press: app.dosyaAcIsleviDialog()
+	
+	
+Şimdi de bu işlevi tanımlamak gerekiyor. ``build()`` den hemen önce işlevimizi şöyle tanımlayabiliriz:
+
+::
+
+    def dosyaAcIsleviDialog(self):
+        if self.metin_degisti:
+            self.hataGoster("Dosya kaydedilmedi. Önce kaydedin")
+        else:
+            self.dosyaAcDialog()
+
+Bu işlev anladığınız üzere, dosyanın değişip değişmediğini kontrol ediyor. Eğer kaydedilmeişse,
+kaydetmesi için uyarıyor. Kaydeilmiş ise, ``dosyaAcDialog()`` işlevini çağırıyor. O halde bu işevi de 
+``build()`` den hemen önce şu şekilde tanımlayabiliriz:
+
