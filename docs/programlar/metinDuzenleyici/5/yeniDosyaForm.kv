@@ -1,0 +1,16 @@
+<yeniDosyaForm>:
+    title: 'Mevcut Dosya Kaydedilmedi'
+    size_hint: (.8, .8)
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            size_hint_y: 90  
+            text: "Çalıştığınız dosya kaydedilmedi. Yeni dosya açmak istediğinizden emin misiniz?"        
+        BoxLayout:
+            size_hint_y: 10                
+            Button:
+                text: "Vazgeç"
+                on_press: root.dismiss()
+            Button:
+                text: "Evet"
+                on_press: app.yeniDosyaAc(); root.dismiss()

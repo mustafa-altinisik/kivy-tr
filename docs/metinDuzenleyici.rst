@@ -4,6 +4,10 @@
 Metin Düzenleyici
 #################
 
+.. Tip::
+
+    *UYARI: Bu bölüm henüz taslak aşamasındadır*
+
 Birçok yeni programcı, programların çok basit şekilde hazırlanabileceğini düşünür. Oysa ki en küçük programda
 bile çok fazla düşlünülecek ve yapılacak iş vardır. Bu bölümde basit bir metin düzenleyici yapacağız. Elbette
 yapacağımız metin düzenleyici üretim açamlı olmayacaktır. Sadece bir program yazılırken, programcıların nelere
@@ -308,11 +312,12 @@ bu durumda istenmedik laflar işitebilirsiniz (merak etmeyin, nasıl olas progra
 nasıl anlayacağız? Bunu bizim için yapacak bir kimse yok. Bu nedenle başımızın çaresine bakmalıyız.
 
 Önce metnin değişip değişmediğini bilmemiz gerekiyor, bunu tanımlayacağımız
-``self.metin_degisti`` değişkeni ile takip edebiliriz. O halde ``build()`` işlevi altına aşağıdaki satırı ekleyelim:
+``self.metin_degisti`` değişkeni ile takip edebiliriz. O halde ``build()`` işlevi altına aşağıdaki satırları ekleyelim:
 
 ::
 
     self.metin_degisti=False
+    
 	
 Değerini ``False`` yaptık çünkü başlangıçta bir netnin içeriği değişmemiştir. Metin değiştikçe bunun 
 değerini ``True``, kaydettikçe değerini ``False`` yapmalıyız. Önce kaydettiğimizde değerin ``False`` olması
@@ -324,18 +329,27 @@ için ``dosyaKaydet()`` işlevindeki ``F.close()`` satırından hemen sonra şu 
 
 Bu tamam, peki metnin değiştiğini nasıl anlayacağız? Bunu bize Kivy söyleyebilir. ``TextInput`` perçacığının
 ``text``'ine bir işlev bağlarsak, metin değiştikçe bu işlev çağrılır. O halde ``build()`` işlevinin altına aşağıdaki
-satırı eklemeliyiz:
+satırları eklemeliyiz:
 
 ::
 
     self.root.ids.metin.bind(text=self.metinDegisti)
+    self.ilkAcilis=True
 	
+Buradaki ``self.ilkAcilis`` değişkeni, programın ilk açlıp açılmadığını takip etmek için gereklidir.
+Çünkü ``TextInput`` nesnesi oluşturulur oluşturulmaz ``self.metinDegisti`` işlevi çağrılır. Buda programın ilk
+açılıp açılmadığına göre ``self.metin_degisti`` değişkeninin değerini değiştirmelidir.
 Bize gerekli olan ``metinDegisti()`` işlevini ``build()`` den hemen önce şöyle tanımlayabiliriz:
 
 ::
 
     def metinDegisti(self, nesne, deger):
-        self.metin_degisti=True
+        if self.ilkAcilis: self.ilkAcilis=False
+        else: self.metin_degisti=True
+        
+Eğer programımız ilk açılışta bu işlev çağrılıyorsa, ``if self.ilkAcilis`` değişkeninin değeri ``False``
+yapılıyor, sonraki çağrılışlarda (metin girişi yapılır veya dosya okunursa), ``self.metin_degisti``
+değişkeninin değeri ``True`` yapılıyor.
 
 Şu ana kadar dosya açma ile ilgili birşey yapmadık, sadece metnin değişip değişmediğini takip ettik.
 Öncelikle dosya açılma işlemini tıpkı "Kaydet"de olduğu gibi, bir dizin tarayıcı oluşturmamız gerekiyor.
@@ -353,8 +367,8 @@ kodları ekleyerek yapabiliriz:
 
 ::
 
-	class yeniDosyaForm(Popup):
-		pass
+  class dosyaAcForm(Popup):
+      pass
 
 
 Şimdide "Aç" düğmesine tıklandığında çağrılacak olan işlevi ``kv`` dosyasında belirtelim. 
@@ -370,12 +384,171 @@ Bunun için :numref:`metin_duzenleyici_kv1`'deki 14. satırı aşağıdaki satı
 ::
 
     def dosyaAcIsleviDialog(self):
+        if self.metin_degisti: self.hataGoster("Dosya kaydedilmedi. Önce kaydedin.")
+        else: self.dosyaAcDialog()
+
+
+Bu işlev anladığınız üzere, dosyanın değişip değişmediğini kontrol ediyor. Eğer kaydedilmemişse,
+kaydetmesi için uyarıyor. Kaydedilmiş ise, ``dosyaAcDialog()`` işlevini çağırıyor. O halde bu işevi de 
+``build()`` den hemen önce şu şekilde tanımlayabiliriz:
+
+::
+
+    def dosyaAcDialog(self):
+        form = dosyaAcForm()
+        form.open()
+
+"Dosya Aç" formu açıldığında allta iki adet düğmemiz olacak. "Vazgeç" düğmesine tıklandığında form kapanacak. "Aç"
+düğmesine tıklandığında ise, ``dosyaOku()`` işlevi çağrılıyor (``metinduzenleyici.kv`` dosyasına eklediğimiz
+:numref:`metin_duzenleyici_dosyaAcForm`'deki 17. satır). Bu işlev oldukça basit, sadece seçilen 
+dosyayı gidip okuması gerekiyor. Bunu da ``build()`` den hemen önce aşağıdaki gibi tanımlayabiliriz:
+
+::
+
+    def dosyaOku(self, dosya_secim):
+       if dosya_secim.selection:
+            if len(dosya_secim.selection)>0:
+                (self.son_patika,self.son_dosya)=os.path.split(dosya_secim.selection[0])
+                try:
+                    self.root.ids.metin.text=open(dosya_secim.selection[0]).read()
+                    self.root.ids.metin.cursor=self.root.ids.metin.get_cursor_from_index(0)
+                    self.metin_degisti=False
+                except:
+                    self.hataGoster("Dosyayı Okuyamadım. Nedeni: [color=#FF0000]%s[/color]"
+                                 % str(sys.exc_info()[1][1]))
+       else:
+            self.hataGoster("Dosya seçtiğinizden eminmisiniz?")
+
+Bu işlevdeki hemen herşeyi daha önce anlattık. Şimdi bir sorunumuz var (bitti mi ki?). Kullanıcı dosyayı düzenleyip
+yeni dosya açmak istediğinde sadece "Dosya kaydedilmedi. Önce kaydedin." uyarısında bulunuyor. Oysa ki iyi bir program
+dosyayı açmadan önce dosyanın değiştiğini uyarmalı ve kullanıcıya kaydedip kaydetmeyeceği ile ilgili
+seçenek sunmalıdır. Bunun için yeni bir form tasarlamalıyız. Bu form sedece mevcut dosyanın kaydedilip kaydedeilmemsini
+veya dosya açma işleminden vazgeçilmesini önermelidir.  Böyle bir formu ``metinduzenleyici.kv`` dosyasına
+aşağıdaki satırları ekleyerek tasarlayabiliriz:
+
+.. literalinclude:: ./programlar/metinDuzenleyici/4/dosyaKaydedilmediForm.kv
+    :linenos:
+    :tab-width: 4
+    :caption: dosyaKaydedilmediForm
+    :name: metin_duzenleyici_dosyaKaydedilmediForm
+
+Bu ``kv`` formunu kullanacak sınıfımızı  ``class metinDuzenleyici(App)`` satırından önce aşağıdaki
+kodları ekleyerek yazabiliriz:
+
+::
+
+    class dosyaKaydedilmediForm(Popup):
+        pass
+        
+Peki bu form'u nerede çağıracağız? Bildiniz değilmi? Yoksa bilemediniz mi? Bilemeyenlere hemen söyleyeyim, 
+``dosyaAcIsleviDialog()`` işlevinde dosya açmak istediğinde "Dosya kaydedilmedi. Önce kaydedin." 
+uyarısında bulunuyorduk ya işte burada. Yani bu uyarının yapıldığı satırın yerine yazmalıyız. 
+O halde ``dosyaAcIsleviDialog()`` işlevini aşağıdaki gibi değiştirmeliyiz:
+
+::
+
+    def dosyaAcIsleviDialog(self):
         if self.metin_degisti:
-            self.hataGoster("Dosya kaydedilmedi. Önce kaydedin")
+            kaydedilmedi_form = dosyaKaydedilmediForm()
+            kaydedilmedi_form.open()
         else:
             self.dosyaAcDialog()
 
-Bu işlev anladığınız üzere, dosyanın değişip değişmediğini kontrol ediyor. Eğer kaydedilmeişse,
-kaydetmesi için uyarıyor. Kaydeilmiş ise, ``dosyaAcDialog()`` işlevini çağırıyor. O halde bu işevi de 
-``build()`` den hemen önce şu şekilde tanımlayabiliriz:
+
+Dosyanın kaydedilmediği durumda dosya açmaya kalkışıldığında kullandığımız form'da kullanıcı "Kaydet" düğmesine
+tıklarsa dosyamızın kaydedilmesi için ``dosyaKayedilmediKaydet()`` işlevi çağrılmaktadır
+(:numref:`metin_duzenleyici_dosyaKaydedilmediForm`'deki 15. satır). Bu işlevi ``build()`` den önce şu şekilde yazabiliriz:
+
+::
+
+    def dosyaKayedilmediKaydet(self, kok):
+        if self.son_dosya: 
+            self.dosyaKaydet()
+            kok.dismiss()
+            self.dosyaAcDialog()
+        else:
+            kok.dismiss()
+            self.hataGoster("Dosya adı yok. 'Farklı Kaydet' kullanarak kaydetmelisiniz.")
+
+Burada benimde hoşalşamadığım ve birçok kullanıcı için de garip gelecek bir durum var.
+Eğer dosya daha önce kaydedilmemiş ise, dosya adı (``self.son_dosya`` değişkeninde saklanan)
+olmayacaktır ve bu durumda kullanıcıya "Farklı Kaydet"i kullanarak kaydetmesi önerisi sunulmaktadır.
+Oysa ki bunun yerine doğrudan farklı kaydet dialoğu (``farkliKaydetDialog()``) çağrılmalıydı.
+Bu Kivy'de olmadı. Bunu yapabilmemiz için, bu diyalog açıldıktan sonra, programın kullanıcıdan
+tepki gelene kadar hiçbir iş yapmaması gerekir (diğer bir deyişle program akışı durdurulmalıdır).
+Kivy'de ne yazıkki bu yok, en azından ben bilmiyorum.
+
+Yeni
+======
+
+Kullanıcı bir dosya üzerinde çalışırken yeni bir dosya açmak isteyebilir. Bunun için ana penceremizin sağ alt
+tarafya bunulnan "Yeni" düğmesine tıklayacak. Şimdi bunun üzerinde çalışalım. Yapacağımız işi şöyle özetleyebiliriz:
+ilk olarak mevcut dosya değiştirilmiş ve henüz kaydedilmemiş ise, bunu kullanıcıya bildirmemiz gerekir, daha sonra
+yeni dosya oluşturma işlemine geçeceğiz. Öncelikle ana penceredeki "Yeni" düğmesine tıklandığında
+çağrılacak olan işlevi belirtmek için ``metinduzenleyici.kv`` dosyasındaki (:numref:`metin_duzenleyici_metin_duzenleyici_kv1`)
+23. satırı şu şekilde değiştirmemiz gerekmektedir:
+
+::
+    on_press: app.yeniDosyaAcIslevi()
+    
+Bu işlevi de ``build()`` den önce şu şekilde yazabiliriz:
+
+::
+
+    def yeniDosyaAcIslevi(self):
+        if self.metin_degisti:
+            form = yeniDosyaForm()
+            form.open()
+        else:
+            self.yeniDosyaAc()
+
+Burada metnin değişmesi durumumnda yeni bir dialog (form) açılacak. Bu forma ait ``kv`` kodlarını
+``metinduzenleyici.kv`` dosyasına aşağıdaki satırları ekleyerek oluşturabiliriz:
+
+.. literalinclude:: ./programlar/metinDuzenleyici/5/yeniDosyaForm.kv
+    :linenos:
+    :tab-width: 4
+    :caption: yeniDosyaForm
+    :name: metin_duzenleyici_yeniDosyaForm
+
+Bu ``kv`` kodlarını kullanacak olan ``yeniDosyaForm()`` sınıfınıda ``class metinDuzenleyici(App)`` satırından önce aşağıdaki
+kodları ekleyerek yazabiliriz:
+
+::
+
+    class yeniDosyaForm(Popup):
+        pass
+
+        
+yeniDosyaForm'unda kullanıcı yeni dosya açmaktan vazgeçerse
+zaten form kapanıyor, eğer kaydetmek için "Evet" düğmesine tıklarsa, önce dosyanın kaydedilmesi daha sonra
+da yeni dosyanın oluşturulmasını sağlayacağmız işlevmizi 
+(:numref:`metin_duzenleyici_metin_yeniDosyaForm` 16. satır ile çağrılan işlev) ``build()`` den önce aşağıdaki gibi
+yazabiliriz:
+
+::
+
+    def yeniDosyaAcIslevi(self):
+        if self.metin_degisti:
+            form = yeniDosyaForm()
+            form.open()
+        else:
+            self.yeniDosyaAc()
+
+Sanırım bu işlevde herşey açık. Son olarak ister kaydettikten sonra çağırılacak olan yeni dosya açma işlevini
+``build()`` den hemen önce şöyle yazabiliriz.
+
+::
+
+    def yeniDosyaAc(self):
+        self.root.ids.metin.text=""
+        self.son_dosya=''
+
+En kolayı bu oldu sanırım, ``self.son_dosya`` değişkeninin değeri ile metin alanının değerini boş cümle yaparak
+yeni dosyayı oluşturmuş olduk.
+
+Çıkmadan Önce
+===============
+
+Henüz bitmedi. Çıkmadan önce yapılacak işlerimiz var. Kullanıcı metni düzenlerken çıkmak isterse ne yapacağız?
 

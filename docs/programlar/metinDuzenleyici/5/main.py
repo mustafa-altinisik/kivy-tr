@@ -15,6 +15,8 @@ class dosyaAcForm(Popup):
 
 class dosyaKaydedilmediForm(Popup):
         pass
+class yeniDosyaForm(Popup):
+    pass
 
 
 class metinDuzenleyici(App):
@@ -101,6 +103,18 @@ class metinDuzenleyici(App):
         else:
             kok.dismiss()
             self.hataGoster("Dosya adı yok. 'Farklı Kaydet' kullanarak kaydetmelisiniz.")
+
+    def yeniDosyaAcIslevi(self):
+        if self.metin_degisti:
+            form = yeniDosyaForm()
+            form.open()
+        else:
+            self.yeniDosyaAc()
+      
+    def yeniDosyaAc(self):
+        self.root.ids.metin.text=""
+        self.son_dosya=''
+
        
             
     def build(self):

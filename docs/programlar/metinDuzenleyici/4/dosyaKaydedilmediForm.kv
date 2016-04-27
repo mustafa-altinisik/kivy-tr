@@ -1,0 +1,21 @@
+<dosyaKaydedilmediForm>:
+    title: 'Mevcut Dosya Kaydedilmedi'
+    size_hint: (.9, .9)
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            size_hint_y: 90  
+            text: "Çalıştığınız dosya kaydedilmedi. Kayıt yapılsın mı?"        
+
+        BoxLayout:
+            size_hint_y: 10                
+            Button:
+                text: "Kaydet"
+                on_press: app.dosyaKayedilmediKaydet(root)
+            Button:
+                text: "Hayır"
+                on_press: app.dosyaAcDialog(); root.dismiss()
+            Button:
+                text: "Vazgeç"
+                on_press: root.dismiss()
