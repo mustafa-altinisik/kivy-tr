@@ -4,10 +4,6 @@
 Metin Düzenleyici
 #################
 
-.. Tip::
-
-    *UYARI: Bu bölüm henüz taslak aşamasındadır*
-
 Birçok yeni programcı, programların çok basit şekilde hazırlanabileceğini düşünür. Oysa ki en küçük programda
 bile çok fazla düşlünülecek ve yapılacak iş vardır. Bu bölümde basit bir metin düzenleyici yapacağız. Elbette
 yapacağımız metin düzenleyici üretim açamlı olmayacaktır. Sadece bir program yazılırken, programcıların nelere
@@ -115,6 +111,8 @@ dosya ismi ve patikayı kullanabileceğimizden, ``build()`` işlevine aşağıda
   self.son_patika= os.getcwd()
   self.son_dosya=''
 
+Bu satırları ekledikten sonra ``build()`` işlevindeki ``pass`` ifadesine gerek kalmayacak. 
+
 Sanırım ``main.py`` programının başında ``os`` modülünü çağırma nedenimizi anladınız. Burada son patika
 ön tanımlı olarak programın çalıştığı patikayı göstermektedir, son dosya ise boş bir cümledir, yani dosya adı yoktur.
 
@@ -129,7 +127,7 @@ bu düğmenin ``on_press`` özelliğini ``farkliKaydetDialog()`` işlevini çağ
       text: "Farklı Kaydet"
       on_press: app.farkliKaydetDialog()
      
-İşimiz henüz bitmedi, çünükü düğmeye tıklandığında çağrılacak olab işlevi yazmadık, bunun için ``build()`` işlevinden hemen önce
+İşimiz henüz bitmedi, çünükü düğmeye tıklandığında çağrılacak olan işlevi yazmadık, bunun için ``build()`` işlevinden hemen önce
 aşağıdaki işlevi tanımlayalım:
 
 ::
@@ -163,8 +161,8 @@ Az zamanda çok işler başardığımızı söylemek isterdim, ancak gerçek bu 
 var olan dosya ismini seçip bu dosya üzerine kaydetmek isteyebilir, aman dikkat !! çok tehlikeli, kaydetmeden önce
 onay almalısınız, bunu size bırakıyoruz) bu dosya isminin dosya adı yazılacak olan (``id``'si ``dosya_adi`` olan
 TextInput parçacığı) metin kutusunda belirmelidir. Bunu nasıl yapacağız? Daha önce demiştik ya ``on_selection``
-özelliği ile. Bu özelliği dosya seçimi işleminden sonra çağrılacak olan işleve bağlayabiliriz. Yada böyle
-basit işler için yeni işlev tanımlamaya gerek kalmadan ``kv`` dosyasında işimizi halledebiliriz. İşte şöyle
+özelliği ile. Bu özelliği dosya seçimi işleminden sonra çağrılacak olan işleve bağlayabiliriz. Bunun için
+``FileChooserListView`` parçacığının ``on_selection`` özelliğini aşağıdaki gibi değiştirin
 (:ref:`metin_duzenleyici_FakrliKaydetForm`'de 12. satırı aşağıdaki gibi değiştirin):
 
 ::
@@ -181,7 +179,7 @@ yazmalıyız. ``build()``'den hemen önce aşağıdaki işlevi tanımlayalım:
         secilen_dosya=form.ids.dosya_secim.selection
         if secilen_dosya:
             if len(secilen_dosya)>0:
-                dosyaAdi=os.path.split(secilen_dosya[0])
+                dosyaAdi=os.path.split(secilen_dosya[0])[1]
                 form.ids.dosya_adi.text=dosyaAdi
               
 Bu işleve ``farkliKaydetForm``'nun kendisi argüman olarak geliyordu, bunu ``form`` değişkenine aktardık.
@@ -384,8 +382,10 @@ Bunun için :numref:`metin_duzenleyici_kv1`'deki 14. satırı aşağıdaki satı
 ::
 
     def dosyaAcIsleviDialog(self):
-        if self.metin_degisti: self.hataGoster("Dosya kaydedilmedi. Önce kaydedin.")
-        else: self.dosyaAcDialog()
+        if self.metin_degisti: 
+            self.hataGoster("Dosya kaydedilmedi. Önce kaydedin.")
+        else: 
+            self.dosyaAcDialog()
 
 
 Bu işlev anladığınız üzere, dosyanın değişip değişmediğini kontrol ediyor. Eğer kaydedilmemişse,
@@ -422,7 +422,7 @@ dosyayı gidip okuması gerekiyor. Bunu da ``build()`` den hemen önce aşağıd
 Bu işlevdeki hemen herşeyi daha önce anlattık. Şimdi bir sorunumuz var (bitti mi ki?). Kullanıcı dosyayı düzenleyip
 yeni dosya açmak istediğinde sadece "Dosya kaydedilmedi. Önce kaydedin." uyarısında bulunuyor. Oysa ki iyi bir program
 dosyayı açmadan önce dosyanın değiştiğini uyarmalı ve kullanıcıya kaydedip kaydetmeyeceği ile ilgili
-seçenek sunmalıdır. Bunun için yeni bir form tasarlamalıyız. Bu form sedece mevcut dosyanın kaydedilip kaydedeilmemsini
+seçenek sunmalıdır. Bunun için yeni bir form tasarlamalıyız. Bu form sedece mevcut dosyanın kaydedilip kaydededilmemesini
 veya dosya açma işleminden vazgeçilmesini önermelidir.  Böyle bir formu ``metinduzenleyici.kv`` dosyasına
 aşağıdaki satırları ekleyerek tasarlayabiliriz:
 
@@ -522,28 +522,14 @@ kodları ekleyerek yazabiliriz:
 
         
 yeniDosyaForm'unda kullanıcı yeni dosya açmaktan vazgeçerse
-zaten form kapanıyor, eğer kaydetmek için "Evet" düğmesine tıklarsa, önce dosyanın kaydedilmesi daha sonra
-da yeni dosyanın oluşturulmasını sağlayacağmız işlevmizi 
-(:numref:`metin_duzenleyici_metin_yeniDosyaForm` 16. satır ile çağrılan işlev) ``build()`` den önce aşağıdaki gibi
-yazabiliriz:
-
-::
-
-    def yeniDosyaAcIslevi(self):
-        if self.metin_degisti:
-            form = yeniDosyaForm()
-            form.open()
-        else:
-            self.yeniDosyaAc()
-
-Sanırım bu işlevde herşey açık. Son olarak ister kaydettikten sonra çağırılacak olan yeni dosya açma işlevini
-``build()`` den hemen önce şöyle yazabiliriz.
+zaten form kapanıyor, eğer kaydetmek için "Evet" düğmesine tıklarsa, ``yeniDosyaAc()`` işlevi çağrılıyor.
+Yeni dosya açma işlevini ``build()`` den hemen önce şöyle yazabiliriz.
 
 ::
 
     def yeniDosyaAc(self):
         self.root.ids.metin.text=""
-        self.son_dosya=''
+        self.son_dosya=""
 
 En kolayı bu oldu sanırım, ``self.son_dosya`` değişkeninin değeri ile metin alanının değerini boş cümle yaparak
 yeni dosyayı oluşturmuş olduk.
@@ -555,7 +541,7 @@ Henüz bitmedi. Çıkmadan önce yapılacak işlerimiz var. Kullanıcı metni d�
 Öncelikle, maobil cihazın "Geri" tuşuna basarak programdan çıkması engellenmeli ve çıkış kontrollü bir şekilde
 yapılmalıdır. "Geri" tuşuna basarak çıkmayı engellemek için programın başında bunu yapmak gerekiyor, yani daha
 uygulamayı başlatmadan önce. Geri tuşu ile çıkışı engellemek için ``main.py`` programının ikinci ve üçüncü
-satırına aşağıdaki kodları yazabilirsimiz:
+satırına aşağıdaki kodları yazabilirsiniz:
 
 ::
 
@@ -580,7 +566,7 @@ eklemek için ``metinduzenleyici.kv`` dosyasının (:numref:`metin_duzenleyici_k
             on_press: app.cik()
 
 Dikkat etmişseniz, oldukça küçük bir düğme (%15 boyutunda) ve arka plan rengi yeşil olarak görünecek.
-Bir düğmenin :index:`arka plan rengi` ni :index:`background_color` özelliği ile gerçekleştriebiliyoruz. Bu özellik,
+Bir düğmenin :index:`arka plan rengi` ni :index:`background_color` özelliği ile ayarlayabiliyoruz. Bu özellik,
 diğer Kivy :index:`renk` tanımlarında da kullanılabileceği gibi, bir tüp 
 (isterseniz bir liste) alır. Bu tüpün 4 elemanı olacaktır. Bu tüp ile rengi şöyle belirliyoruz:
 
@@ -593,7 +579,7 @@ Buradaki harfleri anlamları şöyledir:
 **R**: Kırmızı, **G**: Yeşil, **B**:Mavi
     
 Renk oranlarını belirtmektedir. değerleri 0 ile 1 arasındadır. Bildiğimiz standart :index:`RGB` ile aynı ancak 1 sayısı 255'e
-karşılık gelmektedir. En sondaki **T** Saydamlığı belirtmektedir. Bu değere 1 girerseniz tam katı, 0 girerseniz tam saydam olur.
+karşılık gelmektedir. En sondaki **T** Saydamlığı belirtmektedir. Bu değere 1 girerseniz tam katı (kesif, opak), 0 girerseniz tam saydam olur.
 
 Tekrar dönelim düğmemize, akrka plan rengini neden yeşil yaptık? Çünkü yeşil doğa ve orman rengi değil mi? :-)
 Elbette bunun için değil, düğme yeşil olduğunda çıkış serbest olacak, kırmızı olduğunda metin değiştirilmiş

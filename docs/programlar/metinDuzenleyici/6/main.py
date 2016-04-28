@@ -33,7 +33,7 @@ class metinDuzenleyici(App):
         secilen_dosya=form.ids.dosya_secim.selection
         if secilen_dosya:
             if len(secilen_dosya)>0:
-                dosyaAdi=os.path.split(secilen_dosya[0])
+                dosyaAdi=os.path.split(secilen_dosya[0])[1]
                 form.ids.dosya_adi.text=dosyaAdi
 
     def farkiKaydetIslevi(self, form):
