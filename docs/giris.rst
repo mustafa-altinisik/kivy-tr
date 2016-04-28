@@ -7,7 +7,7 @@ Bu belge Kivy ile mobil programlamayı öğretmek amacı ile hazırlanmıştır.
 Kivy Hakkında
 **************
 Kivy mobil cihazlarda da çalışabilecek programların yazılabileceği bir Python modülüdür. Diğer bir deyişle Mobil GUI Toolkit 
-(Mobil Grafik Kullanıcı Arayüzü Aracı) diyebiliriz.
+(Mobil Grafik Kullanıcı Arayüzü Aracı) diyebiliriz. Python ile Mobil Uygulama geliştirmek isteyenlerin çoğunluğu Kivy'i tercih etmektedir.
 Kivy ile yazacağınız programlar hemen her platformda çalışabilir. Bu platformları şöyle sıralaybiliriz;
 
 * Masaüstü Bilgisayarlar: Linux, Mac OS X, Windows
