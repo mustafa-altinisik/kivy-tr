@@ -489,6 +489,7 @@ yeni dosya oluşturma işlemine geçeceğiz. Öncelikle ana penceredeki "Yeni" d
 23. satırı şu şekilde değiştirmemiz gerekmektedir:
 
 ::
+
     on_press: app.yeniDosyaAcIslevi()
     
 Bu işlevi de ``build()`` den önce şu şekilde yazabiliriz:
@@ -551,4 +552,125 @@ yeni dosyayı oluşturmuş olduk.
 ===============
 
 Henüz bitmedi. Çıkmadan önce yapılacak işlerimiz var. Kullanıcı metni düzenlerken çıkmak isterse ne yapacağız?
+Öncelikle, maobil cihazın "Geri" tuşuna basarak programdan çıkması engellenmeli ve çıkış kontrollü bir şekilde
+yapılmalıdır. "Geri" tuşuna basarak çıkmayı engellemek için programın başında bunu yapmak gerekiyor, yani daha
+uygulamayı başlatmadan önce. Geri tuşu ile çıkışı engellemek için ``main.py`` programının ikinci ve üçüncü
+satırına aşağıdaki kodları yazabilirsimiz:
 
+::
+
+    from kivy.config import Config
+    Config.set('kivy', 'exit_on_escape', 'False')
+
+aslında :index:`Config` modülü daha fazla iş yapabilmektedir. Burada sadece geri tuşu ile çıkmayı engellemek için
+kullandık, bunu :index:`exit_on_escape` parametresini ``False`` yaparak gerçekleştirmiş olduk. Windows ya da Linux'da
+pencere kapatma düğmesi ile hala programdan çıkılıyor olmalı, bunu dikkate almayın çünkü nasıl olsa programımız
+mobil cihazlarda çalışacak. Geri tuşu ile çıkmayı engelledik te, kullanıcı nasıl çıkacak? İsterseniz ana penceremizin
+sağ alt köşesine küçük bir düğme koyalım ve bu düğmeye tıklandığında çıkışı gerçekleştirelim. Böylelikle çıkmak isteyen
+kullanıcı bu tuşa basacak ve bir işlev çağrılacaktır. Bu işlevde istediğimizi kontrol edebiliriz. Çıkış düğmesini
+eklemek için ``metinduzenleyici.kv`` dosyasının (:numref:`metin_duzenleyici_kv1`) ana pencere düzenini oluşturan
+``metinDuzenleyici`` formunun altındaki düğmeleri oluşturan ``BoxLayout`` altına aşağıdaki gibi bir düğme ekleyelim:
+
+::
+
+        Button:
+            id: cik_dugmesi
+            size_hint_x: .15
+            background_color: (0, 1, 0, 1)
+            on_press: app.cik()
+
+Dikkat etmişseniz, oldukça küçük bir düğme (%15 boyutunda) ve arka plan rengi yeşil olarak görünecek.
+Bir düğmenin :index:`arka plan rengi` ni :index:`background_color` özelliği ile gerçekleştriebiliyoruz. Bu özellik,
+diğer Kivy :index:`renk` tanımlarında da kullanılabileceği gibi, bir tüp 
+(isterseniz bir liste) alır. Bu tüpün 4 elemanı olacaktır. Bu tüp ile rengi şöyle belirliyoruz:
+
+::
+
+  (R, G, B, T)
+    
+Buradaki harfleri anlamları şöyledir:
+
+**R**: Kırmızı, **G**: Yeşil, **B**:Mavi
+    
+Renk oranlarını belirtmektedir. değerleri 0 ile 1 arasındadır. Bildiğimiz standart :index:`RGB` ile aynı ancak 1 sayısı 255'e
+karşılık gelmektedir. En sondaki **T** Saydamlığı belirtmektedir. Bu değere 1 girerseniz tam katı, 0 girerseniz tam saydam olur.
+
+Tekrar dönelim düğmemize, akrka plan rengini neden yeşil yaptık? Çünkü yeşil doğa ve orman rengi değil mi? :-)
+Elbette bunun için değil, düğme yeşil olduğunda çıkış serbest olacak, kırmızı olduğunda metin değiştirilmiş
+fakat kaydedilmemiş olacak. O halde programımız içerisinde
+
+::
+
+    self.metin_degisti=False
+
+satırının olduğu her yerde aşağıdaki satırı ekleyerek düğmeinin yeşil renkli olmasını sağlayacağız:
+
+::
+
+    self.root.ids.cik_dugmesi.background_color = [0, 1, 0, 1]
+    
+Peki ne zaman kırmızı yapacağız? ``self.metin_degisti`` değişkeninin değerinin ``True`` olduğu yerlerde. Bunu da 
+programımız içerisindeki
+
+::
+
+    self.metin_degisti=True
+
+satırının olduğu her yerde aşağıdaki satırı da eklemeliyiz:
+
+::
+
+    self.root.ids.cik_dugmesi.background_color = [1, 0, 0, 1]
+    
+Bu satırları yazmayı ben başarabildim, eminim (aslında Mustafa'yım da sözün gelişi) sizde yapabileceksiniz.
+Çık düğmesinin yeşile dönmesi gereken bir yer daha kaldı: `yeniDosyaAc()` işlevi. Bu işlevin en sonuna da aşağıdaki
+satırı eklemeliyiz:
+
+::
+
+    self.root.ids.cik_dugmesi.background_color = [0, 1, 0, 1]
+    
+Şimdi programınızı çalıştırın ve düğmenin rengini takip edi. Program açılışta yeşil renki çık düğmesi ile başlayacak.
+Ne zaman metin yazarsanız, renk kırmızıya dönecek. Metni kaydettiğinizde tekrar yeşile dönecek. Ancak henüz çık düğmesi
+işe yaramıyor çünkü düğmeye tıklandığında çağrılacak olan ``app.cik()`` işlevini yamadık. Önce bu düğmenin nasıl 
+davranacağını düşleyelim. Bir defa metin değişmiş ise, programdan çıkmadan önce kaydedilip kaydedilmeyeceğini
+sormalı. O zaman bir tane form oluşturmalıyız ve bunu sormalıyız. ``metinduzenleyici.kv`` dosyasına aşağıdaki
+gibi bir form ekleyelim:
+
+.. literalinclude:: ./programlar/metinDuzenleyici/6/cikmadanOnceForm.kv
+    :linenos:
+    :tab-width: 4
+    :caption: cikmadanOnceForm
+    :name: metin_duzenleyici_cikmadanOnceForm
+    
+    
+Bu form'da bilmediğiömiz tek şey :index:`stop()` işlevidir. Bu işlev uygulamadan çıkma işlemini gerçekleştirir. 
+Bu formu kullanacak sınıfımızı da ``class metinDuzenleyici(App)`` satırından önce aşağıdaki
+kodları ekleyerek yazabiliriz:
+
+::
+
+    class cikmadanOnceForm(Popup):
+        pass
+
+Son olarak ``cik()`` işlevini yazalım. ``build()``'den hemen önce aşağıdaki satırları yazalım:
+
+::
+
+    def cik(self):
+        if self.metin_degisti:
+            kaydedilmedi_form = cikmadanOnceForm()
+            kaydedilmedi_form.open()  
+        else:
+            self.stop()
+
+Programımız artık temel ihtiyaçları karşılayacak düzeye geldi. Peki bitti mi? Haaayııır. Neler kaldı?
+Hayal etmenin sınırı yok. Örneğin son açılan dosyaların listesi, program açıldığında en çalışılan dosyanın
+otomatik açılması, kelime bulma ve değiştirme ... Başka ? Bir de kahve yapsın, yemek istemiyoruz :-)
+
+Anlattıklarımızı takip edemediyseniz, yada ben yaptıklarımı gözden kaçırıp eksik yazmışsam,
+bu gölümde anlattıklarımı yaptığım dosyaları şu adreslerden alabilirsiniz:
+
+main.py: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/metinDuzenleyici/6/main.py
+
+metinduzenleyici.kv: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/metinDuzenleyici/6/metinduzenleyici.kv
