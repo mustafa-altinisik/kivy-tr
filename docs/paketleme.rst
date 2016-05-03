@@ -4,6 +4,10 @@
 Paketleme
 ##########
 
+.. Caution::
+
+    Bu bölüm taslak halindedir.
+
 Bu bölümde hazırlanan Kivy programının Android paketi haline getirilmesi anlatılacaktır.
 
 :index:`Buildozer` Kurulumu

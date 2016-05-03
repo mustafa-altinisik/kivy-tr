@@ -45,7 +45,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Kivy Mobil Programlama'
+project = u'Python Mobil Programlama: Kivy'
 copyright = u'2016, Mustafa Başer'
 author = u'Mustafa Başer'
 
@@ -221,7 +221,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'KivyMobilProgramlama.tex', u'Kivy Mobil Programlama',
+    (master_doc, 'KivyMobilProgramlama.tex', u'Python Mobil Programlama: Kivy',
      u'Mustafa Başer', 'manual'),
 ]
 
@@ -251,7 +251,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'kivymobilprogramlama', u'Kivy Mobil Programlama',
+    (master_doc, 'kivymobilprogramlama', u'Python Mobil Programlama: Kivy',
      [author], 1)
 ]
 
@@ -265,7 +265,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'KivyMobilProgramlama', u'Kivy Mobil Programlama',
+    (master_doc, 'KivyMobilProgramlama', u'Python Mobil Programlama: Kivy',
      author, 'KivyMobilProgramlama', 'One line description of project.',
      'Miscellaneous'),
 ]
