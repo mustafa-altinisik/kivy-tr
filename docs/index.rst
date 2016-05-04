@@ -18,8 +18,8 @@ Kivy Mobil Programlama
    kivyDili
    olaylarFonksiyonlar
    metinDuzenleyici
-   resimGosterici
    paketleme
+   resimGosterici
    
 
 
