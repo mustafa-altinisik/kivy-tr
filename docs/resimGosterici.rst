@@ -23,7 +23,8 @@ Atlıkarınca (Carousel)
 
 Atlıkarınca, bir çeşit düzen gibi düşünülebilir. Bu düzen kendi çerisinde çeşitli sekemeleri bulunan ve 
 her sekmenin kendi düzeni bulunan bir yapıdır. Sekmeler bir pencerede bulunmaz, kaydırılarak ulaşılırlar.
-Burada atlıkarınca sekmelerine sadece resim koyacağız, ancak herhengi bir düzen de koyabilirsiniz.
+Burada atlıkarınca sekmelerine sadece etiket (sonraki kesimde resim) koyacağız,
+ancak herhengi bir düzen de koyabilirsiniz.
 
 Önce atlıkarıncanın nasıl çalıştığını öğrenelim. Atlıkarınca ``Carousel`` nesnesi ile oluşturulur. 
 İstenilen bir düzen (tek bir etiket, tek bir resim ya da diğer düzenler) bu nesneye ``add_widget``
@@ -37,7 +38,7 @@ Burada atlıkarınca sekmelerine sadece resim koyacağız, ancak herhengi bir d�
     :language: python
     
 Bu programı biraz açıklayalım: 10. satırda bir atlıkarınca nesnesi oluşturuluyor. Daha sonra bu karıncaya
-5 adet etiket ekleniyor. Her etiketin üzerinde "Karınca Sayfası: 1", "Karınca Sayfası: 2" ... yazmaktadır.
+5 adet etiket ekleniyor. Her etiketin üzerinde "Karınca Sayfası: 0", "Karınca Sayfası: 1" ... yazmaktadır.
 Programı çalıştırıp fare ile sayfayı sola doğru itip bırakın. Bu size sonraki sayfayı görüntüleyecektir.
 Mobil cihazlarda, sayfayı parmağınız ile sola doğru itmeniz yeterlidir. Atlıkarıncanın yönü ön tanımlı
 olarak sola doğrudur. İsterseniz bunu :index:`direction` özelliği (parametresi) ile değiştirebilirsiniz.
