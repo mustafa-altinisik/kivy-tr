@@ -4,9 +4,6 @@
 Paketleme
 ##########
 
-.. Caution::
-
-    Bu bölüm taslak halindedir.
 
 Bu bölümde hazırlanan Kivy programının Android paketi haline getirilmesi anlatılacaktır.
 
@@ -60,18 +57,21 @@ Buildozer'in paketleyebilmesi için 32 bit kütüphanelere ihtiyacı olacak. Şu
 
   # dpkg --add-architecture i386
   # apt-get update
-  # apt-get install build-essential ccache git lib32z1 libncurses5:i386 libstdc++6:i386 openjdk-7-jdk unzip zlib1g-dev zlib1g:i386
+  # apt-get install build-essential ccache lib32z1 libncurses5:i386 libstdc++6:i386 openjdk-7-jdk unzip zlib1g:i386
 
 
-Muhtemelen aapt (Android Asset Packaging Tool) ihtiyacımız olacak:
+Tüm bu anlattıklarımı, VirtualBox üzerinde bir sanal makinada yaptım ve disk görüntüsünü
 
-.. code-block:: console
+kullanımınız için aşağıdaki adrese koydum:
 
-  # apt-get install aapt
+https://docs.google.com/uc?export=download&confirm=Ser1&id=0B3-o4L3R6zHvOE9OdDBCUmhLZ0E
 
-Tüm bu anlattıklarımı, VirtualBox üzerinde bir sanal makinada yaptım ve kullanımınız için "...." adresine koydum. Tek yapmanız gereken
-VirtualBox'u kurmak.
 
+
+Sizin tek yapmanız gereken yapmanız gereken :ref:`SanalLinux`'de anlatılan VirtualBox'u kurmak.
+
+
+.. _paketlemeKismi:
 
 Paket Derleme
 **************
@@ -267,22 +267,42 @@ Makinanızı başlatmadan önce, Windows kolasörlerinize erişimi sağlayacak o
 yapmalısınız. Bu paylaşım sayesinde Windows makinanızda yazmış olduğunuz 
 Kivy programlarına sanal Makine içerisinden erişebilecek ve derleme işlemini yapabileceksiniz.
 Bunun için “Ayarlar” düğmesine tıklayın. Açılan pencerenin sol panelinden “Paylaşılan Klasörler”i seçin.
-Sağ panledeki  .. simgesine tıklayarak yeni bir paylaşım ekleme penceresi açın. Bu pencerede Klasör Yolu’ na sanal Makine ile paylaşmak istediğiniz klasörü seçin. Ben masaüstümdeki kivy klasöürünü seçtim. Klasör Adı’nı “windows”  olarak değiştirin. Eğer değiştirmez iseniz, sanal makinada paylaşımlar /media/.../sf_paylasimadi olarak bağlanacaktır. Hazırladığım disk görüntüsünde “windows” paylaşımını kivy kullanıcısının ev dizinine köprülediğimden Klasör Adını’nı “windows” olarak değiştirmenizde fayda var. “Tamam” düğmesine tıklamadan önce “Otomatik-bağla” seçeneğini işaretlemeyi unutmayın.
+Sağ paneldeki  |myvbps| simgesine tıklayarak yeni bir paylaşım ekleme penceresi açın.
+Bu pencerede Klasör Yolu’ na sanal Makine ile paylaşmak istediğiniz klasörü seçin. 
+Ben masaüstümdeki ``kivy`` klasöürünü seçtim. Klasör Adı’nı “windows”  olarak değiştirin.
+Eğer değiştirmez iseniz, sanal makinada paylaşımlar ``/media/sf_paylasimadi`` olarak bağlanacaktır.
+Hazırladığım disk görüntüsünde “windows” paylaşımını *kivy* kullanıcısının ev dizinine
+köprülediğimden Klasör Adını’nı “windows” olarak değiştirmenizde fayda var.
+“Tamam” düğmesine tıklamadan önce “Otomatik-bağla” seçeneğini işaretlemeyi unutmayın (:numref:`vb_4Img`).
+
+.. _vb_4Img:
+
+.. figure:: ./resimler/paketleme/vb_4.png
+	
+	Sanal makine için paylaşım açma
 
 
+Sanal makinayı başlatmak için sola panledeki Makine ismi üzerine çift tıklayın. 
+Makinanız bir süre sonra açılacaktır. Açılan makinada *kivy* kullanıcısı oturum açmış durumundadır.
+*root* ve *kivy* kullanıcılarının parolaları *kivy123* olarak belirlenmiştir 
+(masaüstündeki OKUBENI.txt dosyasında mevcut). Açılan sanal makineyi :numref:`vb_5Img` 'de görüyorsunuz. şöyle 
 
-Sanal makinayı başlatmak için sola panledeki Makine ismi üzerine çift tıklayın. Makinanız bir süre sonra açılacaktır. Açılan makinada kivy kullanıcısı oturum açmış durumundadır. “root” ve “kivy” kullanıcılarının parolaları kivy123 olarak belirlenmiştir (masaüstündeki OKUBENI.txt dosyasında mevcut). Açılan sanal Makine şöyle 
+.. _vb_5Img:
 
-.....
+.. figure:: ./resimler/paketleme/vb_5.png
+	
+	Linux Sanal Makine
 
 
 Örnek bir derleme yapalım. Bunun için ben metin düzenleyiciyi derlemek istiyorum. Bu nedenle aşağıdaki dosyaları Windows makinamın masaüstündeki kivy klasörüne kaydettim (paylaştığım klasör).
+
 https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/metinDuzenleyici/6/main.py
+
 https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/metinDuzenleyici/6/metinduzenleyici.kv
 
 Sanal makinede “Uçbirim Öykünücüsü” üzerine tıklayın. Bu size komut satırını açacaktır (şu Linux’çuların meşhur siyah ekranı).  Windows makinadan paylaşılan klasör sanal makinadaki kivy kullanıcısının ev dizinindeki windows klasörüne köprilendiğinden, komut satırında aşağıdaki komutu işletin 
 Önce *kivy* kullanıcısının ev dizininde ``deneme`` isimli bir klasör oluşturalım ve derleyeceğimiz
-dosyaları buraya kopyalayalım (baştaki dolar “$” işartei konulamyacaktır):
+dosyaları buraya kopyalayalım (baştaki dolar ``$`` işaretleri konulamyacaktır):
 
 .. code-block:: console
 
@@ -298,7 +318,7 @@ Bu klasöre geçiş yapalım ve buildozer'i başlatalım:
 	$ buildozer init
 	
 
-buildozer.spec dosyasını düzenlemek için komut satırında aşağıdaki komutu işletin:
+``buildozer.spec`` dosyasını düzenlemek için komut satırında aşağıdaki komutu işletin:
 
 .. code-block:: console	
 
@@ -319,7 +339,7 @@ aşağıdaki komutu çalıştırın.
 
 .. code-block:: console	
 
-$ buildozer android release
+	$ buildozer android release
 
 şu şekilde başlaması gerekiyor:
 
@@ -333,7 +353,7 @@ $ buildozer android release
 	# Install platform
 	....
 
-Buradan sonrasını 7.2’den takip edebilirsiniz. 
+Buradan sonrasını :ref:`paketlemeKismi` 'den takip edebilirsiniz. 
 Derlenen dosya, derlemeyi başlattığınız klasörün içerisinde oluşturulan ``bin`` klasörüne
 kaydedilmiştir. Bizi,m örneğimizde *kivy* kullanıcısının ev klasöründe bulunan ``deneme/bin`` klasöründe olacaktır.
 
