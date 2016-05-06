@@ -51,8 +51,12 @@ açıklamaya gerek yok. Programın çalışmış halini :numref:`Şekil %s <resi
 
    Atlıkarınca
 
+Resim Gösterici
+================
+Atlıkarıncaya etiket yerine, resim grafik parçacığını eklersek, metin yerine resimleri göstermiş olur.
+
 Bir Klasördeki Resimler
-=======================
+------------------------
 
 Atlıkarıncayı basit olarak, programın bulunduğu dizindeki resimleri gösterecek şekilde kullanmaya çalışalım.
 Daha sonra programımızı geliştireceğimizden ``kv`` dilini kullanarak hazırlayalım. Öncelikle ``resimgosterici.kv``
@@ -109,4 +113,102 @@ Bunun yerine bir dosyanın resim olup olmadığını, Python'un ``imghdr`` modü
 
 Programın 2. satırında ``imghdr`` modülünü içerdiğimize dikkat edin.
 
+Atlıkarıncaya resimleri ``build()`` altında eklemek mantıklı olmayacaktır. Çünkü ilerde çeşitli yollarla resim ekleyeceğiz
+her seferinde aynı işlemleri yapmamız gerekecek. Bunun yerine bir işlev yazalım ve resimleri orada ekleyelim. İşlevimiz
+kendisine bir liste halinde gelen dosyaları atlıkarıncaya eklesin. Eğer resimler programın çalıştığı dizin değil de 
+(muhtemel olmayacak) başka bir yerde ise o zaman resimlerin tam patikasını vermek gerekecek. 
+Bunu :numref:`regimGosterici_main4`''de 17. satırda kolayca yaptık.
+
+.. literalinclude:: ./programlar/resimGosterici/4/main.py
+    :linenos:
+    :tab-width: 4
+    :caption: main.py
+    :name: regimGosterici_main4
+    :language: python
+
+Burada 17. satırı şu şekilde de yazabilirdiniz:
+
+::
+
+    dosyalar=[]
+    for x in os.listdir(self.son_patika):
+        dosyalar.append(os.path.join(self.son_patika, x))
+        
+Önceki yazdığımız daha kısa olmalı.
+
+Klasörü Seçme
+--------------
+
+Resimler çoğu zaman, önceden belirlenen bir klasör yerine, kullanıcının programı çalıştırdıktan 
+sonra seçeceği bir klasörde bulunacaktır. Bunu daha önce :ref:`metinDuzenleyiciBolumu` 'de yapmıştık.
+Bunun için `FileChooserListView`` i kullanabiliriz. Fakat burada bir değişiklik yapalım ve `index:`FileChooserIconView`
+kullanalım. İkisinin de kullanımı benzer, sadece görüntüleri farklı. ``FileChooserIconView`` dosya ve klasörleri
+görüntülerken liste, değil simgelerle göstermektedir. Bu grafik parçacığını ``kv`` dosyasındaki bir form içerisinde
+kullanacağız. İlk olarak :numref:`regimGosterici_kv1` daki ``resimgosterici.kv`` dosyasına aşağıdaki kodları ekleyin:
+
+.. literalinclude:: ./programlar/resimGosterici/5/acForm.kv
+    :linenos:
+    :tab-width: 5
+    :caption: acForm
+    :name: regimGosterici_acForm
+
+    
+Burada farklı olarak :index:`multiselect` özelliğinin değerini ``True`` yaptığımızı görüyorsunuz. Bu, kullanıcının
+birden fazla dosyayı seçebilmesine olanak tanıyacaktır. Bu ``kv`` formunu kullanacak sınıfı tanımlamak gerekiyor. Bunu ``class resimGosterici(App)`` satırından önce aşağıdaki
+kodları ekleyerek yapabiliriz:
+
+::
+
+  class acForm(Popup):
+      pass
+      
+``main.py`` programında bu sınıfı tanımlamadan önce aşağıdaki gibi ``Popup``'ı içermeyi unutmayın.
+
+::
+
+    from kivy.uix.popup import Popup
+
+Yeni formumuzu açabilmek için ana pencerede bir düğme koymalıyız, ki bu formu açsın. Bunu ``resimgosterici.kv`` 
+dosyasındaki ``resimGosterici`` formunu aşağıdaki gibi düzenleyerek yapabiliriz:
+
+::
+
+    <resimGosterici>:
+    BoxLayout:
+        orientation: "vertical"
+        Carousel:
+            size_hint_y: 90
+            id: karinca
+
+        BoxLayout:
+            size_hint_y: 10
+            Button:
+                text: "Aç"
+                on_press: app.klasorAc()
+
+Buarada ``klasorAc()`` işlevi ile ``acForm``'u açacağız. İkinci bir ``BoxLayout`` eklememizin nedeni ilerde başka
+düğmeleri de koyacağımızdır. Önce düğmeye tıklandığında formun açılabilmesi için ``build()`` den önce aşağıdaki
+işlevi yazalım:
+
+::
+
+    def klasorAc(self):
+        form=acForm()
+        form.open()
+
+Ana penceredeki "Aç" düğmesine tıklandığında :numref:`Şekil %s <resimGosterici12mg>`'deki gibi açılacaktır.
+
+.. _resimGosterici12mg:
+
+.. figure:: ./programlar/resimGosterici/5/resimGosterici2Img.png
+   
+   Dosya veya Klasör Seçimi
+   
+Önce tüm resimleri gösterebilmesi için 
+
+
 *devam edecek...*
+
+
+
+

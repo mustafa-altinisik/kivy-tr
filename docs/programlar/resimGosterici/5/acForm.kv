@@ -1,0 +1,22 @@
+<acForm>:
+    title: "Klasör/Dosya Aç"
+    size_hint: (.9, .9)
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        FileChooserIconView:
+            size_hint_y: 90
+            id: dosya_secim
+            filters: ['*.*']
+            path: app.son_patika
+            multiselect: True
+
+        BoxLayout:
+            size_hint_y: 10
+            Button:
+                text: "Seçilenleri Aç"
+                on_press: app.secilenResimler(root); root.dismiss()
+            Button:
+                text: "Tüm Resimler"
+                on_press: app.tumResimler(root); root.dismiss()
