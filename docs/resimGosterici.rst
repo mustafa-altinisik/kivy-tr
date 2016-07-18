@@ -247,11 +247,12 @@ göz önünde bulundurarak başlarız. Sonra aklımıza gelen eklentileri ya da 
 ekleriz. Şöyle bir şey aklımıza gelse "Slay gösterisi". Gelin şimdi bunu yapalım.
 
 Zamanlayıcı ve Slayt Gösterisi
-------------------------------
+==============================
 
 Slayt gösterisini yapabilmek için, :index:`zamanlayıcı` ya (:index:`timer`) ihtiyacımız var. Neden mi? Eğer resimler arası
 geçiş zamanını ``time.sleep()`` ile ayarlarsanız, döngü bitene kadar program ile etkileşim yapılamaz. Bu nedenle zamanlayıcıya
-ihtiyacımız var. 
+ihtiyacımız var. Zamanlayıcıyı program içerisinde çalışan bir saat olarak düşünebilirsiniz. Bu saat her tık atışında bir işlevi
+çağırır ve sizde bu işlevde yapılması gerekenleri kodlarsınız. 
 
 
 *devam edecek...*
