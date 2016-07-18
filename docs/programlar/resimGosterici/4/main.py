@@ -7,10 +7,12 @@ from kivy.uix.image import Image
 class resimGosterici(App):
 
     def resimleriEkle(self, dosyalar):
-        for dosya in dosyalar:
-            if imghdr.what(dosya):
-                resim=Image(source=dosya)
-                self.root.ids.karinca.add_widget(resim)
+        self.root.ids.karinca.clear_widgets()
+        if os.path.isfile(dosya):
+            for dosya in dosyalar:
+                if imghdr.what(dosya):
+                    resim=Image(source=dosya)
+                    self.root.ids.karinca.add_widget(resim)
 
     def build(self):
         self.son_patika=os.getcwd()

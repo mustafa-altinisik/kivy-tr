@@ -126,7 +126,12 @@ Bunu :numref:`regimGosterici_main4`''de 17. satırda kolayca yaptık.
     :name: regimGosterici_main4
     :language: python
 
-Burada 17. satırı şu şekilde de yazabilirdiniz:
+Burada ``resimleriEkle()`` işlevinde kullandığımız atlıkarıncanın :index:`clear_widgets` özelliği, daha önce eklenmiş tüm
+nesneleri (burada resimler) temizlemek içindir. Bu satırı yazmadığımız taktirde önceki resimler de görünecektir. Ayrıca,
+``os.path.isfile(dosya)`` kontrolü ile, seçilen klasörde bir başka lat klasör var ise, buna ait resim tipi kontrolünün
+yapılmamasını sağladık.
+
+Burada 19. satırı şu şekilde de yazabilirdiniz:
 
 ::
 
@@ -204,7 +209,49 @@ Ana penceredeki "Aç" düğmesine tıklandığında :numref:`Şekil %s <resimGos
    
    Dosya veya Klasör Seçimi
    
-Önce tüm resimleri gösterebilmesi için 
+Önce tüm resimleri gösterebilmesi için , ``tumResimler()`` işlevini yazalım. Aşağıdaki işlevi ``build()`` den hemen önce yazın:
+
+::
+
+    def tumResimler(self, kok):
+        self.son_patika=kok.ids.dosya_secim.path
+        dosyalar=[ os.path.join(self.son_patika, x) for x in os.listdir(self.son_patika) ]
+        self.resimleriEkle(dosyalar)
+
+Sanırım bu işlevdeki her satır sizin için anlaşılır. Yaptığımız tek şey ``son_patika`` değişkenine, ``FileChooserIconView`` nesnesinden
+``dosya_secim.path`` değerini atamak oldu. Eğer bir resmi tüm tuvale :index:`genişletmek` istiyorsanız, resim nesnesinin :index:`allow_stretch`
+özelliğini ``True`` yapmalısınız. Bunu yaptığınızda :index:`en-boy oranı` yine de korunacaktır. En-boy oranının da tuval'e eşitlenmesiniz
+istiyorsanız resim nesnesinin :index:`keep_ratio` özelliğini ``False`` yapmanız gerekmektedir. Bunlar için ``resimleriEkle()``
+işlevindeki ``resim=Image(source=dosya)`` satırından sonra şu satırları ekleyebilirsiniz:
+
+::
+
+    resim.allow_stretch=True
+    resim.keep_ratio=False
+    
+Bu satırları eklediğimizde açılan resimler tüm tuval'i kaplayacaktır. Şimdide sadece seçilen resimleri göstermek üzere
+``secilenResimler()`` işlevini yazalım. Aşağıdaki işlevi ``build()`` den hemen önce yazalım:
+
+::
+
+    def secilenResimler(self, kok):
+        self.son_patika=kok.ids.dosya_secim.path
+        dosyalar=kok.ids.dosya_secim.selection
+        self.resimleriEkle(dosyalar)
+
+Öncekinden daha kolay oldu, sadece ``son_patika`` yı belirlemek ve dosyaları almak oldu. Dikkat edersenin seçilen dosyalar ile
+patikayı birleştirmedik, çünkü ``FileChooser`` nesnesi seçilen dosyayı patikası ile birlikte verir.
+
+Programımız burada bitti, ancak kullanıcların istekler sonsuzdur ve biz programı yazarken sadece temel ihtiyaçları
+göz önünde bulundurarak başlarız. Sonra aklımıza gelen eklentileri ya da kullanıcıların uygulanabilir makul isteklerini
+ekleriz. Şöyle bir şey aklımıza gelse "Slay gösterisi". Gelin şimdi bunu yapalım.
+
+Zamanlayıcı ve Slayt Gösterisi
+------------------------------
+
+Slayt gösterisini yapabilmek için, :index:`zamanlayıcı` ya (:index:`timer`) ihtiyacımız var. Neden mi? Eğer resimler arası
+geçiş zamanını ``time.sleep()`` ile ayarlarsanız, döngü bitene kadar program ile etkileşim yapılamaz. Bu nedenle zamanlayıcıya
+ihtiyacımız var. 
 
 
 *devam edecek...*
