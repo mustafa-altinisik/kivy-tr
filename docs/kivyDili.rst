@@ -24,7 +24,7 @@ Bu kodda hiçbir değişiklik yapmadan birçok pencere oluşturacağız.
 Gördüğünüz gibi bu program hiçbirşey döndürmüyor. Sadece basit bir pencere oluşturuyor. Pencere içeriğini ``kv`` dili oluşturacağız.
 Şimdi dosyasını :ref:`girisformu1` programını kaydettiğiniz aynı dizinine (klasöre) kaydedin.
 
-.. literalinclude:: ./programlar/kivyDili/1/girisformu0.kv
+.. literalinclude:: ./programlar/kivyDili/1/girisformu.kv
     :linenos:
     :tab-width: 4
     :caption: girisformu.kv
@@ -48,7 +48,7 @@ yapılanmayı biraz içerde başlatıyoruz.
 sınıfı ile oluşturulur. O halde ``kv`` dilinde ``BoxLayout`` ile kutu pencere düzenini oluşturabiliriz. :numref:`Liste %s <girisformu2>`'deki gibi değiştirin.
 
 
-.. literalinclude:: ./programlar/kivyDili/2/girisformu.kv
+.. literalinclude:: ./programlar/kivyDili/2/girisformu0.kv
     :linenos:
     :tab-width: 4
     :caption: girisformu.kv

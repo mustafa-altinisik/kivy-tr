@@ -485,7 +485,7 @@ Kullanıcı bir dosya üzerinde çalışırken yeni bir dosya açmak isteyebilir
 tarafya bunulnan "Yeni" düğmesine tıklayacak. Şimdi bunun üzerinde çalışalım. Yapacağımız işi şöyle özetleyebiliriz:
 ilk olarak mevcut dosya değiştirilmiş ve henüz kaydedilmemiş ise, bunu kullanıcıya bildirmemiz gerekir, daha sonra
 yeni dosya oluşturma işlemine geçeceğiz. Öncelikle ana penceredeki "Yeni" düğmesine tıklandığında
-çağrılacak olan işlevi belirtmek için ``metinduzenleyici.kv`` dosyasındaki (:numref:`metin_duzenleyici_metin_duzenleyici_kv1`)
+çağrılacak olan işlevi belirtmek için ``metinduzenleyici.kv`` dosyasındaki (:numref:`metin_duzenleyici_kv1`)
 23. satırı şu şekilde değiştirmemiz gerekmektedir:
 
 ::

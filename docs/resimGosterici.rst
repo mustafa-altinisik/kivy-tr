@@ -363,7 +363,7 @@ Son durumda programımızın penceresi :numref:`Şekil %s <resimGosterici5img>`'
 Anlattıklarımızı takip edemediyseniz, yada ben yaptıklarımı gözden kaçırıp eksik yazmışsam,
 bu bölümde anlattıklarımı yaptığım dosyaları şu adreslerden alabilirsiniz:
 
-main.py: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/5/main.py
+main.py:             https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/5/main.py
 
 metinduzenleyici.kv: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/5/resimgosterici.kv
 
@@ -387,7 +387,7 @@ Kronometreniz çalıştığında :numref:`Şekil %s <resimGosterici6img>`'deki g
 
 Çözüm:
 
-main.py: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/kronometre/main.py
+main.py:       https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/kronometre/main.py
 
 kronometre.kv: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/kronometre/kronometre.kv
 
