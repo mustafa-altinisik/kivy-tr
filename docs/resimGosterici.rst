@@ -1,8 +1,10 @@
 .. _resimGostericiBolumu:
 
+
 ################################
 Atlıkarınca ve Resim Gösterici
 ################################
+
 
 Atlı karınca dememizin nedeni ":index:`carousel`" kelimesi İngilizce'de ":index:`atlıkarınca`" anlamını taşıması, 
 elbette bir de at yarışlarındaki gösteri turnuvasına denmekte, ancak "carousel" isminin neye dayanarak
