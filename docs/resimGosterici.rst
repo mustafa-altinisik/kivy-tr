@@ -363,7 +363,7 @@ bu bölümde anlattıklarımı yaptığım dosyaları şu adreslerden alabilirsi
 
 main.py: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/5/main.py
 
-metinduzenleyici.kv: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/5/resimGosterici
+metinduzenleyici.kv: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/5/resimgosterici.kv
 
 
 Kronometre Uygulaması
