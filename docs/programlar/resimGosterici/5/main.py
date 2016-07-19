@@ -51,17 +51,24 @@ class resimGosterici(App):
         else:
             Clock.unschedule(self.zamanlayiciIslevi)
             kok.ids.slyat_dugme.text="Slaytı Başlat"
-        
-        
 
     def build(self):
         self.root.ids.karinca.loop=True
         self.son_patika=os.getcwd()
+        
+                
+        # Aşağıdaki satırlar bölüm içerisinde anlatılmadı. Bu satırlar sayesinde program
+        # çalıştırılırken argüman olarak verilen klasördeki resimler yüklenir.
+        # Örneğin programı komut satırından main.py d:/resimler ile çalıştırırsanız
+        # program açıldığında d:/resimler klasöründeki resimler yüklenir. Aksi halde
+        # programın çalıştığı klasördeki resimler yüklenir.
+        
         if len(sys.argv)>1:
             if os.path.isdir(sys.argv[1]):
                 self.son_patika=sys.argv[1]
+        
         self.root.ids.slyat_dugme.disabled=True
-        #dosyalar=[ os.path.join(self.son_patika, x) for x in os.listdir(self.son_patika) ]
-        #self.resimleriEkle(dosyalar)
+        dosyalar=[ os.path.join(self.son_patika, x) for x in os.listdir(self.son_patika) ]
+        self.resimleriEkle(dosyalar)
 
 resimGosterici().run()

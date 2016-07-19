@@ -4,10 +4,6 @@
 Atlıkarınca ve Resim Gösterici
 ################################
 
-.. Caution::
-
-    Bu bölüm taslak aşamasındadır.
-
 Atlı karınca dememizin nedeni ":index:`carousel`" kelimesi İngilizce'de ":index:`atlıkarınca`" anlamını taşıması, 
 elbette bir de at yarışlarındaki gösteri turnuvasına denmekte, ancak "carousel" isminin neye dayanarak
 verildiğini bilmiyorum (merak etmiyor da değilim, yoksa şu parklarda gördüğümz askıda dönen salıncaklardan
@@ -242,7 +238,7 @@ Bu satırları eklediğimizde açılan resimler tüm tuval'i kaplayacaktır. Şi
 Öncekinden daha kolay oldu, sadece ``son_patika`` yı belirlemek ve dosyaları almak oldu. Dikkat edersenin seçilen dosyalar ile
 patikayı birleştirmedik, çünkü ``FileChooser`` nesnesi seçilen dosyayı patikası ile birlikte verir.
 
-Programımız burada bitti, ancak kullanıcların istekler sonsuzdur ve biz programı yazarken sadece temel ihtiyaçları
+Programımız burada bitti, ancak kullanıcların istekler sonsuzdur. Bir programı yazmaya başlarken sadece temel ihtiyaçları
 göz önünde bulundurarak başlarız. Sonra aklımıza gelen eklentileri ya da kullanıcıların uygulanabilir makul isteklerini
 ekleriz. Şöyle bir şey aklımıza gelse "Slay gösterisi". Gelin şimdi bunu yapalım.
 
@@ -252,11 +248,145 @@ Zamanlayıcı ve Slayt Gösterisi
 Slayt gösterisini yapabilmek için, :index:`zamanlayıcı` ya (:index:`timer`) ihtiyacımız var. Neden mi? Eğer resimler arası
 geçiş zamanını ``time.sleep()`` ile ayarlarsanız, döngü bitene kadar program ile etkileşim yapılamaz. Bu nedenle zamanlayıcıya
 ihtiyacımız var. Zamanlayıcıyı program içerisinde çalışan bir saat olarak düşünebilirsiniz. Bu saat her tık atışında bir işlevi
-çağırır ve sizde bu işlevde yapılması gerekenleri kodlarsınız. 
+çağırır ve sizde bu işlevde yapılması gerekenleri kodlarsınız. Öncelikle ekranın en altına slayt gösterisini başlatıp
+durdurabileceğimiz bir düğme ekleyelim. Bunu ``kv`` dosyasındaki ``<resimGosterici>`` formunun altındaki ``BoxLayout`` düzenine
+aşağıdaki satırları ekleyerek yapabiliriz:
+
+::
+
+        Button:
+            id: slyat_dugme
+            text: "Slaytı Başlat"
+            on_press: app.slaytGosterisi(root)
 
 
-*devam edecek...*
+Eğer hiç resim yüklenmediyse, bu düğmeyi pasifleştirmek gerekir. Kivy'de bir nesneyi :index:`pasifleştirmek` için ``disabled``
+özelliğine ``Treu`` ataması yaparız. Ön tanımlı olarak nesnelerin ``disabled`` özelliği ``False`` konumundadır.
+O halde öncelikle ``build()`` işlevinin en sonuna aşağıdaki satırı ekleyelim:
+
+::
+
+    self.root.ids.slyat_dugme.disabled=True
+    
+Böylelikle, program başladığında atlıkarıncada hiç resim olmayacağından, diğme :index:`etkin` olmayacaktır.
+Bir de, ``resimleriEkle()`` işlevinin en altına aşağıdaki satırları eklemeliyiz:
+
+::
+
+        if self.root.ids.karinca.slides:
+            self.root.ids.slyat_dugme.disabled=False
+        else:
+            self.root.ids.slyat_dugme.disabled=True
+
+Nedenini şöyle açıklayalım. Herhangi bir düğmeye tıklayarak, atlıkarıncaya resim eklenmişse, ``self.root.ids.karinca.slides``
+değeri ``None`` dan farklı olacaktır ve düğme etkinleşecektir aksi halde düğme pasif olacaktır.
+
+Slayt gösterisi için zamanlayıcıya ihtiyacımız olduğunu söyledik, bunun için kivy modüllerini içerdiğimiz satırların sonuna
+şu satırı ekleyelim:
+
+::
+
+    from kivy.clock import Clock
 
 
+``<resimGosterici>`` formuna eklediğimiz ``id`` si ``slyat_dugme`` olan düğmeye tıklandığında ``slaytGosterisi()``
+işlevi çağrılacaktır. Şim bunu ``build()`` den hemen önce şu şekilde yazalım:
+
+
+::
+
+    def slaytGosterisi(self, kok):
+        if kok.ids.slyat_dugme.text=="Slaytı Başlat":
+            Clock.schedule_interval(self.zamanlayiciIslevi, 1)
+            kok.ids.slyat_dugme.text="Slaytı Durdur"
+        else:
+            Clock.unschedule(self.zamanlayiciIslevi)
+            kok.ids.slyat_dugme.text="Slaytı Başlat"
+
+Bu işleve başlarken, slayt gösterisi devam ediyor mu etmiyor mu onu kontrol ederek başladık. Bunu ``slyat_dugme`` nin üzerindeki
+metni kullanarak kontrol ettik. Eğer düğme metni "Slaytı Başlat" ise, slayt başlamamıştır ve bu blokta slaytı başlatıyoruz.
+Slaytı başlatmak için saatin (Clock) tik atış aralığını veriyoruz. Bunu :index:`Clock` nesnesinin :index:`schedule_interval`
+özelliği ile yaparız. Zamanlayıcı şu şekilde başlatılır:
+
+
+*Clock.schedule_interval(islev, atis_zaman_araligi)*
+
+Burada *islev* her tık attığında çağrılacak işlevi ve *zaman_araligi* tik aralıklarını saniye cinsinden ifade etmektedir.
+Programımızda her tık atışta ``zamanlayiciIslevi()`` çağrılacaktır. Tık aralıkları ise 1 saniye olarak verilmiştir.
+Zamanlayıcı (daha doğrusu slayt gösterisi) başladıktan sonra, ``slyat_dugme`` nin üzerindeki metni "Slaytı Durdur"
+olarak değiştiriyoruz. Böylelikle aynı düğme salytı hem başlatmak hem de durdurmak için kullanılıyor.
+
+Zamanlayıcı şu şekilde durdurulur:
+
+*Clock.unschedule(islev)*
+
+Zamanlayıcı ayrı işlevleri çağırmak için planlanabilir (schedule edilebilir) ve her seferinde *isev* ile *atis_zaman_araligi*
+farklı olabilir. Planlanmış bir zamanlayıcıyı durdurmak için :index:`unschedule` özelleğini kullanıyoruz.
+
+Buradan anlaşılacağı gibi slayt gösterisini yapacak işlevin çağrılmasını durdurmak için (planı bozmak için):
+``Clock.unschedule(self.zamanlayiciIslevi)`` satırını kullandık ve hemen sonrasında ``slyat_dugme`` nin üzerindeki metni
+"Slaytı Başlat" yaptık.
+
+Şimdide salyat gösterini yapacak olan ``zamanlayiciIslevi()`` işlevini yazalım. Bu işlev zamanlayıcının her tik atışında
+çağrılacaktır. Her çağrılışta atlı karıncanın bir sonraki slaytını göstermesi gerekir. Atlıkarıncanın sonraki slaytı göstermesi
+için :index:`load_next` işevini kullanırız (önceki için :index:`load_previous``). Zamanlayıcı işlevini ``slaytGosterisi()`` nden
+önce aşağıdaki gibi yazabiliriz:
+
+::
+
+    def zamanlayiciIslevi(self, za):
+        self.root.ids.karinca.load_next()
+
+Zamanlayıcı işlevi çağırırken ilk argüman olarak, iki tik atışltaki zaman aralığını verir (belki programcının bunu
+kullanmaya ihtiyacı olabilir), bunu işlevimizde ``za`` olarak aldık.
+
+Slayt gösterisi bittiğinde (en son resme gelindiğinde), sonraki resim gösterileyemecektir ve sürekli aynı resimde atlam olacaktır.
+Eğer atlıkarıncanın sonsuz döngüde (sona geldiğinde tekrar başa sarma) çalışmasını istiyorsanız :index:`loop` özelliğini ``True``
+yapmalısınız. Programımızda ``build()`` işlevinin başına aşağıdaki satırı ekleyerek sonsuz döngüye sokmuş oluruz:
+
+:: 
+    
+    self.root.ids.karinca.loop=True
+
+
+Son durumda programımızın penceresi :numref:`Şekil %s <resimGosterici5img>`'deki gibi açılacaktır.
+
+.. _resimGosterici5img:
+
+.. figure:: ./programlar/resimGosterici/5/resimGosterici5Img.png
+
+  Slayt Gösterici
+
+
+Anlattıklarımızı takip edemediyseniz, yada ben yaptıklarımı gözden kaçırıp eksik yazmışsam,
+bu bölümde anlattıklarımı yaptığım dosyaları şu adreslerden alabilirsiniz:
+
+main.py: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/5/main.py
+
+metinduzenleyici.kv: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/5/resimGosterici
+
+
+Kronometre Uygulaması
+=====================
+
+Zamanlayıcı kullanarak bir :index:`kronometre` yapınız. Kronometrede iki düğme bulunmalıdır: *Başlat* ve *Sıfırla*
+*Başlat* düğmesine tıklanınca kronomtere başlayacak ve üzerindeki metin *Durdur* olacaktır. *Sıfırla* düğmesine
+tıklanınca kronometre sıfırlanacaktır. Kronometre tıklama aralığı 0.1 saniye olacaktır. Etiketteki metnin büyüklüğünü
+100 piksel yapınız. Bir etiketin yazıtipi büyüklüğünü :index:`font_size` özelliği ile ayarlayabilirsiniz.
+
+Kronometreniz çalıştığında :numref:`Şekil %s <resimGosterici6img>`'deki gibi bir pencere olacaktır.
+
+.. _resimGosterici6img:
+
+.. figure:: ./programlar/resimGosterici/kronometre/kronometre1Img.png
+
+  Kronometre
+
+
+Çözüm:
+
+main.py: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/kronometre/main.py
+
+kronometre.kv: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/kronometre/kronometre.kv
 
 

@@ -655,7 +655,7 @@ Hayal etmenin sınırı yok. Örneğin son açılan dosyaların listesi, program
 otomatik açılması, kelime bulma ve değiştirme ... Başka ? Bir de kahve yapsın, yemek istemiyoruz :-)
 
 Anlattıklarımızı takip edemediyseniz, yada ben yaptıklarımı gözden kaçırıp eksik yazmışsam,
-bu gölümde anlattıklarımı yaptığım dosyaları şu adreslerden alabilirsiniz:
+bu bölümde anlattıklarımı yaptığım dosyaları şu adreslerden alabilirsiniz:
 
 main.py: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/metinDuzenleyici/6/main.py
 

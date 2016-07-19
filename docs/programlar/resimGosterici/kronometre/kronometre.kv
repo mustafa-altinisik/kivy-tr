@@ -1,0 +1,21 @@
+<kronometre>:
+BoxLayout:
+    orientation: "vertical"
+    Label:
+        size_hint_y: 90
+        id: ana_etiket
+        font_size: 100
+        text: "0:00.00"
+
+    BoxLayout:
+        size_hint_y: 10
+        Button:
+            id: baslat_dugme
+            text: "Başlat"
+            on_press: app.baslat()
+        Button:
+            id: sifirla_dugme
+            text: "Sıfırla"
+            on_press: app.sifirla()
+            
+
