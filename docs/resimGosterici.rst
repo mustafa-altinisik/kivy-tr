@@ -373,8 +373,9 @@ Kronometre Uygulaması
 
 Zamanlayıcı kullanarak bir :index:`kronometre` yapınız. Kronometrede iki düğme bulunmalıdır: *Başlat* ve *Sıfırla*
 *Başlat* düğmesine tıklanınca kronomtere başlayacak ve üzerindeki metin *Durdur* olacaktır. *Sıfırla* düğmesine
-tıklanınca kronometre sıfırlanacaktır. Kronometre tıklama aralığı 0.1 saniye olacaktır. Etiketteki metnin büyüklüğünü
-100 piksel yapınız. Bir etiketin yazıtipi büyüklüğünü :index:`font_size` özelliği ile ayarlayabilirsiniz.
+tıklanınca kronometre sıfırlanacaktır. Kronometre tıklama aralığı 0.1 saniye (1 salise) olacaktır. Etiketteki metnin büyüklüğünü
+100 piksel yapınız. Bir etiketin yazıtipi büyüklüğünü :index:`font_size` özelliği ile ayarlayabilirsiniz. Kronometre
+sayaç görüntüsü **dak:saniye.salise** şeklinde olacaktır.
 
 Kronometreniz çalıştığında :numref:`Şekil %s <resimGosterici6img>`'deki gibi bir pencere olacaktır.
 

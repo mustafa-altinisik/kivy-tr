@@ -1,0 +1,13 @@
+#:import Label kivy.uix.label.Label
+#:import SimpleListAdapter kivy.adapters.simplelistadapter.SimpleListAdapter
+
+<basitListeUyg>:
+BoxLayout:
+    Label:
+        text: "Programlama Dilleri"
+    ListView:
+        id: listeci
+        adapter:
+            SimpleListAdapter(
+            data=["Perl", "PHP", "Pure", "Python", "Rebol", "Rexx", "Ruby", "Scheme", "Tcl"],
+            cls=Label)

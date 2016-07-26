@@ -20,7 +20,7 @@ Kivy Mobil Programlama
    metinDuzenleyici
    paketleme
    resimGosterici
-   
+   listeEylem
 
 
 Dizinler ve Tablolar
