@@ -73,7 +73,7 @@ görünmektedir.
    Basit Liste (Düğme)
 
 
-:numref:`basitListe`'deki programı, ``c:\windows`` (Linux için ``/lib/``) klsöründeki dosya ve dizinleri
+:numref:`basitListe`'deki programı, ``c:\windows`` (Linux için ``/usr``) klsöründeki dosya ve dizinleri
 gösterecek şekilde uyarlayınız. Linux için programınızın çalışmış hali :numref:`Şekil %s <basitListe-klasorImg>`'deki gibi olacaktır.
 
 

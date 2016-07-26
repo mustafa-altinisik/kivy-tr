@@ -1,27 +1,28 @@
 # -*- coding: utf-8 -*-
+
+from kivy.app import App
+from kivy.uix.label import Label
+from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
-from kivy.base import runTouchApp
-from kivy.lang import Builder
+from kivy.adapters.simplelistadapter import SimpleListAdapter
+from kivy.uix.listview import ListView
 
-# Note the special nature of indentation in the adapter declaration, where
-# the adapter: is on one line, then the value side must be given at one
-# level of indentation.
+import os
 
-Builder.load_string("""
-#:import label kivy.uix.label
-#:import sla kivy.adapters.simplelistadapter
+class basitListeUyg(App):
 
-<MyListView>:
-    ListView:
-        adapter:
-            sla.SimpleListAdapter(
-            data=["Item #{0}".format(i) for i in range(100)],
-            cls=label.Label)
-""")
+    def build(self):
+        duzen=BoxLayout()
+	
+        dizin_icerik=os.listdir("/usr")
+	
+        basit_liste_adaptoru = SimpleListAdapter(data=dizin_icerik, cls=Button)
 
+        liste = ListView(adapter=basit_liste_adaptoru)
+        
+        duzen.add_widget(Label(text="/usr dizini"))
+        duzen.add_widget(liste)
 
-class MyListView(BoxLayout):
-    pass
-
-if __name__ == '__main__':
-    runTouchApp(MyListView())
+        return duzen
+      
+basitListeUyg().run()
