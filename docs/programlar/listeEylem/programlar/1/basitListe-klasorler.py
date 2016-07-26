@@ -20,7 +20,7 @@ class basitListeUyg(App):
 
         liste = ListView(adapter=basit_liste_adaptoru)
         
-        duzen.add_widget(Label(text="/usr dizini"))
+        duzen.add_widget(Label(text="/usr dizini:"))
         duzen.add_widget(liste)
 
         return duzen
