@@ -12,13 +12,13 @@ class kronometre(App):
                                                     )
     def zamanlayiciIslevi(self, za):
         self.salise +=1
-        self.etiketteGoster()
         if self.salise==10:
             self.salise=0
             self.saniye +=1
         if self.saniye==60:
             self.saniye=0
             self.dakika +=1
+        self.etiketteGoster()
 
     def sifirla(self):
         self.salise=0
