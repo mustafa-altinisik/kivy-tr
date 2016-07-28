@@ -1,0 +1,609 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="tr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>8. Atlıkarınca ve Resim Gösterici &mdash; Kivy Mobil Programlama 0.1 belgelendirme çalışması</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="top" title="Kivy Mobil Programlama 0.1 belgelendirme çalışması" href="index.html" />
+    <link rel="next" title="9. Liste Görünümü ve Eylem Çubuğu" href="listeEylem.html" />
+    <link rel="prev" title="7. Paketleme" href="paketleme.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Gezinti</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Genel Dizin"
+             accesskey="I">dizin</a></li>
+        <li class="right" >
+          <a href="listeEylem.html" title="9. Liste Görünümü ve Eylem Çubuğu"
+             accesskey="N">sonraki</a> |</li>
+        <li class="right" >
+          <a href="paketleme.html" title="7. Paketleme"
+             accesskey="P">önceki</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Kivy Mobil Programlama 0.1 belgelendirme çalışması</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">İçindekiler Tablosu</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">8. Atlıkarınca ve Resim Gösterici</a><ul>
+<li><a class="reference internal" href="#atlikarinca-carousel">8.1. Atlıkarınca (Carousel)</a></li>
+<li><a class="reference internal" href="#resim-gosterici">8.2. Resim Gösterici</a><ul>
+<li><a class="reference internal" href="#bir-klasordeki-resimler">8.2.1. Bir Klasördeki Resimler</a></li>
+<li><a class="reference internal" href="#klasoru-secme">8.2.2. Klasörü Seçme</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zamanlayici-ve-slayt-gosterisi">8.3. Zamanlayıcı ve Slayt Gösterisi</a></li>
+<li><a class="reference internal" href="#kronometre-uygulamasi">8.4. Kronometre Uygulaması</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Önceki konu</h4>
+  <p class="topless"><a href="paketleme.html"
+                        title="önceki bölüm">7. Paketleme</a></p>
+  <h4>Sonraki konu</h4>
+  <p class="topless"><a href="listeEylem.html"
+                        title="sonraki bölüm">9. Liste Görünümü ve Eylem Çubuğu</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Bu Sayfa</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/resimGosterici.txt"
+            rel="nofollow">Kaynağı Göster</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Hızlı Arama</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Git" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="atlikarinca-ve-resim-gosterici">
+<span id="resimgostericibolumu"></span><h1>8. Atlıkarınca ve Resim Gösterici<a class="headerlink" href="#atlikarinca-ve-resim-gosterici" title="Bu başlığın kalıcı bağlantısı">¶</a></h1>
+<p>Atlı karınca dememizin nedeni &#8220;<span class="target" id="index-0"></span>carousel&#8221; kelimesi İngilizce&#8217;de &#8220;<span class="target" id="index-1"></span>atlıkarınca&#8221; anlamını taşıması,
+elbette bir de at yarışlarındaki gösteri turnuvasına denmekte, ancak &#8220;carousel&#8221; isminin neye dayanarak
+verildiğini bilmiyorum (merak etmiyor da değilim, yoksa şu parklarda gördüğümz askıda dönen salıncaklardan
+mı geliyor acabağa). Bu &#8220;Carousel&#8221; denen şey nedir? Cep telefonunuzu
+kullanırken, ekranı sağa sola (ya da üste alta) parmaklarınızın ucu ile kaydırıyorsunuz ya, işte o.
+Bu bölümde Corusel (atlıkarınca) kullanarak bir resim gösterici yapmayı planlıyoruz. Normalde
+bir resim göstericisini atlıkarınca ile yapmak ne kadar mantıklı bilemiyorum. Çünkü tüm resimleri başta
+atlıkarıncaya yüklüyorsunuz. Bu da sanırım bellek kullanımını artırır. Her neyse biz burada bu atlıkarıncayı
+nasıl kullanacağımızı öğreneceğiz.</p>
+<div class="section" id="atlikarinca-carousel">
+<h2>8.1. Atlıkarınca (Carousel)<a class="headerlink" href="#atlikarinca-carousel" title="Bu başlığın kalıcı bağlantısı">¶</a></h2>
+<p>Atlıkarınca, bir çeşit düzen gibi düşünülebilir. Bu düzen kendi çerisinde çeşitli sekemeleri bulunan ve
+her sekmenin kendi düzeni bulunan bir yapıdır. Sekmeler bir pencerede bulunmaz, kaydırılarak ulaşılırlar.
+Burada atlıkarınca sekmelerine sadece etiket (sonraki kesimde resim) koyacağız,
+ancak herhengi bir düzen de koyabilirsiniz.</p>
+<p>Önce atlıkarıncanın nasıl çalıştığını öğrenelim. Atlıkarınca <code class="docutils literal"><span class="pre">Carousel</span></code> nesnesi ile oluşturulur.
+İstenilen bir düzen (tek bir etiket, tek bir resim ya da diğer düzenler) bu nesneye <code class="docutils literal"><span class="pre">add_widget</span></code>
+özelliği ile eklenir. <a class="reference internal" href="#regimgosterici-main1"><span class="std std-numref">Liste 8.1</span></a>&#8216;deki gibi <code class="docutils literal"><span class="pre">main.py</span></code> dosyasını  yazalım.</p>
+<div class="literal-block-wrapper container" id="regimgosterici-main1">
+<div class="code-block-caption"><span class="caption-number">Liste 8.1 </span><span class="caption-text">main.py</span><a class="headerlink" href="#regimgosterici-main1" title="Bu kodun kalıcı bağlantısı">¶</a></div>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">kivy.app</span> <span class="kn">import</span> <span class="n">App</span>
+<span class="kn">from</span> <span class="nn">kivy.uix.carousel</span> <span class="kn">import</span> <span class="n">Carousel</span>
+<span class="kn">from</span> <span class="nn">kivy.uix.label</span> <span class="kn">import</span> <span class="n">Label</span>
+
+<span class="k">class</span> <span class="nc">atliKarinca</span><span class="p">(</span><span class="n">App</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">karinca</span> <span class="o">=</span> <span class="n">Carousel</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+            <span class="n">karinca</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">Label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s">&quot;Karınca Sayfası: </span><span class="si">%d</span><span class="s">&quot;</span> <span class="o">%</span><span class="n">i</span><span class="p">))</span>
+            
+        <span class="k">return</span> <span class="n">karinca</span>
+
+<span class="n">atliKarinca</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>Bu programı biraz açıklayalım: 10. satırda bir atlıkarınca nesnesi oluşturuluyor. Daha sonra bu karıncaya
+5 adet etiket ekleniyor. Her etiketin üzerinde &#8220;Karınca Sayfası: 0&#8221;, &#8220;Karınca Sayfası: 1&#8221; ... yazmaktadır.
+Programı çalıştırıp fare ile sayfayı sola doğru itip bırakın. Bu size sonraki sayfayı görüntüleyecektir.
+Mobil cihazlarda, sayfayı parmağınız ile sola doğru itmeniz yeterlidir. Atlıkarıncanın yönü ön tanımlı
+olarak sola doğrudur. İsterseniz bunu <span class="target" id="index-2"></span>direction özelliği (parametresi) ile değiştirebilirsiniz.
+Bu parametrenin (ya da özelliğin) alabileceği değerler şunlardır: right, left, top, bottom. Sanırım bunları
+açıklamaya gerek yok. Programın çalışmış halini <a class="reference internal" href="#resimgosterici1img"><span class="std std-numref">Şekil 8.1</span></a>&#8216;de görüyorsunuz.</p>
+<div class="figure" id="id1">
+<span id="resimgosterici1img"></span><img alt="_images/resimGosterici1Img.png" src="_images/resimGosterici1Img.png" />
+<p class="caption"><span class="caption-number">Şekil 8.1 </span><span class="caption-text">Atlıkarınca</span></p>
+</div>
+</div>
+<div class="section" id="resim-gosterici">
+<h2>8.2. Resim Gösterici<a class="headerlink" href="#resim-gosterici" title="Bu başlığın kalıcı bağlantısı">¶</a></h2>
+<p>Atlıkarıncaya etiket yerine, resim grafik parçacığını eklersek, metin yerine resimleri göstermiş olur.</p>
+<div class="section" id="bir-klasordeki-resimler">
+<h3>8.2.1. Bir Klasördeki Resimler<a class="headerlink" href="#bir-klasordeki-resimler" title="Bu başlığın kalıcı bağlantısı">¶</a></h3>
+<p>Atlıkarıncayı basit olarak, programın bulunduğu dizindeki resimleri gösterecek şekilde kullanmaya çalışalım.
+Daha sonra programımızı geliştireceğimizden <code class="docutils literal"><span class="pre">kv</span></code> dilini kullanarak hazırlayalım. Öncelikle <code class="docutils literal"><span class="pre">resimgosterici.kv</span></code>
+dosyamızı <a class="reference internal" href="#regimgosterici-kv1"><span class="std std-numref">Liste 8.2</span></a>&#8216;deki gibi yazalım.</p>
+<div class="literal-block-wrapper container" id="regimgosterici-kv1">
+<div class="code-block-caption"><span class="caption-number">Liste 8.2 </span><span class="caption-text">resimgosterici.kv</span><a class="headerlink" href="#regimgosterici-kv1" title="Bu kodun kalıcı bağlantısı">¶</a></div>
+<div class="highlight-default"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="o">&lt;</span><span class="n">resimGosterici</span><span class="o">&gt;</span><span class="p">:</span>
+<span class="n">BoxLayout</span><span class="p">:</span>
+    <span class="n">orientation</span><span class="p">:</span> <span class="s">&quot;vertical&quot;</span>
+    <span class="n">Carousel</span><span class="p">:</span>
+        <span class="n">size_hint_y</span><span class="p">:</span> <span class="mi">90</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="n">karinca</span>
+
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>Buarada anadüzenimizi <code class="docutils literal"><span class="pre">BoxLayout</span></code> yaptık çünkü ilerde düğmeler yerleştireceğiz. Onun dışında bilmediğiniz bir kod
+bulunmuyor. Atlıkarıncayı 4. satırdaki <code class="docutils literal"><span class="pre">Carousel</span></code> ile olışturduk. Bu nesneye ulaşmak için id&#8217;sini <code class="docutils literal"><span class="pre">karinca</span></code> yaptık.
+Bu <code class="docutils literal"><span class="pre">kv</span></code> dosyasını kullanıp, programın çalıştığı klasördeki <em>png</em> resimlerini gösterecek <code class="docutils literal"><span class="pre">main.py</span></code> programını da
+<a class="reference internal" href="#regimgosterici-main2"><span class="std std-numref">Liste 8.3</span></a>&#8216;deki gibi yazabiliriz.</p>
+<div class="literal-block-wrapper container" id="regimgosterici-main2">
+<div class="code-block-caption"><span class="caption-number">Liste 8.3 </span><span class="caption-text">main.py</span><a class="headerlink" href="#regimgosterici-main2" title="Bu kodun kalıcı bağlantısı">¶</a></div>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">kivy.app</span> <span class="kn">import</span> <span class="n">App</span>
+<span class="kn">from</span> <span class="nn">kivy.uix.image</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="k">class</span> <span class="nc">resimGosterici</span><span class="p">(</span><span class="n">App</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">son_patika</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">dosya</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">son_patika</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">dosya</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="s">&#39;.png&#39;</span><span class="p">:</span>
+                <span class="n">resim</span><span class="o">=</span><span class="n">Image</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">dosya</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">karinca</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">resim</span><span class="p">)</span>
+
+<span class="n">resimGosterici</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>Bu programda <code class="docutils literal"><span class="pre">os.listdir()</span></code> ile bulunduğumuz klasördeki (<code class="docutils literal"><span class="pre">os.getcwd()</span></code> ile alınıyor) dosylara üzerinde bir iterasyon
+yapılıyor (11. satır). İterasyon içerisinde <code class="docutils literal"><span class="pre">os.path.splitext()</span></code> ile dosyaların (dosya_adı, uzantisi) şeklinde
+ayrılıyor ve uzantısı <em>.png</em> olan dosyalardan bir <span class="target" id="index-3"></span>resim nesnesi oluşturuluyor. Resim nesnesi <span class="target" id="index-4"></span>Image
+sınıfı ile oluşturulur. Bu sınıfa <span class="target" id="index-5"></span>source paramteresi ile oluşturulacak resmin tam dosya adı (yada programın
+çalıştığı klasördeki dosya adı) verilir. Oluşturulan <code class="docutils literal"><span class="pre">resim</span></code> nesnesi atlıkarıncanın <code class="docutils literal"><span class="pre">add_widget</span></code> özelliği
+ile ekleniyor. Ben programın çalıştığı klasöre Kivy, Android ve Python logolarını koydum
+(umarım telif haklarını ihlal etmemişimdir). Programı çalıştırıp resmi sürüklerken ekran görüntüsünü aşağıdaki
+(<a class="reference internal" href="#resimgosterici2img"><span class="std std-numref">Şekil 8.2</span></a>) gibi aldım.</p>
+<div class="figure" id="id2">
+<span id="resimgosterici2img"></span><img alt="_images/resimGosterici2Img.png" src="_images/resimGosterici2Img.png" />
+<p class="caption"><span class="caption-number">Şekil 8.2 </span><span class="caption-text">Basit Resim Gösterici (kaydırırken)</span></p>
+</div>
+<p>Bir klasördeki resimleri dosyaların uzantılarına bakarak belirlemek deyim yerinde ise amele işi (burada ameleleri
+küçümsemek gibi bir niyetimin olmadığını belirteyim), çünkü onlarda resim formatı var.
+Bunun yerine bir dosyanın resim olup olmadığını, Python&#8217;un <code class="docutils literal"><span class="pre">imghdr</span></code> modülünü kullanarak anlayabiliriz. Bu modülün
+<code class="docutils literal"><span class="pre">what</span></code> özelliği resim dosyasının tipini döndürür. Dosya resim değil ise hiçbirşey döndürmez. O Halde programımızı
+<a class="reference internal" href="#regimgosterici-main3"><span class="std std-numref">Liste 8.4</span></a>&#8216;deki gibi güncelleyebiliriz.</p>
+<div class="literal-block-wrapper container" id="regimgosterici-main3">
+<div class="code-block-caption"><span class="caption-number">Liste 8.4 </span><span class="caption-text">main.py</span><a class="headerlink" href="#regimgosterici-main3" title="Bu kodun kalıcı bağlantısı">¶</a></div>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">imghdr</span>
+<span class="kn">from</span> <span class="nn">kivy.app</span> <span class="kn">import</span> <span class="n">App</span>
+<span class="kn">from</span> <span class="nn">kivy.uix.image</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="k">class</span> <span class="nc">resimGosterici</span><span class="p">(</span><span class="n">App</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">son_patika</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">dosya</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">son_patika</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">imghdr</span><span class="o">.</span><span class="n">what</span><span class="p">(</span><span class="n">dosya</span><span class="p">):</span>
+                <span class="n">resim</span><span class="o">=</span><span class="n">Image</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">dosya</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">karinca</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">resim</span><span class="p">)</span>
+
+<span class="n">resimGosterici</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>Programın 2. satırında <code class="docutils literal"><span class="pre">imghdr</span></code> modülünü içerdiğimize dikkat edin.</p>
+<p>Atlıkarıncaya resimleri <code class="docutils literal"><span class="pre">build()</span></code> altında eklemek mantıklı olmayacaktır. Çünkü ilerde çeşitli yollarla resim ekleyeceğiz
+her seferinde aynı işlemleri yapmamız gerekecek. Bunun yerine bir işlev yazalım ve resimleri orada ekleyelim. İşlevimiz
+kendisine bir liste halinde gelen dosyaları atlıkarıncaya eklesin. Eğer resimler programın çalıştığı dizin değil de
+(muhtemel olmayacak) başka bir yerde ise o zaman resimlerin tam patikasını vermek gerekecek.
+Bunu <a class="reference internal" href="#regimgosterici-main4"><span class="std std-numref">Liste 8.5</span></a>&#8216;&#8217;de 17. satırda kolayca yaptık.</p>
+<div class="literal-block-wrapper container" id="regimgosterici-main4">
+<div class="code-block-caption"><span class="caption-number">Liste 8.5 </span><span class="caption-text">main.py</span><a class="headerlink" href="#regimgosterici-main4" title="Bu kodun kalıcı bağlantısı">¶</a></div>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">imghdr</span>
+<span class="kn">from</span> <span class="nn">kivy.app</span> <span class="kn">import</span> <span class="n">App</span>
+<span class="kn">from</span> <span class="nn">kivy.uix.image</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="k">class</span> <span class="nc">resimGosterici</span><span class="p">(</span><span class="n">App</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">resimleriEkle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dosyalar</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">karinca</span><span class="o">.</span><span class="n">clear_widgets</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">dosya</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">dosya</span> <span class="ow">in</span> <span class="n">dosyalar</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">imghdr</span><span class="o">.</span><span class="n">what</span><span class="p">(</span><span class="n">dosya</span><span class="p">):</span>
+                    <span class="n">resim</span><span class="o">=</span><span class="n">Image</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">dosya</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">karinca</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">resim</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">son_patika</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+        <span class="n">dosyalar</span><span class="o">=</span><span class="p">[</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">son_patika</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">son_patika</span><span class="p">)</span> <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resimleriEkle</span><span class="p">(</span><span class="n">dosyalar</span><span class="p">)</span>
+
+<span class="n">resimGosterici</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>Burada <code class="docutils literal"><span class="pre">resimleriEkle()</span></code> işlevinde kullandığımız atlıkarıncanın <span class="target" id="index-6"></span>clear_widgets özelliği, daha önce eklenmiş tüm
+nesneleri (burada resimler) temizlemek içindir. Bu satırı yazmadığımız taktirde önceki resimler de görünecektir. Ayrıca,
+<code class="docutils literal"><span class="pre">os.path.isfile(dosya)</span></code> kontrolü ile, seçilen klasörde bir başka lat klasör var ise, buna ait resim tipi kontrolünün
+yapılmamasını sağladık.</p>
+<p>Burada 19. satırı şu şekilde de yazabilirdiniz:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">dosyalar</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">son_patika</span><span class="p">):</span>
+    <span class="n">dosyalar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">son_patika</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Önceki yazdığımız daha kısa olmalı.</p>
+</div>
+<div class="section" id="klasoru-secme">
+<h3>8.2.2. Klasörü Seçme<a class="headerlink" href="#klasoru-secme" title="Bu başlığın kalıcı bağlantısı">¶</a></h3>
+<p>Resimler çoğu zaman, önceden belirlenen bir klasör yerine, kullanıcının programı çalıştırdıktan
+sonra seçeceği bir klasörde bulunacaktır. Bunu daha önce <a class="reference internal" href="metinDuzenleyici.html#metinduzenleyicibolumu"><span class="std std-ref">Metin Düzenleyici</span></a> &#8216;de yapmıştık.
+Bunun için <cite>FileChooserListView`</cite> i kullanabiliriz. Fakat burada bir değişiklik yapalım ve <cite>index:`FileChooserIconView</cite>
+kullanalım. İkisinin de kullanımı benzer, sadece görüntüleri farklı. <code class="docutils literal"><span class="pre">FileChooserIconView</span></code> dosya ve klasörleri
+görüntülerken liste, değil simgelerle göstermektedir. Bu grafik parçacığını <code class="docutils literal"><span class="pre">kv</span></code> dosyasındaki bir form içerisinde
+kullanacağız. İlk olarak <a class="reference internal" href="#regimgosterici-kv1"><span class="std std-numref">Liste 8.2</span></a> daki <code class="docutils literal"><span class="pre">resimgosterici.kv</span></code> dosyasına aşağıdaki kodları ekleyin:</p>
+<div class="literal-block-wrapper container" id="regimgosterici-acform">
+<div class="code-block-caption"><span class="caption-number">Liste 8.6 </span><span class="caption-text">acForm</span><a class="headerlink" href="#regimgosterici-acform" title="Bu kodun kalıcı bağlantısı">¶</a></div>
+<div class="highlight-default"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="highlight"><pre><span class="o">&lt;</span><span class="n">acForm</span><span class="o">&gt;</span><span class="p">:</span>
+    <span class="n">title</span><span class="p">:</span> <span class="s">&quot;Klasör/Dosya Aç&quot;</span>
+    <span class="n">size_hint</span><span class="p">:</span> <span class="p">(</span><span class="o">.</span><span class="mi">9</span><span class="p">,</span> <span class="o">.</span><span class="mi">9</span><span class="p">)</span>
+
+    <span class="n">BoxLayout</span><span class="p">:</span>
+        <span class="n">orientation</span><span class="p">:</span> <span class="s">&#39;vertical&#39;</span>
+
+        <span class="n">FileChooserIconView</span><span class="p">:</span>
+            <span class="n">size_hint_y</span><span class="p">:</span> <span class="mi">90</span>
+            <span class="nb">id</span><span class="p">:</span> <span class="n">dosya_secim</span>
+            <span class="n">filters</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;*.*&#39;</span><span class="p">]</span>
+            <span class="n">path</span><span class="p">:</span> <span class="n">app</span><span class="o">.</span><span class="n">son_patika</span>
+            <span class="n">multiselect</span><span class="p">:</span> <span class="k">True</span>
+
+        <span class="n">BoxLayout</span><span class="p">:</span>
+            <span class="n">size_hint_y</span><span class="p">:</span> <span class="mi">10</span>
+            <span class="n">Button</span><span class="p">:</span>
+                <span class="n">text</span><span class="p">:</span> <span class="s">&quot;Seçilenleri Aç&quot;</span>
+                <span class="n">on_press</span><span class="p">:</span> <span class="n">app</span><span class="o">.</span><span class="n">secilenResimler</span><span class="p">(</span><span class="n">root</span><span class="p">);</span> <span class="n">root</span><span class="o">.</span><span class="n">dismiss</span><span class="p">()</span>
+            <span class="n">Button</span><span class="p">:</span>
+                <span class="n">text</span><span class="p">:</span> <span class="s">&quot;Tüm Resimler&quot;</span>
+                <span class="n">on_press</span><span class="p">:</span> <span class="n">app</span><span class="o">.</span><span class="n">tumResimler</span><span class="p">(</span><span class="n">root</span><span class="p">);</span> <span class="n">root</span><span class="o">.</span><span class="n">dismiss</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>Burada farklı olarak <span class="target" id="index-7"></span>multiselect özelliğinin değerini <code class="docutils literal"><span class="pre">True</span></code> yaptığımızı görüyorsunuz. Bu, kullanıcının
+birden fazla dosyayı seçebilmesine olanak tanıyacaktır. Bu <code class="docutils literal"><span class="pre">kv</span></code> formunu kullanacak sınıfı tanımlamak gerekiyor. Bunu <code class="docutils literal"><span class="pre">class</span> <span class="pre">resimGosterici(App)</span></code> satırından önce aşağıdaki
+kodları ekleyerek yapabiliriz:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="k">class</span> <span class="nc">acForm</span><span class="p">(</span><span class="n">Popup</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">main.py</span></code> programında bu sınıfı tanımlamadan önce aşağıdaki gibi <code class="docutils literal"><span class="pre">Popup</span></code>&#8216;ı içermeyi unutmayın.</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">kivy.uix.popup</span> <span class="k">import</span> <span class="n">Popup</span>
+</pre></div>
+</div>
+<p>Yeni formumuzu açabilmek için ana pencerede bir düğme koymalıyız, ki bu formu açsın. Bunu <code class="docutils literal"><span class="pre">resimgosterici.kv</span></code>
+dosyasındaki <code class="docutils literal"><span class="pre">resimGosterici</span></code> formunu aşağıdaki gibi düzenleyerek yapabiliriz:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="o">&lt;</span><span class="n">resimGosterici</span><span class="o">&gt;</span><span class="p">:</span>
+<span class="n">BoxLayout</span><span class="p">:</span>
+    <span class="n">orientation</span><span class="p">:</span> <span class="s">&quot;vertical&quot;</span>
+    <span class="n">Carousel</span><span class="p">:</span>
+        <span class="n">size_hint_y</span><span class="p">:</span> <span class="mi">90</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="n">karinca</span>
+
+    <span class="n">BoxLayout</span><span class="p">:</span>
+        <span class="n">size_hint_y</span><span class="p">:</span> <span class="mi">10</span>
+        <span class="n">Button</span><span class="p">:</span>
+            <span class="n">text</span><span class="p">:</span> <span class="s">&quot;Aç&quot;</span>
+            <span class="n">on_press</span><span class="p">:</span> <span class="n">app</span><span class="o">.</span><span class="n">klasorAc</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Buarada <code class="docutils literal"><span class="pre">klasorAc()</span></code> işlevi ile <code class="docutils literal"><span class="pre">acForm</span></code>&#8216;u açacağız. İkinci bir <code class="docutils literal"><span class="pre">BoxLayout</span></code> eklememizin nedeni ilerde başka
+düğmeleri de koyacağımızdır. Önce düğmeye tıklandığında formun açılabilmesi için <code class="docutils literal"><span class="pre">build()</span></code> den önce aşağıdaki
+işlevi yazalım:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="k">def</span> <span class="nf">klasorAc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">form</span><span class="o">=</span><span class="n">acForm</span><span class="p">()</span>
+    <span class="n">form</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Ana penceredeki &#8220;Aç&#8221; düğmesine tıklandığında <a class="reference internal" href="#resimgosterici12mg"><span class="std std-numref">Şekil 8.3</span></a>&#8216;deki gibi açılacaktır.</p>
+<div class="figure" id="id3">
+<span id="resimgosterici12mg"></span><img alt="_images/resimGosterici2Img1.png" src="_images/resimGosterici2Img1.png" />
+<p class="caption"><span class="caption-number">Şekil 8.3 </span><span class="caption-text">Dosya veya Klasör Seçimi</span></p>
+</div>
+<p>Önce tüm resimleri gösterebilmesi için , <code class="docutils literal"><span class="pre">tumResimler()</span></code> işlevini yazalım. Aşağıdaki işlevi <code class="docutils literal"><span class="pre">build()</span></code> den hemen önce yazın:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="k">def</span> <span class="nf">tumResimler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kok</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">son_patika</span><span class="o">=</span><span class="n">kok</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">dosya_secim</span><span class="o">.</span><span class="n">path</span>
+    <span class="n">dosyalar</span><span class="o">=</span><span class="p">[</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">son_patika</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">son_patika</span><span class="p">)</span> <span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">resimleriEkle</span><span class="p">(</span><span class="n">dosyalar</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Sanırım bu işlevdeki her satır sizin için anlaşılır. Yaptığımız tek şey <code class="docutils literal"><span class="pre">son_patika</span></code> değişkenine, <code class="docutils literal"><span class="pre">FileChooserIconView</span></code> nesnesinden
+<code class="docutils literal"><span class="pre">dosya_secim.path</span></code> değerini atamak oldu. Eğer bir resmi tüm tuvale <span class="target" id="index-8"></span>genişletmek istiyorsanız, resim nesnesinin <span class="target" id="index-9"></span>allow_stretch
+özelliğini <code class="docutils literal"><span class="pre">True</span></code> yapmalısınız. Bunu yaptığınızda <span class="target" id="index-10"></span>en-boy oranı yine de korunacaktır. En-boy oranının da tuval&#8217;e eşitlenmesiniz
+istiyorsanız resim nesnesinin <span class="target" id="index-11"></span>keep_ratio özelliğini <code class="docutils literal"><span class="pre">False</span></code> yapmanız gerekmektedir. Bunlar için <code class="docutils literal"><span class="pre">resimleriEkle()</span></code>
+işlevindeki <code class="docutils literal"><span class="pre">resim=Image(source=dosya)</span></code> satırından sonra şu satırları ekleyebilirsiniz:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">resim</span><span class="o">.</span><span class="n">allow_stretch</span><span class="o">=</span><span class="k">True</span>
+<span class="n">resim</span><span class="o">.</span><span class="n">keep_ratio</span><span class="o">=</span><span class="k">False</span>
+</pre></div>
+</div>
+<p>Bu satırları eklediğimizde açılan resimler tüm tuval&#8217;i kaplayacaktır. Şimdide sadece seçilen resimleri göstermek üzere
+<code class="docutils literal"><span class="pre">secilenResimler()</span></code> işlevini yazalım. Aşağıdaki işlevi <code class="docutils literal"><span class="pre">build()</span></code> den hemen önce yazalım:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="k">def</span> <span class="nf">secilenResimler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kok</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">son_patika</span><span class="o">=</span><span class="n">kok</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">dosya_secim</span><span class="o">.</span><span class="n">path</span>
+    <span class="n">dosyalar</span><span class="o">=</span><span class="n">kok</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">dosya_secim</span><span class="o">.</span><span class="n">selection</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">resimleriEkle</span><span class="p">(</span><span class="n">dosyalar</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Öncekinden daha kolay oldu, sadece <code class="docutils literal"><span class="pre">son_patika</span></code> yı belirlemek ve dosyaları almak oldu. Dikkat edersenin seçilen dosyalar ile
+patikayı birleştirmedik, çünkü <code class="docutils literal"><span class="pre">FileChooser</span></code> nesnesi seçilen dosyayı patikası ile birlikte verir.</p>
+<p>Programımız burada bitti, ancak kullanıcların istekler sonsuzdur. Bir programı yazmaya başlarken sadece temel ihtiyaçları
+göz önünde bulundurarak başlarız. Sonra aklımıza gelen eklentileri ya da kullanıcıların uygulanabilir makul isteklerini
+ekleriz. Şöyle bir şey aklımıza gelse &#8220;Slay gösterisi&#8221;. Gelin şimdi bunu yapalım.</p>
+</div>
+</div>
+<div class="section" id="zamanlayici-ve-slayt-gosterisi">
+<h2>8.3. Zamanlayıcı ve Slayt Gösterisi<a class="headerlink" href="#zamanlayici-ve-slayt-gosterisi" title="Bu başlığın kalıcı bağlantısı">¶</a></h2>
+<p>Slayt gösterisini yapabilmek için, <span class="target" id="index-12"></span>zamanlayıcı ya (<span class="target" id="index-13"></span>timer) ihtiyacımız var. Neden mi? Eğer resimler arası
+geçiş zamanını <code class="docutils literal"><span class="pre">time.sleep()</span></code> ile ayarlarsanız, döngü bitene kadar program ile etkileşim yapılamaz. Bu nedenle zamanlayıcıya
+ihtiyacımız var. Zamanlayıcıyı program içerisinde çalışan bir saat olarak düşünebilirsiniz. Bu saat her tık atışında bir işlevi
+çağırır ve sizde bu işlevde yapılması gerekenleri kodlarsınız. Öncelikle ekranın en altına slayt gösterisini başlatıp
+durdurabileceğimiz bir düğme ekleyelim. Bunu <code class="docutils literal"><span class="pre">kv</span></code> dosyasındaki <code class="docutils literal"><span class="pre">&lt;resimGosterici&gt;</span></code> formunun altındaki <code class="docutils literal"><span class="pre">BoxLayout</span></code> düzenine
+aşağıdaki satırları ekleyerek yapabiliriz:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">Button</span><span class="p">:</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="n">slyat_dugme</span>
+    <span class="n">text</span><span class="p">:</span> <span class="s">&quot;Slaytı Başlat&quot;</span>
+    <span class="n">on_press</span><span class="p">:</span> <span class="n">app</span><span class="o">.</span><span class="n">slaytGosterisi</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Eğer hiç resim yüklenmediyse, bu düğmeyi pasifleştirmek gerekir. Kivy&#8217;de bir nesneyi <span class="target" id="index-14"></span>pasifleştirmek için <code class="docutils literal"><span class="pre">disabled</span></code>
+özelliğine <code class="docutils literal"><span class="pre">Treu</span></code> ataması yaparız. Ön tanımlı olarak nesnelerin <code class="docutils literal"><span class="pre">disabled</span></code> özelliği <code class="docutils literal"><span class="pre">False</span></code> konumundadır.
+O halde öncelikle <code class="docutils literal"><span class="pre">build()</span></code> işlevinin en sonuna aşağıdaki satırı ekleyelim:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">slyat_dugme</span><span class="o">.</span><span class="n">disabled</span><span class="o">=</span><span class="k">True</span>
+</pre></div>
+</div>
+<p>Böylelikle, program başladığında atlıkarıncada hiç resim olmayacağından, diğme <span class="target" id="index-15"></span>etkin olmayacaktır.
+Bir de, <code class="docutils literal"><span class="pre">resimleriEkle()</span></code> işlevinin en altına aşağıdaki satırları eklemeliyiz:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">karinca</span><span class="o">.</span><span class="n">slides</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">slyat_dugme</span><span class="o">.</span><span class="n">disabled</span><span class="o">=</span><span class="k">False</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">slyat_dugme</span><span class="o">.</span><span class="n">disabled</span><span class="o">=</span><span class="k">True</span>
+</pre></div>
+</div>
+<p>Nedenini şöyle açıklayalım. Herhangi bir düğmeye tıklayarak, atlıkarıncaya resim eklenmişse, <code class="docutils literal"><span class="pre">self.root.ids.karinca.slides</span></code>
+değeri <code class="docutils literal"><span class="pre">None</span></code> dan farklı olacaktır ve düğme etkinleşecektir aksi halde düğme pasif olacaktır.</p>
+<p>Slayt gösterisi için zamanlayıcıya ihtiyacımız olduğunu söyledik, bunun için kivy modüllerini içerdiğimiz satırların sonuna
+şu satırı ekleyelim:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">kivy.clock</span> <span class="k">import</span> <span class="n">Clock</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">&lt;resimGosterici&gt;</span></code> formuna eklediğimiz <code class="docutils literal"><span class="pre">id</span></code> si <code class="docutils literal"><span class="pre">slyat_dugme</span></code> olan düğmeye tıklandığında <code class="docutils literal"><span class="pre">slaytGosterisi()</span></code>
+işlevi çağrılacaktır. Şim bunu <code class="docutils literal"><span class="pre">build()</span></code> den hemen önce şu şekilde yazalım:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="k">def</span> <span class="nf">slaytGosterisi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kok</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">kok</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">slyat_dugme</span><span class="o">.</span><span class="n">text</span><span class="o">==</span><span class="s">&quot;Slaytı Başlat&quot;</span><span class="p">:</span>
+        <span class="n">Clock</span><span class="o">.</span><span class="n">schedule_interval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zamanlayiciIslevi</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">kok</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">slyat_dugme</span><span class="o">.</span><span class="n">text</span><span class="o">=</span><span class="s">&quot;Slaytı Durdur&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">Clock</span><span class="o">.</span><span class="n">unschedule</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zamanlayiciIslevi</span><span class="p">)</span>
+        <span class="n">kok</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">slyat_dugme</span><span class="o">.</span><span class="n">text</span><span class="o">=</span><span class="s">&quot;Slaytı Başlat&quot;</span>
+</pre></div>
+</div>
+<p>Bu işleve başlarken, slayt gösterisi devam ediyor mu etmiyor mu onu kontrol ederek başladık. Bunu <code class="docutils literal"><span class="pre">slyat_dugme</span></code> nin üzerindeki
+metni kullanarak kontrol ettik. Eğer düğme metni &#8220;Slaytı Başlat&#8221; ise, slayt başlamamıştır ve bu blokta slaytı başlatıyoruz.
+Slaytı başlatmak için saatin (Clock) tik atış aralığını veriyoruz. Bunu <span class="target" id="index-16"></span>Clock nesnesinin <span class="target" id="index-17"></span>schedule_interval
+özelliği ile yaparız. Zamanlayıcı şu şekilde başlatılır:</p>
+<p><em>Clock.schedule_interval(islev, atis_zaman_araligi)</em></p>
+<p>Burada <em>islev</em> her tık attığında çağrılacak işlevi ve <em>zaman_araligi</em> tik aralıklarını saniye cinsinden ifade etmektedir.
+Programımızda her tık atışta <code class="docutils literal"><span class="pre">zamanlayiciIslevi()</span></code> çağrılacaktır. Tık aralıkları ise 1 saniye olarak verilmiştir.
+Zamanlayıcı (daha doğrusu slayt gösterisi) başladıktan sonra, <code class="docutils literal"><span class="pre">slyat_dugme</span></code> nin üzerindeki metni &#8220;Slaytı Durdur&#8221;
+olarak değiştiriyoruz. Böylelikle aynı düğme salytı hem başlatmak hem de durdurmak için kullanılıyor.</p>
+<p>Zamanlayıcı şu şekilde durdurulur:</p>
+<p><em>Clock.unschedule(islev)</em></p>
+<p>Zamanlayıcı ayrı işlevleri çağırmak için planlanabilir (schedule edilebilir) ve her seferinde <em>isev</em> ile <em>atis_zaman_araligi</em>
+farklı olabilir. Planlanmış bir zamanlayıcıyı durdurmak için <span class="target" id="index-18"></span>unschedule özelleğini kullanıyoruz.</p>
+<p>Buradan anlaşılacağı gibi slayt gösterisini yapacak işlevin çağrılmasını durdurmak için (planı bozmak için):
+<code class="docutils literal"><span class="pre">Clock.unschedule(self.zamanlayiciIslevi)</span></code> satırını kullandık ve hemen sonrasında <code class="docutils literal"><span class="pre">slyat_dugme</span></code> nin üzerindeki metni
+&#8220;Slaytı Başlat&#8221; yaptık.</p>
+<p>Şimdide salyat gösterini yapacak olan <code class="docutils literal"><span class="pre">zamanlayiciIslevi()</span></code> işlevini yazalım. Bu işlev zamanlayıcının her tik atışında
+çağrılacaktır. Her çağrılışta atlı karıncanın bir sonraki slaytını göstermesi gerekir. Atlıkarıncanın sonraki slaytı göstermesi
+için <span class="target" id="index-19"></span>load_next işevini kullanırız (önceki için <span class="target" id="index-20"></span>load_previous`). Zamanlayıcı işlevini <code class="docutils literal"><span class="pre">slaytGosterisi()</span></code> nden
+önce aşağıdaki gibi yazabiliriz:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="k">def</span> <span class="nf">zamanlayiciIslevi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">za</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">karinca</span><span class="o">.</span><span class="n">load_next</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Zamanlayıcı işlevi çağırırken ilk argüman olarak, iki tik atışltaki zaman aralığını verir (belki programcının bunu
+kullanmaya ihtiyacı olabilir), bunu işlevimizde <code class="docutils literal"><span class="pre">za</span></code> olarak aldık.</p>
+<p>Slayt gösterisi bittiğinde (en son resme gelindiğinde), sonraki resim gösterileyemecektir ve sürekli aynı resimde atlam olacaktır.
+Eğer atlıkarıncanın sonsuz döngüde (sona geldiğinde tekrar başa sarma) çalışmasını istiyorsanız <span class="target" id="index-21"></span>loop özelliğini <code class="docutils literal"><span class="pre">True</span></code>
+yapmalısınız. Programımızda <code class="docutils literal"><span class="pre">build()</span></code> işlevinin başına aşağıdaki satırı ekleyerek sonsuz döngüye sokmuş oluruz:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">karinca</span><span class="o">.</span><span class="n">loop</span><span class="o">=</span><span class="k">True</span>
+</pre></div>
+</div>
+<p>Son durumda programımızın penceresi <a class="reference internal" href="#resimgosterici5img"><span class="std std-numref">Şekil 8.4</span></a>&#8216;deki gibi açılacaktır.</p>
+<div class="figure" id="id4">
+<span id="resimgosterici5img"></span><img alt="_images/resimGosterici5Img.png" src="_images/resimGosterici5Img.png" />
+<p class="caption"><span class="caption-number">Şekil 8.4 </span><span class="caption-text">Slayt Gösterici</span></p>
+</div>
+<p>Anlattıklarımızı takip edemediyseniz, yada ben yaptıklarımı gözden kaçırıp eksik yazmışsam,
+bu bölümde anlattıklarımı yaptığım dosyaları şu adreslerden alabilirsiniz:</p>
+<p>main.py:             <a class="reference external" href="https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/5/main.py">https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/5/main.py</a></p>
+<p>metinduzenleyici.kv: <a class="reference external" href="https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/5/resimgosterici.kv">https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/5/resimgosterici.kv</a></p>
+</div>
+<div class="section" id="kronometre-uygulamasi">
+<h2>8.4. Kronometre Uygulaması<a class="headerlink" href="#kronometre-uygulamasi" title="Bu başlığın kalıcı bağlantısı">¶</a></h2>
+<p>Zamanlayıcı kullanarak bir <span class="target" id="index-22"></span>kronometre yapınız. Kronometrede iki düğme bulunmalıdır: <em>Başlat</em> ve <em>Sıfırla</em>
+<em>Başlat</em> düğmesine tıklanınca kronomtere başlayacak ve üzerindeki metin <em>Durdur</em> olacaktır. <em>Sıfırla</em> düğmesine
+tıklanınca kronometre sıfırlanacaktır. Kronometre tıklama aralığı 0.1 saniye (1 salise) olacaktır. Etiketteki metnin büyüklüğünü
+100 piksel yapınız. Bir etiketin yazıtipi büyüklüğünü <span class="target" id="index-23"></span>font_size özelliği ile ayarlayabilirsiniz. Kronometre
+sayaç görüntüsü <strong>dak:saniye.salise</strong> şeklinde olacaktır.</p>
+<p>Kronometreniz çalıştığında <a class="reference internal" href="#resimgosterici6img"><span class="std std-numref">Şekil 8.5</span></a>&#8216;deki gibi bir pencere olacaktır.</p>
+<div class="figure" id="id5">
+<span id="resimgosterici6img"></span><img alt="_images/kronometre1Img.png" src="_images/kronometre1Img.png" />
+<p class="caption"><span class="caption-number">Şekil 8.5 </span><span class="caption-text">Kronometre</span></p>
+</div>
+<p>Çözüm:</p>
+<p>main.py:       <a class="reference external" href="https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/kronometre/main.py">https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/kronometre/main.py</a></p>
+<p>kronometre.kv: <a class="reference external" href="https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/kronometre/kronometre.kv">https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/resimGosterici/kronometre/kronometre.kv</a></p>
+<blockquote>
+<div></div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Gezinti</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Genel Dizin"
+             >dizin</a></li>
+        <li class="right" >
+          <a href="listeEylem.html" title="9. Liste Görünümü ve Eylem Çubuğu"
+             >sonraki</a> |</li>
+        <li class="right" >
+          <a href="paketleme.html" title="7. Paketleme"
+             >önceki</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Kivy Mobil Programlama 0.1 belgelendirme çalışması</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Mustafa Başer.
+      <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5 ile oluşturulmuştur.
+    </div>
+  </body>
+</html>

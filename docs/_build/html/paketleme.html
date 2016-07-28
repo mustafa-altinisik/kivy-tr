@@ -1,0 +1,377 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="tr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>7. Paketleme &mdash; Kivy Mobil Programlama 0.1 belgelendirme çalışması</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="top" title="Kivy Mobil Programlama 0.1 belgelendirme çalışması" href="index.html" />
+    <link rel="next" title="8. Atlıkarınca ve Resim Gösterici" href="resimGosterici.html" />
+    <link rel="prev" title="6. Metin Düzenleyici" href="metinDuzenleyici.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Gezinti</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Genel Dizin"
+             accesskey="I">dizin</a></li>
+        <li class="right" >
+          <a href="resimGosterici.html" title="8. Atlıkarınca ve Resim Gösterici"
+             accesskey="N">sonraki</a> |</li>
+        <li class="right" >
+          <a href="metinDuzenleyici.html" title="6. Metin Düzenleyici"
+             accesskey="P">önceki</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Kivy Mobil Programlama 0.1 belgelendirme çalışması</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">İçindekiler Tablosu</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">7. Paketleme</a><ul>
+<li><a class="reference internal" href="#buildozer-kurulumu">7.1. Buildozer Kurulumu</a></li>
+<li><a class="reference internal" href="#paket-derleme">7.2. Paket Derleme</a></li>
+<li><a class="reference internal" href="#imzalama">7.3. İmzalama</a><ul>
+<li><a class="reference internal" href="#anahtar-olusturma">7.3.1. Anahtar Oluşturma</a></li>
+<li><a class="reference internal" href="#id2">7.3.2. İmzalama</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sanal-linux-makina">7.4. Sanal Linux Makina</a><ul>
+<li><a class="reference internal" href="#virtualbox-kurulumu">7.4.1. VirtualBox kurulumu</a></li>
+<li><a class="reference internal" href="#sanal-makina-olusturma">7.4.2. Sanal Makina Oluşturma</a></li>
+<li><a class="reference internal" href="#paylasim-acma">7.4.3. Paylaşım Açma</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Önceki konu</h4>
+  <p class="topless"><a href="metinDuzenleyici.html"
+                        title="önceki bölüm">6. Metin Düzenleyici</a></p>
+  <h4>Sonraki konu</h4>
+  <p class="topless"><a href="resimGosterici.html"
+                        title="sonraki bölüm">8. Atlıkarınca ve Resim Gösterici</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Bu Sayfa</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/paketleme.txt"
+            rel="nofollow">Kaynağı Göster</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Hızlı Arama</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Git" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="paketleme">
+<span id="id1"></span><h1>7. Paketleme<a class="headerlink" href="#paketleme" title="Bu başlığın kalıcı bağlantısı">¶</a></h1>
+<p>Bu bölümde hazırlanan Kivy programının Android paketi haline getirilmesi anlatılacaktır.</p>
+<div class="section" id="buildozer-kurulumu">
+<h2>7.1. <span class="target" id="index-0"></span>Buildozer Kurulumu<a class="headerlink" href="#buildozer-kurulumu" title="Bu başlığın kalıcı bağlantısı">¶</a></h2>
+<p>Kivy programlarını paketlemenin en kolay yolu Buildozer kullanmaktır. Ne yazıkki Buildozer şimdilik sadece Linux&#8217;ta çalışmaktadır.
+Windows kullanıcıları için VirtualBox üzerinde Sanal Linux Makina disk görüntüsü hazırlanmıştır. Windows kullanıcıları belkide çoğu
+Linux kullanıcıları <a class="reference internal" href="#sanallinux"><span class="std std-ref">Sanal Linux Makina</span></a> bölümünde anlatılanları yapabilirler.</p>
+<p>Burada sadece Debian Jessie&#8217;de (8.3) nasıl kurulacağını anlatacağız.
+Sisteminizde <code class="docutils literal"><span class="pre">git</span></code> kurulu değilse:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> apt-get install git
+</pre></div>
+</div>
+<p>Yazılım havuzundan indirelim:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> git clone https://github.com/kivy/buildozer.git
+</pre></div>
+</div>
+<p>Kurulumu gerçekleştirelim:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> <span class="nb">cd </span>buildozer
+<span class="gp">#</span> python setup.py install
+</pre></div>
+</div>
+<p>Eğer sisteminizde eksik paket var ise, size hangilerinin eksik olduğu bildirilecektir. Bu kurulum yeni kurulmuş  Debian Jessie&#8217;de (8.3) de
+denenmiştir. İleriki zamanlarda buildozer debian paketi çıkarsa daha kolay kurulum gerçekleştirilebilir.</p>
+<p>Muhtemelen sisteminizde zlib1g-dev ve Cython kurulu olmayacak:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> apt-get install zlib1g-dev
+<span class="gp">#</span> apt-get install cython
+</pre></div>
+</div>
+<p>Henüz Java derleyicisini kurmamış iseniz:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> apt-get install gcj-jdk
+</pre></div>
+</div>
+<p>Buildozer&#8217;in paketleyebilmesi için 32 bit kütüphanelere ihtiyacı olacak. Şu şekilde kurabilirsiniz:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> dpkg --add-architecture i386
+<span class="gp">#</span> apt-get update
+<span class="gp">#</span> apt-get install build-essential ccache lib32z1 libncurses5:i386 libstdc++6:i386 openjdk-7-jdk unzip zlib1g:i386
+</pre></div>
+</div>
+<p>Tüm bu anlattıklarımı, VirtualBox üzerinde bir sanal makinada yaptım ve disk görüntüsünü</p>
+<p>kullanımınız için aşağıdaki adrese koydum:</p>
+<p><a class="reference external" href="https://docs.google.com/uc?export=download&amp;confirm=Ser1&amp;id=0B3-o4L3R6zHvOE9OdDBCUmhLZ0E">https://docs.google.com/uc?export=download&amp;confirm=Ser1&amp;id=0B3-o4L3R6zHvOE9OdDBCUmhLZ0E</a></p>
+<p>Sizin tek yapmanız gereken yapmanız gereken <a class="reference internal" href="#sanallinux"><span class="std std-ref">Sanal Linux Makina</span></a>&#8216;de anlatılan VirtualBox&#8217;u kurmak.</p>
+</div>
+<div class="section" id="paket-derleme">
+<span id="paketlemekismi"></span><h2>7.2. Paket Derleme<a class="headerlink" href="#paket-derleme" title="Bu başlığın kalıcı bağlantısı">¶</a></h2>
+<p>Paket haline getirmek için önce başlatalım:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> buildozer init
+</pre></div>
+</div>
+<p>Daha sonra buildozer.spec dosyasını düzenleyelim. Ben sadece aşağıdaki değişiklikleri yaptım:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="c"># (str) Title of your application</span>
+<span class="n">title</span> <span class="o">=</span> <span class="n">Kivy</span> <span class="n">Metin</span> <span class="n">Duzenleyici</span>
+
+<span class="c"># (str) Package name</span>
+<span class="n">package</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">kiviymetinduzenleyici</span>
+</pre></div>
+</div>
+<p>Şimdi de sıra paketlemeye geldi:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> buildozer android release
+</pre></div>
+</div>
+<p>Şu şekilde başlaması gerekiyor:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="c"># Check configuration tokens</span>
+<span class="c"># Ensure build layout</span>
+<span class="c"># Check configuration tokens</span>
+<span class="c"># Preparing build</span>
+<span class="c"># Check requirements for android</span>
+<span class="c"># Install platform</span>
+<span class="o">....</span>
+</pre></div>
+</div>
+<p>İlk kez paketleme yapıyorsanız, ANT, SDK, NDK indirilecektir. Lütefn sabırlı olun. Daha sonra paketleme işlemi yapılacaktır. Benim
+sanal makinamda bu işlem 10 dakikadan fazla sürmektedir. Şu şekilde sonlanması gerekir:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="c"># Android packages installation done.</span>
+<span class="c"># Check application requirements</span>
+<span class="c"># Check garden requirements</span>
+<span class="c"># Compile platform</span>
+<span class="c"># Distribution compiled.</span>
+<span class="c"># Build the application #1</span>
+<span class="c"># Package the application</span>
+<span class="c"># Android packaging done!</span>
+<span class="c"># APK KivyMetinDuzenleyici-0.1-release-unsigned.apk available in the bin directory</span>
+</pre></div>
+</div>
+<p>Derlenen dosya, derlemeyi başlattığınız klasörün içerisinde oluşturulan <code class="docutils literal"><span class="pre">bin</span></code> klasörüne
+kaydedilmiştir. Bu dosyayı Android cihaza kurmadan önce imzalamanız gerekmektedir.</p>
+</div>
+<div class="section" id="imzalama">
+<h2>7.3. İmzalama<a class="headerlink" href="#imzalama" title="Bu başlığın kalıcı bağlantısı">¶</a></h2>
+<p>Paketinizi kurmadan önce imzalamanız gerekir. Bunun en kolay yolu <a class="reference external" href="http://shatter-box.com/download/android/apk-signer-1.8.5.zip">apk-signer</a>
+kullanmaktdır. Programı indirdikten sonra zip paketini açın çalıştırın. Tarafımdan hazırlanan Sanal Linux Makina  kullanıyorsanız, masaüstünde <cite>apk-signer</cite>
+simgesi üzerine tıklayın.</p>
+<div class="section" id="anahtar-olusturma">
+<h3>7.3.1. Anahtar Oluşturma<a class="headerlink" href="#anahtar-olusturma" title="Bu başlığın kalıcı bağlantısı">¶</a></h3>
+<p>Önce anahtar oluşturacağız (<a class="reference internal" href="#sanallinux"><span class="std std-ref">Sanal Linux Makina</span></a> kullananlar için <cite>kivy</cite> ev klasöründe bir tane anahtar mevcut). Programınız çalıştığında <em>Key Generator</em>
+sekmesinde olacaktır. Bu sekmede iken ilk yapacağınız anhtarınızı kaydedeceğiniz dosyayı belirlemek. Bu amaçla <em>[ Save as... ]</em> düğmesine tıklayın.
+Anahtarınızı kaydedeceğiniz klasörü seçin (bizdeki örnekte <cite>/home/kivy</cite>) ve dosya adını yazın (biz <cite>benim</cite> yazdık). Yaptıklarımız
+<a class="reference internal" href="#anahtardosyasiimg"><span class="std std-numref">Şekil 7.1</span></a> görünmektedir.</p>
+<div class="figure" id="id3">
+<span id="anahtardosyasiimg"></span><img alt="_images/anahtarDosyasi.png" src="_images/anahtarDosyasi.png" />
+<p class="caption"><span class="caption-number">Şekil 7.1 </span><span class="caption-text">Anahtar Dosyası</span></p>
+</div>
+<p>Daha sonra gerekli bilgileri doldurun. <em>Password</em> ve <em>Confirm</em> alanlarına aynı parolayı girin (en az 8 karakter). Bizim örneğimizde
+<cite>kivy123</cite> girdik. Bir <em>Alias</em> belirleyin, biz <cite>Kivy</cite> yaptık. Alias&#8217;ınız için yine parola (<em>Alias password</em> ve <em>Confirm</em> alanlarına)
+girin. Biz yine <cite>kivy123</cite> girdik. Bu parolaları unutmayın, çünkü bundan sonra imzalayacağınız her pakette kullanacaksınız. Diğer
+alanları istediğiniz gibi doldurun. <a class="reference internal" href="#anahtardosyasiimg"><span class="std std-numref">Şekil 7.1</span></a>&#8216;de oluşturduğumuz anahtar için bilgilerin girilmiş hali görünmektedir.</p>
+<div class="figure" id="id4">
+<span id="anhatarolusturmaimg"></span><img alt="_images/anahtarOlusturma.png" src="_images/anahtarOlusturma.png" />
+<p class="caption"><span class="caption-number">Şekil 7.2 </span><span class="caption-text">Anahtar Oluşturma</span></p>
+</div>
+<p><em>Generete Keyfile</em> düğmesine tıklayarak anahtarınızı oluşturun.</p>
+</div>
+<div class="section" id="id2">
+<h3>7.3.2. İmzalama<a class="headerlink" href="#id2" title="Bu başlığın kalıcı bağlantısı">¶</a></h3>
+<p>Anahtarınızı (aslına imzanız) oluşturduktan hemen sonra paketinizi imzalayabilirsiniz. Bunun için <em>Signer</em> sekmesine geçin.
+Önce <em>[ Load Keyfile... ]</em> düğmesine tıklayarak, oluşturduğunuz anahtarı seçin. Eğer oluştruruken yukarıdaki gibi <cite>benim</cite>
+yazmışsanız, ev dizininizde <cite>benim.keystroke</cite> dosyasını seçin. Bu imzanın parolasını <em>Password</em> alanına yazın. Bir Alias seçin
+(yukarıda <cite>Kivy</cite> yazdık) ve bunun parolasını <em>Alias password</em> alanına girin. <em>[ Load target file... ]</em> düğmesine tıklayın. Açılan
+pencerede imzalamak istediğiniz paketi seçin, biz Kivy Metin Düzenleyici&#8217;yi derlemiştik onu seçiyoruz (<cite>MetinDuzenleyici/bin/
+KivyMetinDuzenleyici-0.1-release-unsigned.apk</cite>). Yaptıklarımız <a class="reference internal" href="#imzalamaimg"><span class="std std-numref">Şekil 7.3</span></a>&#8216;de görünmektedir.</p>
+<div class="figure" id="id5">
+<span id="imzalamaimg"></span><img alt="_images/imzalama.png" src="_images/imzalama.png" />
+<p class="caption"><span class="caption-number">Şekil 7.3 </span><span class="caption-text">APK Paketini imzalama</span></p>
+</div>
+<p>Son olarak <em>Sign</em> düğmesine tıklayın. Şimdi <cite>MetinDuzenleyici/bin/KivyMetinDuzenleyici-0.1-release-SIGNED_UNALIGNED.apk</cite>
+dosyasını bir Android cihaza kurabilirsiniz.</p>
+</div>
+</div>
+<div class="section" id="sanal-linux-makina">
+<span id="sanallinux"></span><h2>7.4. Sanal Linux Makina<a class="headerlink" href="#sanal-linux-makina" title="Bu başlığın kalıcı bağlantısı">¶</a></h2>
+<p>Windows kullanıcıları için Linux&#8217;u ve diğer paketleri kurmadan (epeyce zahmetli bir iş), programlarını apk haline getirebilecekleri
+bir sanal makina disk görüntüsü hazırlanmış
+<a class="reference external" href="https://docs.google.com/uc?export=download&amp;confirm=Ser1&amp;id=0B3-o4L3R6zHvOE9OdDBCUmhLZ0E">https://docs.google.com/uc?export=download&amp;confirm=Ser1&amp;id=0B3-o4L3R6zHvOE9OdDBCUmhLZ0E</a>
+adresine konulmuştur. Bu dosyayı indirin ve bir arşiv programı ile (örneğin winrar) masaüstüne açın.</p>
+<p>Sanal makine disk görüntüsü Oracle VirtualBox 5.0.16 r105871
+sürümü ile hazırlanmıştır. Kullanıcılar mutlaka bu sürümü indirmelidir. Diğer sürümlerde windows-linux bağlantısı
+sağlanamayabilir ve ana makinanızın dosyalarına erişiminiz olamayabilir.</p>
+<div class="section" id="virtualbox-kurulumu">
+<h3>7.4.1. VirtualBox kurulumu<a class="headerlink" href="#virtualbox-kurulumu" title="Bu başlığın kalıcı bağlantısı">¶</a></h3>
+<p><a class="reference external" href="https://www.virtualbox.org/wiki/Download_Old_Builds_5_0">https://www.virtualbox.org/wiki/Download_Old_Builds_5_0</a> adresinden 5.016 sürümünü indirin ve
+inen dosya üzerine çift tıklayın. Birkaç “Next” düğmesine tıkladıktan sonra “Install” düğmesine
+tıklayın. Size uyarı “Bu aygıt yazılımını ....” uyarısını verdiğinde “Yükle” düğmesine tıklayın.</p>
+</div>
+<div class="section" id="sanal-makina-olusturma">
+<h3>7.4.2. Sanal Makina Oluşturma<a class="headerlink" href="#sanal-makina-olusturma" title="Bu başlığın kalıcı bağlantısı">¶</a></h3>
+<p>Vitrualbox açıldığında yeni bir sanal Makine oluşturmak için sol üst köşedeki “Yeni”
+düğmesine tıklayın. Açılan pencerede “Adı” alanına istediğiniz bir isim yazın,
+ben kivy yazmayı tercih ettim. Türü “Linux”, Sürüm “Debian (32-bit)” seçin (<a class="reference internal" href="#vb-1img"><span class="std std-numref">Şekil 7.4</span></a>&#8216;de)</p>
+<div class="figure" id="id6">
+<span id="vb-1img"></span><img alt="_images/vb_1.png" src="_images/vb_1.png" />
+<p class="caption"><span class="caption-number">Şekil 7.4 </span><span class="caption-text">Makina mimarisi seçimi</span></p>
+</div>
+<p>“İleri” düğmesine tıkladığınzda sanal makine için ayıracağınız belleği seçmeniz gerekmektedir.
+Her ne kadar 768MB önerilse de, 1024MB’den daha fazla bir bellek ayırmaya çalışın.
+Ben genelde 1536MB (1.5GB) ayrımayı tercih ediyorum (<a class="reference internal" href="#vb-2img"><span class="std std-numref">Şekil 7.5</span></a>&#8216;de):</p>
+<div class="figure" id="id7">
+<span id="vb-2img"></span><img alt="_images/vb_2.png" src="_images/vb_2.png" />
+<p class="caption"><span class="caption-number">Şekil 7.5 </span><span class="caption-text">Sanal makinenin belleğini belirleme</span></p>
+</div>
+<p>“İleri” düğmesine tıkladığınızda sanal makinanın kullanacağı disk görüntüsünü belirleyeceğiniz
+pencere gelecektir. Burada “Var olan sanal bir sdabit disk dosyası kullan” seçeneğini seçip,
+<a class="reference internal" href="_images/vb_dc.png"><img alt="mysdc" src="_images/vb_dc.png" style="width: 20pt; height: 20pt;" /></a> simgesine tıklayın ve daha önce indirip açtığınız <code class="docutils literal"><span class="pre">deb-i386.vdi</span></code>
+dosyasını seçin (<a class="reference internal" href="#vb-3img"><span class="std std-numref">Şekil 7.6</span></a>&#8216;de):</p>
+<div class="figure" id="id8">
+<span id="vb-3img"></span><img alt="_images/vb_3.png" src="_images/vb_3.png" />
+<p class="caption"><span class="caption-number">Şekil 7.6 </span><span class="caption-text">Sanal makinenin diskini belirleme</span></p>
+</div>
+<p>&#8220;Oluştur&#8221; düğmesine tıkladığınızda sanal makinanız hazır olacaktır.</p>
+</div>
+<div class="section" id="paylasim-acma">
+<h3>7.4.3. Paylaşım Açma<a class="headerlink" href="#paylasim-acma" title="Bu başlığın kalıcı bağlantısı">¶</a></h3>
+<p>Makinanızı başlatmadan önce, Windows kolasörlerinize erişimi sağlayacak olan paylaşımıda
+yapmalısınız. Bu paylaşım sayesinde Windows makinanızda yazmış olduğunuz
+Kivy programlarına sanal Makine içerisinden erişebilecek ve derleme işlemini yapabileceksiniz.
+Bunun için “Ayarlar” düğmesine tıklayın. Açılan pencerenin sol panelinden “Paylaşılan Klasörler”i seçin.
+Sağ paneldeki  <a class="reference internal" href="_images/vb_ps.png"><img alt="myvbps" src="_images/vb_ps.png" style="width: 20pt; height: 20pt;" /></a> simgesine tıklayarak yeni bir paylaşım ekleme penceresi açın.
+Bu pencerede Klasör Yolu’ na sanal Makine ile paylaşmak istediğiniz klasörü seçin.
+Ben masaüstümdeki <code class="docutils literal"><span class="pre">kivy</span></code> klasöürünü seçtim. Klasör Adı’nı “windows”  olarak değiştirin.
+Eğer değiştirmez iseniz, sanal makinada paylaşımlar <code class="docutils literal"><span class="pre">/media/sf_paylasimadi</span></code> olarak bağlanacaktır.
+Hazırladığım disk görüntüsünde “windows” paylaşımını <em>kivy</em> kullanıcısının ev dizinine
+köprülediğimden Klasör Adını’nı “windows” olarak değiştirmenizde fayda var.
+“Tamam” düğmesine tıklamadan önce “Otomatik-bağla” seçeneğini işaretlemeyi unutmayın (<a class="reference internal" href="#vb-4img"><span class="std std-numref">Şekil 7.7</span></a>).</p>
+<div class="figure" id="id9">
+<span id="vb-4img"></span><img alt="_images/vb_4.png" src="_images/vb_4.png" />
+<p class="caption"><span class="caption-number">Şekil 7.7 </span><span class="caption-text">Sanal makine için paylaşım açma</span></p>
+</div>
+<p>Sanal makinayı başlatmak için sola panledeki Makine ismi üzerine çift tıklayın.
+Makinanız bir süre sonra açılacaktır. Açılan makinada <em>kivy</em> kullanıcısı oturum açmış durumundadır.
+<em>root</em> ve <em>kivy</em> kullanıcılarının parolaları <em>kivy123</em> olarak belirlenmiştir
+(masaüstündeki OKUBENI.txt dosyasında mevcut). Açılan sanal makineyi <a class="reference internal" href="#vb-5img"><span class="std std-numref">Şekil 7.8</span></a> &#8216;de görüyorsunuz. şöyle</p>
+<div class="figure" id="id10">
+<span id="vb-5img"></span><img alt="_images/vb_5.png" src="_images/vb_5.png" />
+<p class="caption"><span class="caption-number">Şekil 7.8 </span><span class="caption-text">Linux Sanal Makine</span></p>
+</div>
+<p>Örnek bir derleme yapalım. Bunun için ben metin düzenleyiciyi derlemek istiyorum. Bu nedenle aşağıdaki dosyaları Windows makinamın masaüstündeki kivy klasörüne kaydettim (paylaştığım klasör).</p>
+<p><a class="reference external" href="https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/metinDuzenleyici/6/main.py">https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/metinDuzenleyici/6/main.py</a></p>
+<p><a class="reference external" href="https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/metinDuzenleyici/6/metinduzenleyici.kv">https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/metinDuzenleyici/6/metinduzenleyici.kv</a></p>
+<p>Sanal makinede “Uçbirim Öykünücüsü” üzerine tıklayın. Bu size komut satırını açacaktır (şu Linux’çuların meşhur siyah ekranı).  Windows makinadan paylaşılan klasör sanal makinadaki kivy kullanıcısının ev dizinindeki windows klasörüne köprilendiğinden, komut satırında aşağıdaki komutu işletin
+Önce <em>kivy</em> kullanıcısının ev dizininde <code class="docutils literal"><span class="pre">deneme</span></code> isimli bir klasör oluşturalım ve derleyeceğimiz
+dosyaları buraya kopyalayalım (baştaki dolar <code class="docutils literal"><span class="pre">$</span></code> işaretleri konulamyacaktır):</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> mkdir deneme
+<span class="gp">$</span> cp windows/main.py deneme
+<span class="gp">$</span> cp windows/metinduzenleyici.kv deneme
+</pre></div>
+</div>
+<p>Bu klasöre geçiş yapalım ve buildozer&#8217;i başlatalım:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> <span class="nb">cd </span>deneme/
+<span class="gp">$</span> buildozer init
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">buildozer.spec</span></code> dosyasını düzenlemek için komut satırında aşağıdaki komutu işletin:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> mcedit buildozer.spec
+</pre></div>
+</div>
+<p>Deneme derlemesi için sadece aşağıdaki değişiklikleri yapın</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="c"># (str) Title of your application</span>
+<span class="n">title</span> <span class="o">=</span> <span class="n">Kivy</span> <span class="n">Metin</span> <span class="n">Duzenleyici</span>
+
+<span class="c"># (str) Package name</span>
+<span class="n">package</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">kiviymetinduzenleyici</span>
+</pre></div>
+</div>
+<p>kaydetmek için klavyeden F2 tuşuna çıkmak için F10 tuşuna basın. Derlemek için komut satırından
+aşağıdaki komutu çalıştırın.</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> buildozer android release
+</pre></div>
+</div>
+<p>şu şekilde başlaması gerekiyor:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="c"># Check configuration tokens</span>
+<span class="c"># Ensure build layout</span>
+<span class="c"># Check configuration tokens</span>
+<span class="c"># Preparing build</span>
+<span class="c"># Check requirements for android</span>
+<span class="c"># Install platform</span>
+<span class="o">....</span>
+</pre></div>
+</div>
+<p>Buradan sonrasını <a class="reference internal" href="#paketlemekismi"><span class="std std-ref">Paket Derleme</span></a> &#8216;den takip edebilirsiniz.
+Derlenen dosya, derlemeyi başlattığınız klasörün içerisinde oluşturulan <code class="docutils literal"><span class="pre">bin</span></code> klasörüne
+kaydedilmiştir. Bizi,m örneğimizde <em>kivy</em> kullanıcısının ev klasöründe bulunan <code class="docutils literal"><span class="pre">deneme/bin</span></code> klasöründe olacaktır.</p>
+<p>Bu dosyayı Android cihaza kurmadan önce imzalamanız gerekmektedir. İmzaladıktan sonra
+sanal mekinenizin masaüstündeki &#8220;Ev&#8221; simgesine tıklayarak dosya yöneticisini çalıştırabilir
+ve imzalanmış apk dosyasını Windows makinenizden erişmek üzere ev klasörünüzdeki <code class="docutils literal"><span class="pre">windows</span></code> klasörüne
+kopyalayabilirsiniz.</p>
+<blockquote>
+<div></div></blockquote>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Gezinti</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Genel Dizin"
+             >dizin</a></li>
+        <li class="right" >
+          <a href="resimGosterici.html" title="8. Atlıkarınca ve Resim Gösterici"
+             >sonraki</a> |</li>
+        <li class="right" >
+          <a href="metinDuzenleyici.html" title="6. Metin Düzenleyici"
+             >önceki</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Kivy Mobil Programlama 0.1 belgelendirme çalışması</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Mustafa Başer.
+      <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5 ile oluşturulmuştur.
+    </div>
+  </body>
+</html>
