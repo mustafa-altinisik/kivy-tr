@@ -124,4 +124,23 @@ ListAdapter ve DictAdapter Adaptörü Kullanımı
 Listeler genellikle arasından birisni seçmek için kullanılır ve daha önce anlatılan basit liste görünümü oluşturmaktan 
 daha karmaşık veriye sahip olabilir. Bunları ``ListAdapter`` veya ``DictAdapter`` adaptörlerini kullanarak yapabiliriz.
 
+Önce :index:`ListAdapter` kullanımına bakalım. Daha önce söyledğimiz gibi ``ListView`` parçacığında adaptörler, veriyi
+içerir. Bu veri ``ListAdapter`` için her biri birer sözlük olan Python Listesidir. Örneğin kitaplara ait veriyi ele alalım
+(*not: kitaplar rastgele seçilmiştir, seçimde herhangi bir tercih yoktur*)::
+
+    kitaplar=[ {'adi':'Python', 'yazari':'Mustafa Başer', 'yayinevi':'Dikeyeksen'},
+               {'adi':'Ruby', 'yazari':'Timur Karaçay', 'yayinevi':'Seçkin'},
+               {'adi':'Perl-CGI', 'yazari':'Rıza Çelik', 'yayinevi':'Seçkin'},
+               {'adi':'Php', 'yazari':'Mehmet Şamlı', 'yayinevi':'Kodlab'} ]
+
+
+Burada ``kitaplar`` bildiğimiz bir Python listesi ve elemanları bildiğimiz Python sözlükleridir. Her sözlük 
+``adi``, ``yazarı`` ve ``yayinevi`` anahtarları ile bunlara ait birer değer içermektedir. ``kitaplar`` listesini
+olduğu gibi ``Listadapter`` nesnesine veri seti olarak atayabiliriz. Peki kullanıcıya ne gösterilecek? Bunu ise bir
+işlev yadımı ile belirleyebiliriz. Bu işeve :index:`argüman çevirici` (:index:`arg_converter`) diyoruz. Argüman çevirici
+kendisine gelen veriyi, listede gösterilecek şekilde düzenler ve yine bir sözlük döndürür. Bu sözlükte bulunması gereken
+tek zorunlu anahtar ``text`` dir. Bu anahtarın değeri kullanıcıya listede gösterilen metindir. İsterseniz gösterilecek olan liste
+elemanı (burada :index:`ListItemButton` olacaktır) (liste düğmesi) ile ilgili görünümü değiştirebilirsiniz; örneğin boyutunu.
+
+Şimdi bunları birleştirelim ve seçilebilir bir liste oluşturalım.
 *devam edecek...*
