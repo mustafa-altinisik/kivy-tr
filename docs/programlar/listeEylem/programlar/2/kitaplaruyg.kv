@@ -1,0 +1,23 @@
+#:import ListItemButton kivy.uix.listview.ListItemButton
+#:import ListAdapter kivy.adapters.listadapter.ListAdapter
+
+<kitaplarUyg>:
+BoxLayout:
+    orientation: 'vertical'
+    Label:
+        text: "Kitap Seçiniz"
+        size_hint_y: None
+        height: 30
+        canvas.before:
+            Color:
+                rgba: [0, 1, 0, 1]
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    ListView:
+        id: kitaplar
+        adapter: 
+            ListAdapter(args_converter=app.argumanCevirici,
+            data=[],
+            cls=ListItemButton,
+            allow_empty_selection=False)

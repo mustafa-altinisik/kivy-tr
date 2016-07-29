@@ -119,10 +119,11 @@ eklendiğini göreceksiniz:
             self.root.ids.listeci.adapter.data.append(pr)
 
 
-ListAdapter ve DictAdapter Adaptörü Kullanımı
+ListAdapter Adaptörü Kullanımı
 ---------------------------------------------
 Listeler genellikle arasından birisni seçmek için kullanılır ve daha önce anlatılan basit liste görünümü oluşturmaktan 
 daha karmaşık veriye sahip olabilir. Bunları ``ListAdapter`` veya ``DictAdapter`` adaptörlerini kullanarak yapabiliriz.
+Burada sadece ``ListAdapter`` anlatılacaktır.
 
 Önce :index:`ListAdapter` kullanımına bakalım. Daha önce söyledğimiz gibi ``ListView`` parçacığında adaptörler, veriyi
 içerir. Bu veri ``ListAdapter`` için her biri birer sözlük olan Python Listesidir. Örneğin kitaplara ait veriyi ele alalım
@@ -142,5 +143,117 @@ kendisine gelen veriyi, listede gösterilecek şekilde düzenler ve yine bir sö
 tek zorunlu anahtar ``text`` dir. Bu anahtarın değeri kullanıcıya listede gösterilen metindir. İsterseniz gösterilecek olan liste
 elemanı (burada :index:`ListItemButton` olacaktır) (liste düğmesi) ile ilgili görünümü değiştirebilirsiniz; örneğin boyutunu.
 
-Şimdi bunları birleştirelim ve seçilebilir bir liste oluşturalım.
+Şimdi bunları birleştirelim ve seçilebilir bir liste oluşturalım. Programımızı :numref:`kitaplar`'deki gibi yazalım
+
+
+.. literalinclude:: ./programlar/listeEylem/programlar/2/kitaplar.py
+    :linenos:
+    :tab-width: 4
+    :caption:  kitaplar.py
+    :name: kitaplar
+    :language: python
+
+Programımızı çalıştıracak olursak :numref:`Şekil %s <listAdaptor1Img>`'deki gibi bir pencere açılacaktır.
+
+
+.. _listAdaptor1Img:
+
+.. figure:: ./programlar/listeEylem/programlar/2/listAdaptor1Img.png
+
+   Seçilebilir Kitap Listesi
+   
+``ListAdapter`` nesnesi ``arg_converter`` işlevine (burada ``argumanCevirici``) iki adet argüman gönderir. Bunlardan
+ilki gönderilen verinin veri setindeki (``data`` parametresine atanan değer, burada ``kitaplar`` listesi) konumu (indeksi)
+ikincisi ise, verinin kendisi. ``kitaplar`` listesinin her elemanı sıra ile bu işleve gönderilir. Bu işev yine bir
+sözlük döndürür. Sözlük en az ``text`` anahtarına sahip olmalıdır. ``text`` anahtarının değeri kullanıcıya gösterilen metindir.
+:numref:`kitaplar`'daki  programda ``size_hint_y`` ve ``height`` anhatarlarını kullanarak listedeki düğmenin 
+(``ListItemButton``) boytunu 25 piksel yaptık. ``ListItemButton`` nesnesi ile oluşturulan düğmelerin seçilmiş ve seçilmemiş
+olanların rengini de değiştirebilirsiniz. Bunları :index:`deselected_color` ve :index:`selected_color` anahtarları ile yapabilirsiniz.
+Örneğin :numref:`kitaplar`'daki  programda ``argumanCevirici()`` işlevini aşağıdaki gibi yazarsanız, seçilmiş olan düğme rengi
+mor, seçilmemiş olan düğmelerin rengi ise sarı olacaktır::
+
+    def argumanCevirici(self, satir, nesne):
+        return {'text': nesne["adi"], 
+               'size_hint_y': None, 'height': 25,
+               'deselected_color': [1,1,0,1],
+               'selected_color': [1,0,1,1]
+               } 
+
+Eğer kullanıcıya görüntülenecek olan düğme üzerindeki metinde, sadece kitap adı yerine yazarının da görünmesini istiyorsanız, 
+``argumanCevirici()`` işlevini şu şekilde değiştirebilirsiniz::
+
+    def argumanCevirici(self, satir, nesne):
+        return {'text': '%s (%s)' % (nesne["adi"], nesne['yazari']),
+               'size_hint_y': None, 'height': 25,
+               'deselected_color': [1,1,0,1],
+               'selected_color': [1,0,1,1]
+               } 
+
+
+Programımızı bu işlev ile çalıştıracak olursak :numref:`Şekil %s <listAdaptor2Img>`'deki gibi bir pencere açılacaktır.
+
+
+.. _listAdaptor2Img:
+
+.. figure:: ./programlar/listeEylem/programlar/2/listAdaptor2Img.png
+
+   Değiştirilmiş Kitap Listesi
+
+``argumanCevirici()`` işlevi sadece iki argüman alır ve bir sözlük dündürür. Bu tür bir işelev ihityacınız var ise bunu 
+Python'nun muhteşem ``lambda`` ifadesi ile gerçekleştirebilirsiniz. ``lambda`` ifadesi kendisine gelen argümanları birer
+parametreye aktarır ve bu parametreleri kullanarak bir sonuç döndürme işlevi sağlar. Örneğin kendisine gelen sayıları
+toplayan bir işleve ihtiyacımız var ise::
+
+    def topla(a,b):
+        return a+b
+        
+yerine::
+
+    >>> topla=lambda a,b: a+b
+    >>> topla(5,7)
+    12
+
+şeklinde yazabiliriz. Bu bilgiler ışığında ``argumanCevirici()`` işlevini hiç yazmadan ``arg_cvonverter`` parametresine
+aşağıdaki gibi ``lambda`` ifadesini yazabiliriz::
+
+    liste_adaptoru=ListAdapter(args_converter=lambda satir, nesne: {'text':nesne["adi"],'size_hint_y': None, 'height': 25},
+                               data=kitaplar,
+                               cls=ListItemButton,
+                               allow_empty_selection=False)
+
+
+
+``ListAdapter`` parçacığında anlatmadığımız :index:`allow_empty_selection` paramteresine ``False`` değerini verirseniz,
+listede mutlaka bir seçim yapılmış olması gerekir. Bu durumda seçim yapılmamış ise, veri setinin ilk elemanı otomatik 
+olarak seçili hale gelir. Eğer ``allow_empty_selection`` değerini ``True`` yaparsanız (ön tanımlı değeri budur), listede bir
+seçim yapma zorunluluğu olmaz.
+
+:numref:`kitaplar`'daki  programı ``kv`` dili ile yazalım. Önce ana programı :numref:`kitaplar-main`'daki gibi yazalım.
+
+.. literalinclude:: ./programlar/listeEylem/programlar/2/main.py
+    :linenos:
+    :tab-width: 4
+    :caption:  main.py
+    :name: kitaplar-main
+    :language: python
+
+Sanırım bu programda herşey açık. ``kv`` dosyasını ise :numref:`kitaplar-kv`'daki gibi hazırladım:
+
+.. literalinclude:: ./programlar/listeEylem/programlar/2/kitaplaruyg.kv
+    :linenos:
+    :tab-width: 4
+    :caption:  kitaplaruyg.kv
+    :name: kitaplar-kv
+
+Bu dosyayı inceleyecek olursanız, etikette ilk defa (11. satırda) ``canvas.before`` parametresini kullanmış olduk.
+Ne yazıkki Kivy geliştiricileri bir etiketin arka plan rengini değiştirebilmemiz için bir parametre koymamış. Bunun
+yerine parçacık çizilmeden önce tuvalin (canvas) arka planını boyamamız gerekir. Bunu da şu satırlar ile yapıyoruz::
+
+    canvas.before:
+        Color:
+            rgba: [0, 1, 0, 1]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
 *devam edecek...*
