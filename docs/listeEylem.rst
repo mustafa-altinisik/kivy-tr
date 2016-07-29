@@ -120,7 +120,7 @@ eklendiğini göreceksiniz:
 
 
 ListAdapter Adaptörü Kullanımı
----------------------------------------------
+-------------------------------
 Listeler genellikle arasından birisni seçmek için kullanılır ve daha önce anlatılan basit liste görünümü oluşturmaktan 
 daha karmaşık veriye sahip olabilir. Bunları ``ListAdapter`` veya ``DictAdapter`` adaptörlerini kullanarak yapabiliriz.
 Burada sadece ``ListAdapter`` anlatılacaktır.
@@ -255,5 +255,54 @@ yerine parçacık çizilmeden önce tuvalin (canvas) arka planını boyamamız g
         Rectangle:
             pos: self.pos
             size: self.size
+
+Seçimin Denetlenmesi
+---------------------
+En azından ``ListAdapter`` kullanılan liste görünümlerinde bir seçim yapıldığında, bir eylem gerçekleştirilmek isteniyorsa
+adaptörün :index:`on_selection_change` olayına bir işlev bağlamak gerekir.  :numref:`kitaplar-main`'daki programda seçilen
+seçilen kitaba ait ayrıntıları açılır pencerede görüntülemek üzere ``build()`` işlevinin en altına şu satırı ekleyelim::
+
+    self.root.ids.kitaplar.adapter.bind(on_selection_change=self.secim)
+
+Bir kitap seçildiğinde ``secim()`` işlevi çağrılacaktır. Bu işleve, adaptörün kendisi argüman olarak verilecektir.
+Bir adaptörde seçilen maddeler ait ``ListItemButton``
+nesneleri Python listesi halinde :index:`selection` özelliğinden alınabilir (unutmayın birden fazla seçime olanak 
+sağlamak için adatörün 
+:index:`selection_mode` parametresinin değerini ``multiple`` yapmalısınız). Seçilen maddelerin listedeki konumlarını ise
+``ListItemButton`` nesnesinin ``index`` özelliği ile alabiliriz. O halde ``secim`` işlevini şu şekilde yazabiliriz::
+
+    def secim(self, nesne):
+        if nesne.selection:
+            secimID=nesne.selection[0].index
+            secilenKitap=nesne.data[secimID]
+
+            icerik=Label(text='Kitap Adı: %s\nYazarı: %s\nYayınevi: %s' % (
+                              secilenKitap['adi'],
+                              secilenKitap['yazari'],
+                              secilenKitap['yayinevi']))
+        
+            popup = Popup(title='Seçilen Kitap',
+                          content=icerik,
+                          size_hint=(None, None), size=(200, 150))
+
+            icerik.bind(on_touch_down=popup.dismiss)
+            popup.open()
+
+
+Aşağıdaki satırları programınızın başına yazmayı unutmayın::
+
+    from kivy.uix.popup import Popup
+    from kivy.uix.label import Label
+
+Şu halde programımızı çalıştırıp bir kitap seçtiğimizde, bir popup açılacak ve burada kitap detayları görüntülecektir 
+(:numref:`Şekil %s <listAdaptor3Img>`).
+
+
+.. _listAdaptor3Img:
+
+.. figure:: ./programlar/listeEylem/programlar/2/listAdaptor3Img.png
+
+   Kitap ayrıntılarının görüntülenmesi
+
 
 *devam edecek...*
