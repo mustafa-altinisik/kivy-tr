@@ -331,7 +331,7 @@ http://daltinkurt.com/Yazi/227/Il-Ilce-Semt-Mahalle-Veritabanlari-ve-Uygulamasi.
 bir tane buldum. Orada birçok veritabanı biçiminde hazırlanmış biçimlerini mevcut. Ben xml biçimini kullanacağım.
 Yerel kopyasını buradan edinebilirsiniz (bunun için Sn. Devrim Altınkurt'dan izin alınmıştır):
 
-Il-ilce-Semt-Mahalle-PostaKodu.xml: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/listeEylem/programlar/3/Il-ilce-Semt-Mahalle-PostaKodu.xml
+Il-ilce-Semt-Mahalle-PostaKodu.xml: https://raw.githubusercontent.com/mbaser/kivy-tr/master/docs/programlar/listeEylem/programlar/3/Il-ilce-Semt-Mahalle-PostaKodu.xml
 
 ``Il-ilce-Semt-Mahalle-PostaKodu.xml`` dosyası oldukça büyük (~10 MB). Bu kadar büyük bir veriyi xml ile saklamak ve sonra onu
 okuyup ayırt etmek oldukça zaman alıcı bir işlem, bu kadar büyük bir veriyi en azında SqLite veritabanı sisteminde saklamak daha iyi.
