@@ -305,4 +305,161 @@ Aşağıdaki satırları programınızın başına yazmayı unutmayın::
    Kitap ayrıntılarının görüntülenmesi
 
 
+İl-İlçe-Mahalle Seçimi
+----------------------
+
+Liste görünümü ile ilgili daha ayrıntılı bir örnek yapalım. Hemen birçok alışveriş sitesinde bulunduğunuz il ve ilçe
+seçimi ile ilgili açılır listlere bulunur. Biz buna bir de mahalleyi ekleyeceğiz. Uygulamamız şöyle tasarlayalım:
+
+1. Ana pencereyi dikey olarak üç parçaya bölelim. Bunun için 3 sütunlu bir ızgara pencere düzenine
+   ihtiyacımız olacak.
+2. Birinci sütunda illeri gösterelim. Buranın illeri gösterdiğini kullanıcıya bildirmek için etiketten
+   bir başlık oluşturalım ve metnine "İl Seçiniz" yazalım. Etiketin altında liste görünümünde tüm illeri sıralayalım
+3. İkinci sütunda ilçeleri gösterelim. Buranın ilçeleri gösterdiğini kullanıcıya bildirmek için etiketten
+   bir başlık oluşturalım ve metnine "İlçe Seçiniz" yazalım. Birinci sütunda seçilen ile ait ilçeleri etiketin
+   altında liste görünümünde sıralayalım.
+4. Üçüncü sütunda semtleri gösterelim. Buranın semtleri gösterdiğini kullanıcıya bildirmek için etiketten
+   bir başlık oluşturalım ve metnine "Semt Seçiniz" yazalım. İkinci sütunda seçilen ilçeye ait semtleri etiketin
+   altında liste görünümünde sıralayalım.
+
+Uygulamamazı yazmadan önce ülkemizin illeri, bu illerin ilçeleri ve her ilçenin semtlerinin listesi gerekli. Bunu teker 
+teker elinizle yazabilirsiniz. Ya benim gibi da internette "İl-ilçe-Semt-Mahalle-PostaKodu" şeklinde aratırsanız, muhtemelen
+birçok veritabanı bulacaksınız. Aramam sonucunda şu adreste:
+
+http://daltinkurt.com/Yazi/227/Il-Ilce-Semt-Mahalle-Veritabanlari-ve-Uygulamasi.aspx
+
+bir tane buldum. Orada birçok veritabanı biçiminde hazırlanmış biçimlerini mevcut. Ben xml biçimini kullanacağım.
+Yerel kopyasını buradan edinebilirsiniz (bunun için Sn. Devrim Altınkurt'dan izin alınmıştır):
+
+Il-ilce-Semt-Mahalle-PostaKodu.xml: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/listeEylem/programlar/3/Il-ilce-Semt-Mahalle-PostaKodu.xml
+
+``Il-ilce-Semt-Mahalle-PostaKodu.xml`` dosyası oldukça büyük (~10 MB). Bu kadar büyük bir veriyi xml ile saklamak ve sonra onu
+okuyup ayırt etmek oldukça zaman alıcı bir işlem, bu kadar büyük bir veriyi en azında SqLite veritabanı sisteminde saklamak daha iyi.
+Ancak biz sadece deneme programı yazacağız, hem böylece bir xml dosyasını nasıl okuyacağınızı da öğrenmiş oluruz.
+
+Bir xml dosyasını kullanabilmek için, öncelikle dosya yapısını bilmeniz gerekir. Onun için dosyayı firefox ya da chrome ile açıp yapısını
+inceleyebiliriz (Metin düzenleyici ya da xml editörleri ile açmayı denemeyin, dosya çok büyük). Dosyayı incelediğimzde veri
+gruplandırmasının yapılmadığını görüyoruz. Dosyanın yapısından anladığımız kadarı ile aşağıdaki çıkarımları yapabiliriz: 
+
+İller
+    ``<tbl_il>`` etiketlerinde iller mevcut. Her il için bir ID verilmiş (``<il_id>``), il isimleri ise ``<il_ad>`` etiketi ile beirtilmiş. 
+
+İlçeler
+    İlçelerimiz ``<tbl_ilce>`` etiketleri ile ayrılmış. Her ilçe için bir ID verilmiş (``<ilce_id>``). İlçenin hangi ile ait olduğu
+    ise ``<il_id>`` etiketi ile belirtilmiş. İlçe adı ise ``<ilce_ad>`` etiketinde.
+    
+Semtler
+    Her ilçenin semtleri ``<tbl_semt>`` etiketleri ile verilmiş. Bağlı olduğu ilçe  ``<ilce_id>``, semt adı ise ``<semt_ad>`` etiketi
+    ile verilmiş. Elbetteki ID'si mevcut ve ``<semt_id>`` etiketinin metninde bulunuyor.
+
+xml Dosyasının yapısını öğrendiğimize göre bu dosyayı okuyup veriyi bizim için ayır edecek Python modülünü kullanmamız gerekir. 
+Önce Python konsolunda bunu öğrenelim. Dosyayı bir klasöre indirin ve Python konsolundan aşağıdaki satırşarı işletin::
+
+    >>> from xml.etree import ElementTree
+    >>> agac = ElementTree.parse('/home/mbaser/Il-ilce-Semt-Mahalle-PostaKodu.xml')
+    >>> xmlKok = agac.getroot()
+
+Burada ikinci satırda dosya patikasını kullandığınız işletim sistemine göre doğru şekilde belirtiniz. Dosya çok büyük olduğu için
+okunması donanımınızın durumuna göre birkaç saniye alabilir. Şimdi illerimizi bulalım::
+
+    >>> iller=xmlKok.findall('tbl_il')
+
+Şimdi ``iller`` listesinde tüm illerimizi ait xml elemanları bulunacaktır. Bunları ekrana bastırmak için::
+
+    >>> for il in iller:
+    ...     print il.find('il_id').text, il.find('il_ad').text.encode("utf-8")
+    ... 
+    1 Adana
+    2 Adıyaman
+    3 Afyonkarahisar
+    4 Ağrı
+    5 Amasya
+    6 Ankara
+    7 Antalya
+    8 Artvin
+    9 Aydın
+    10 Balıkesir
+    .
+    .
+    .
+    
+Burada il adının UTF-8 biçimli bir metin olduğunu biliyoruz. Python 2.x'de düzgün gösterilebilmesi için metnin ``encode("utf-8")``
+özelliğini kullanmamız gerekiyor. Bir döngüyü kullanarak istediğimiz şekilde liste oluşturmayı daha önce anlatmıştık tekrarlayalım::
+
+    >>> sayi_listesi=[ "Sayi-%d" % x for x in range(1,11)]
+    >>> sayi_listesi
+    ['Sayi-1', 'Sayi-2', 'Sayi-3', 'Sayi-4', 'Sayi-5', 'Sayi-6', 'Sayi-7', 'Sayi-8', 'Sayi-9', 'Sayi-10']
+
+Bir liste içerisinde yazdığımız döngünün nasıl bir sonuç doğurduğunu gördük. Aynı listeyi şöyle de oluşturabilirdiniz::
+    >>> sayi_listesi=[]
+    >>> for x in range(1,11):
+    ...     sayi_listesi.append("Sayi-%d" % x)
+    ... 
+    >>> sayi_listesi
+    ['Sayi-1', 'Sayi-2', 'Sayi-3', 'Sayi-4', 'Sayi-5', 'Sayi-6', 'Sayi-7', 'Sayi-8', 'Sayi-9', 'Sayi-10']
+
+İlk yaptığımız daha kolay değil mi? Peki ``iller`` xml elemanlarını kullanarak, liste adaptörümüz için nasıl bir veri listesi oluşturacağız? 
+Bu soruyu şöyle cevaplayalım::
+
+    >>> iller_veri = [ 
+                       {'ilId': il.find('il_id').text, 'adi': il.find('il_ad').text.encode("utf-8")}
+                       for il in iller 
+                     ]
+
+Liste içindeki döngülerde ``if`` ifadesini de kullanabiliriz. Örneğin ``il_id`` si 10'dan küçük illerin listesini elde edelim::
+
+    >>> iller_veri = [ 
+                       {'ilId': il.find('il_id').text, 'adi': il.find('il_ad').text.encode("utf-8")}
+                       for il in iller if int(il.find('il_id').text) < 10
+                     ]
+
+Bunları öğrendiğimize göre, Liste görünümü bilgilerine kullanarak programımızı yazabiliriz. Önce ana 
+programı :numref:`iller-main`'daki gibi yazalım.
+
+.. literalinclude:: ./programlar/listeEylem/programlar/3/main.py
+    :linenos:
+    :tab-width: 4
+    :caption:  main.py
+    :name: iller-main
+    :language: python
+
+Sanırım burada bilmediğimiz tek şey bir liste görünümünün ``_trigger_reset_populate()`` özelliği. Bir liste görnümünün elemanlarını
+değiştirdiğinizde, bunların ekrana yansıması için bu özelliği kullanmamız gerekiyor. İnternet tarayıcıda değişen sayfayı yenilemek 
+için "F5" tuşuna basmak gibi.
+
+``kv`` dosyasını ise :numref:`illerilceler-kv`'daki gibi hazırladım:
+
+.. literalinclude:: ./programlar/listeEylem/programlar/3/illerilceler.kv
+    :linenos:
+    :tab-width: 4
+    :caption:  illerilceler.kv
+    :name: illerilceler-kv
+
+Bu programda her liste görnümü için yeni bir argüman çevirici yazmak yerine sadece bir tane yazdık. Bunun için tüm liste adaptarlerinin,
+veri setini hazırlarken görüntülenecek metni (il, ilçe, semt) adlarını ``adi`` anahtarına koyduk. Böylece liste gornümü ne olursa olsun,
+listede görüntülenecek metin ``adi`` anahtarında bulunduğundan sadece bir tane ``argCevir()`` işlevi yazmak yeterli oldu.
+
+Programı çalıştıracak olursanız :numref:`Şekil %s <illerIlceler1Img>` de görünen pencere açılacaktır.
+
+
+.. _illerIlceler1Img:
+
+.. figure:: ./programlar/listeEylem/programlar/3/illerIlceler1Img.png
+
+   İle-ilçe-semt Seçimi
+
+Benim anlatacaklarım bitti. Şimdi kod yazma sırası size. xml dosyasında her semte ait mahalelerde mevcut. Biz bunları göstermedik. Programa
+mahalle seçimini de yapacağımız eklentileri yapın. Programınız çalıştığında :numref:`Şekil %s <illerIlceler2Img>` deki gibi görünmeldir.
+
+.. _illerIlceler1Img:
+
+.. figure:: ./programlar/listeEylem/programlar/3/illerIlceler2Img.png
+
+   İle-ilçe-semt-mahalle Seçimi
+
+Çözüm:
+
+main-mahalleler.py: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/listeEylem/programlar/3/main-mahalleler.py
+illerilcelermahaller.kv: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/listeEylem/programlar/3/illerilcelermahaller.kv
+
 *devam edecek...*

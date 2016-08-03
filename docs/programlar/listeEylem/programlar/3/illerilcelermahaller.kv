@@ -1,0 +1,89 @@
+#:import ListItemButton kivy.uix.listview.ListItemButton
+#:import ListAdapter kivy.adapters.listadapter.ListAdapter
+
+<illerIlcelerUyg>:
+GridLayout:
+    cols: 4
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: "İl Seçiniz"
+            size_hint_y: None
+            height: 30
+            canvas.before:
+                Color:
+                    rgba: 1, 0, 0, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+        ListView:
+            id: iller
+            adapter: 
+                ListAdapter(args_converter=app.argCevir,
+                data=[], 
+                cls=ListItemButton, 
+                allow_empty_selection=False)
+            
+            
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: "İlçe Seçiniz"
+            size_hint_y: None
+            height: 30
+            canvas.before:
+                Color:
+                    rgba: 0, 1, 0, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+        ListView:
+            id: ilceler
+            adapter: 
+                ListAdapter(args_converter=app.argCevir,
+                data=[],
+                cls=ListItemButton,
+                allow_empty_selection=False)
+            
+            
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: "Semt Seçiniz"
+            size_hint_y: None
+            height: 30
+            canvas.before:
+                Color:
+                    rgba: 0, 0, 1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+        ListView:
+            id: semtler
+            adapter: 
+                ListAdapter(args_converter=app.argCevir,
+                data=[],
+                cls=ListItemButton,
+                allow_empty_selection=False)
+
+
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: "Mahalle/Köy"
+            size_hint_y: None
+            height: 30
+            canvas.before:
+                Color:
+                    rgba: 1, 0, 1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+        ListView:
+            id: mahalleler
+            adapter: 
+                ListAdapter(args_converter=app.argCevir,
+                data=[],
+                cls=ListItemButton)
+
+
