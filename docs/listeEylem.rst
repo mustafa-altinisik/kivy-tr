@@ -391,6 +391,7 @@ Burada il adının UTF-8 biçimli bir metin olduğunu biliyoruz. Python 2.x'de d
     ['Sayi-1', 'Sayi-2', 'Sayi-3', 'Sayi-4', 'Sayi-5', 'Sayi-6', 'Sayi-7', 'Sayi-8', 'Sayi-9', 'Sayi-10']
 
 Bir liste içerisinde yazdığımız döngünün nasıl bir sonuç doğurduğunu gördük. Aynı listeyi şöyle de oluşturabilirdiniz::
+
     >>> sayi_listesi=[]
     >>> for x in range(1,11):
     ...     sayi_listesi.append("Sayi-%d" % x)
@@ -413,7 +414,7 @@ Liste içindeki döngülerde ``if`` ifadesini de kullanabiliriz. Örneğin ``il_
                        for il in iller if int(il.find('il_id').text) < 10
                      ]
 
-Bunları öğrendiğimize göre, Liste görünümü bilgilerine kullanarak programımızı yazabiliriz. Önce ana 
+Bunları öğrendiğimize göre, liste görünümü bilgilerini de kullanarak programımızı yazabiliriz. Önce ana 
 programı :numref:`iller-main`'daki gibi yazalım.
 
 .. literalinclude:: ./programlar/listeEylem/programlar/3/main.py
@@ -451,7 +452,7 @@ Programı çalıştıracak olursanız :numref:`Şekil %s <illerIlceler1Img>` de 
 Benim anlatacaklarım bitti. Şimdi kod yazma sırası size. xml dosyasında her semte ait mahalelerde mevcut. Biz bunları göstermedik. Programa
 mahalle seçimini de yapacağımız eklentileri yapın. Programınız çalıştığında :numref:`Şekil %s <illerIlceler2Img>` deki gibi görünmeldir.
 
-.. _illerIlceler1Img:
+.. _illerIlceler2Img:
 
 .. figure:: ./programlar/listeEylem/programlar/3/illerIlceler2Img.png
 
