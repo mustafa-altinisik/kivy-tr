@@ -488,6 +488,29 @@ kutuyu şu şekilde oluşturabiliriz::
         dugme=Button(text=isim, size_hint_y=None, height=25)
         acilirkutu.add_widget(dugme)
 
+Gördüğünüz gibi, yaptığımız iş ``DropDown()`` nesnesine bildik düğmeleri ekledik. Peki bir düğme seçilince ne olacak? Programımızı yazarken
+bunu da eklemek durumundayız. Açılır kutuyu oluşturduk ancak, bu açılır kutunun görünebilmesi için herhangi bir eyleme bağlamamız gerekir.
+Bir düğme oluşturalım (``anadügme``) ve bu düğmenin ``on_release`` eylemine açılır kutunun ``open()`` özelliğini bağlayalım.
+Bu bilgiler ışığında  :numref:`acilir-liste-1`'daki gibi bir program yazalım.
+
+.. literalinclude:: ./programlar/listeEylem/programlar/4/dropdown-simple.py
+    :linenos:
+    :tab-width: 4
+    :caption:  main.py
+    :name: acilir-liste-1
+    :language: python
+
+Bu programda gördüğünüz gibi, açılır kutuya eklediğimiz her düğmenin ``on_release`` eylemine (tıklanıp bırkalma) ``secim()`` işlevini bağladık.
+Diğer bir deyişle açılır kutudaki düğmelerden herhangi biri seçildiğinde ``secim()`` işlevi çağrılacaktır. Bu işlev çağrıldığında
+açılır kutunun ilgili düğmesi seçilmiş olacak (``acilirkutu.select(nesne.text)`` ile) ve ``anadugme`` nin üzerindeki metin, seçilmiş
+olan düğmenin üzerindeki metin olacaktır. Programınız çalıştığında :numref:`Şekil %s <dropdown-simple1Img>` deki gibi görünmelidir.
+
+.. _dropdown-simple1Img:
+
+.. figure:: ./programlar/listeEylem/programlar/4/dropdown-simple1Img.png
+
+   Basit Açılır Kutu
+
 
 
 *devam edecek...*
