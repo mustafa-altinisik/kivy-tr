@@ -10,7 +10,7 @@ Liste Görünümü ve Eylem Çubuğu
    Bu bölüm tamamlanmamıştır. Zaman buldukça yazıyorum.
 
 
-Bu bölümde listeler, liste görünümü açılır kutu (dropdawn) ve Eylem çubuğunu anlatacağız. Konuları anlatırken daha önce
+Bu bölümde Liste Görünümünü, Açılır Kutu (DropDown) ve Eylem Çubuğu'nu anlatacağız. Konuları anlatırken daha önce
 geliştirdiğimiz uygulamalara eklentiler yaparak uygulamasını da göstereceğiz.
 
 Liste Görünümü
@@ -309,7 +309,7 @@ Aşağıdaki satırları programınızın başına yazmayı unutmayın::
 ----------------------
 
 Liste görünümü ile ilgili daha ayrıntılı bir örnek yapalım. Hemen birçok alışveriş sitesinde bulunduğunuz il ve ilçe
-seçimi ile ilgili açılır listlere bulunur. Biz buna bir de mahalleyi ekleyeceğiz. Uygulamamız şöyle tasarlayalım:
+seçimi ile ilgili açılır listeler bulunur. Biz buna bir de mahalleyi ekleyeceğiz. Uygulamamız şöyle tasarlayalım:
 
 1. Ana pencereyi dikey olarak üç parçaya bölelim. Bunun için 3 sütunlu bir ızgara pencere düzenine
    ihtiyacımız olacak.
@@ -462,5 +462,32 @@ mahalle seçimini de yapacağımız eklentileri yapın. Programınız çalışt�
 
 main-mahalleler.py: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/listeEylem/programlar/3/main-mahalleler.py
 illerilcelermahaller.kv: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/listeEylem/programlar/3/illerilcelermahaller.kv
+
+Açılır Kutu
+============
+
+Liste görünümü ile :index:`açılır kutu`  (:index:`DropDown`) benzer işler yapsa da, temel işleyiş mantığı olarak birbirinden farklıdır.
+Liste görünümünde, verdiğimiz seçenekler (ister seçilebilir düğme, iseterse etiket üzerinde olsun) kullanıcıya doğrudan gösterilir.
+Açılır kutularda ise, kullanıcı kutuya tıkladıktan sonra seçenekler ortaya çıkar. Önce nasıl çalıştığını öğrenelim, daha sonra yukarıdaki
+örneği açılır kutu ile tekrar yapalım.
+
+Daha önce de belirttiğim gibi Kivy'de birçok şey, bildiğimiz masaüstü GUI (GKA)'lerden farklı bir yapıya sahip. Bir açılır kutuyu oluşturmak
+için daha fazla emek harcamak gerekiyor. Örneğin bir web sayfasında açılır kutu oluşturmak için ``<select>`` etiketi arasına seçenekleri
+(``<option>``) ard arda yazdıkmı işimiz tamamlanıyor. Ancak Kivy'de bu kadar kolay değil. Bir açılır kutu oluşturduğunuzda bunu
+pendere düzeninde öyle istediğiniz yere koyamazsınız. Bu açılır kutuyu göstermek için bir başka nesneye ihtiyacınız olacak.
+Örneğin bir düğme. Bu düğmeye tıklayıp bıraktığınızda (:index:`on_release` olayı), açılır kutuyu görünür yapabilirsiniz. Aslında herhangi
+bir nesnenin herhangi bir olayına da bağlayabilirsiniz. Biz bir düğmeye tıklanıp bırakıldığında açılır kutuyu göstereceğiz.
+
+Açılır kutu nesnesi ``DropDown()`` ile oluşturulur. Açılır kutunun  ``open()`` özelliği ile görünür hale getirilince, kendisine eklenmiş olan diğer nesneleri gösterecektir. Bu nesnelerden
+herhangi birisi  bildiğiniz düğme (``Button``) ya da etiket (``Label``) olabilir. Bunları toparlayacak olursak birkaç isimden oluşan bir açılır
+kutuyu şu şekilde oluşturabiliriz::
+
+    acilirkutu = DropDown()
+
+    for isim in ( "Mustafa", "Dilek", "Fatih", "Melike"):
+        dugme=Button(text=isim, size_hint_y=None, height=25)
+        acilirkutu.add_widget(dugme)
+
+
 
 *devam edecek...*
