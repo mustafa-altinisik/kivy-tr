@@ -511,6 +511,28 @@ olan düğmenin üzerindeki metin olacaktır. Programınız çalıştığında :
 
    Basit Açılır Kutu
 
+Aynı programı ``kv`` dili ile yazacak olursak:
+
+.. literalinclude:: ./programlar/listeEylem/programlar/4/dropdown-simple-kv.py
+    :linenos:
+    :tab-width: 4
+    :language: python
+
+Herhangi bir düğmeye herhangi bir özellik ekleyerek başka verileri saklayabiliriz. Örneğin öğrencilerin okul numaralarını saklamak
+için şu kodu yazabiliriz::
+
+    for x, y in ( ("Mustafa", 9876), ("Dilek", 77192),
+                 ("Fatih", 98278), ("Melike", 56765)):
+        dugme=Button(text=x, size_hint_y=None, height=25)
+        dugme.okulNo=y
+        dugme.bind(on_release=self.secim)
+        self.acilirkutu.add_widget(dugme)
+
+Sakladığımız bu veriyi seçim yaptıktan sonra erişebiliriz. "Başlat" düğmesinde saçim yapıldıktan sonra hem isim hemde okul numarasını
+görüntülemek istiyorsak::
+
+    self.anadugme.text="Adı: %s\nNo: %d" % (nesne.text, nesne.okulNo)
+    
 
 
 *devam edecek...*
