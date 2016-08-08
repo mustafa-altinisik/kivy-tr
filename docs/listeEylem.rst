@@ -359,7 +359,7 @@ xml Dosyasının yapısını öğrendiğimize göre bu dosyayı okuyup veriyi bi
 Önce Python konsolunda bunu öğrenelim. Dosyayı bir klasöre indirin ve Python konsolundan aşağıdaki satırşarı işletin::
 
     >>> from xml.etree import ElementTree
-    >>> agac = ElementTree.parse('/home/mbaser/Il-ilce-Semt-Mahalle-PostaKodu.xml')
+    >>> agac = ElementTree.parse('/home/mbaser/Downloads/Il-ilce-Semt-Mahalle-PostaKodu.xml')
     >>> xmlKok = agac.getroot()
 
 Burada ikinci satırda dosya patikasını kullandığınız işletim sistemine göre doğru şekilde belirtiniz. Dosya çok büyük olduğu için
@@ -613,8 +613,9 @@ Eklediğimiz verinin diske (dosyay) yazılmasını sağlayalım::
 Şimdi de eklediğimiz öğrencileri tekrar alalım::
 
 
-    >>> ogrenciler=isaretci.execute("select * from ogrenciler")
-    >>> for ogr in ogrenciler.fetchall():
+    >>> isaretci.execute("select * from ogrenciler")
+    >>> ogrenciler.fetchall()
+    >>> for ogr in ogrenciler:
     ...     print ogr
     ... 
     (1, u'Mustafa', 9876)
@@ -626,9 +627,46 @@ Veritabanına yapılmış bağlantıyı koparalım::
 
     >>> sqlbaglantisi.close()
 
-Daha önce size verdiğim ``Il-ilce-Semt-Mahalle-PostaKodu.xml`` dosyasındaki tüm tablo ve verileri SqLite biçimine döndürdüm.
+Daha önce size verdiğim ``Il-ilce-Semt-Mahalle-PostaKodu.xml`` dosyasındaki tüm tablo ve verileri SqLite biçimine dönüştürdüm.
 SqLite dosyasını şu adresten alabilirziniz:
 
-iller.db: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/listeEylem/programlar/5/iller.db
+iller.db: https://raw.githubusercontent.com/mbaser/kivy-tr/master/docs/programlar/listeEylem/programlar/5/iller.db
+
+Dosyayı indirdiğiniz patikanın tam adını veritabanı dosyasının patikasını yazarak deneyelim::
+
+    >>> import sqlite3
+    >>> sqlbaglantisi = sqlite3.connect('/home/mbaser/Downloads/iller.db')
+    >>> isaretci = sqlbaglantisi.cursor()
+    >>> isaretci.execute("select * from tbl_il")
+    <sqlite3.Cursor object at 0x7f3c088ebc70>
+    >>> iller=isaretci.fetchall()
+    >>> for il in iller:
+    ...     print il[0], il[1]
+    ... 
+    1 Adana
+    2 Adıyaman
+    3 Afyonkarahisar
+    4 Ağrı
+    5 Amasya
+    .
+    .
+    .
+    
+Veritabanımız hazır olduğuna göre programımızı yazabiliriz (:numref:`il-ice-dropdown`).
+
+.. literalinclude:: ./programlar/listeEylem/programlar/5/il-ice-dropdown.py
+    :linenos:
+    :tab-width: 4
+    :caption:  main.py
+    :name: il-ice-dropdown
+    :language: python
+
+ve ``kv`` dosyası:
+
+.. literalinclude:: ./programlar/listeEylem/programlar/5/illerilceleracilirkutu.kv
+    :linenos:
+    :tab-width: 4
+    :language: python
+
 
 *devam edecek...*
