@@ -337,7 +337,7 @@ Il-ilce-Semt-Mahalle-PostaKodu.xml: https://raw.githubusercontent.com/mbaser/kiv
 okuyup ayırt etmek oldukça zaman alıcı bir işlem, bu kadar büyük bir veriyi en azında SqLite veritabanı sisteminde saklamak daha iyi.
 Ancak biz sadece deneme programı yazacağız, hem böylece bir xml dosyasını nasıl okuyacağınızı da öğrenmiş oluruz.
 
-Bir xml dosyasını kullanabilmek için, öncelikle dosya yapısını bilmeniz gerekir. Onun için dosyayı firefox ya da chrome ile açıp yapısını
+Bir xml dosyasını kullanabilmek için, öncelikle dosya yapısını bilmeniz gerekir. Onun için dosyayı firefox ile açıp yapısını
 inceleyebiliriz (Metin düzenleyici ya da xml editörleri ile açmayı denemeyin, dosya çok büyük). Dosyayı incelediğimzde veri
 gruplandırmasının yapılmadığını görüyoruz. Dosyanın yapısından anladığımız kadarı ile aşağıdaki çıkarımları yapabiliriz: 
 
@@ -521,7 +521,7 @@ Aynı programı ``kv`` dili ile yazacak olursak:
 Herhangi bir düğmeye herhangi bir özellik ekleyerek başka verileri saklayabiliriz. Örneğin öğrencilerin okul numaralarını saklamak
 için şu kodu yazabiliriz::
 
-    for x, y in ( ("Mustafa", 9876), ("Dilek", 77192),
+    for x, y in (("Mustafa", 9876), ("Dilek", 77192),
                  ("Fatih", 98278), ("Melike", 56765)):
         dugme=Button(text=x, size_hint_y=None, height=25)
         dugme.okulNo=y
@@ -533,6 +533,43 @@ görüntülemek istiyorsak::
 
     self.anadugme.text="Adı: %s\nNo: %d" % (nesne.text, nesne.okulNo)
     
+Peki seçilmiş maddeyi nasıl belirleyeceğiz. Diğer bir deyişle tekrar seçim yapılacağı zaman daha önce seçilmiş olan düğmeyi nasıl
+göstereceğiz? Liste görünümü (ListView) bunu kendisi yapıyordu, açılır kutuda bunu kendimiz yapmamız gerekecek. Bir seçim yapıldığında,
+seçilen nesnenin (burada bildiğimiz düğme - Button) arka plan rengini değiştirebiliriz. Bunu hemen ``secim()`` işlevinin altına şu 
+satırı yazarak gerçekleştirebiliriz::
 
+    nesne.background_color= 1, 0, 0, 1
+
+``secim()`` işlevinin altına bu satırı ekledikten sonra programı çalıştırırsanız, bir seçim yapıp tekrar seçim yapmak istediğinizde
+önceki düğmenin arka plan renginin kırmızı olduğunu göreceksiniz. İşmiz bitti mi? Bu cevabı iknci ve üçncü seçimi yaptıktan sonra
+siz verin. Ne olsu? Her seçilenin arkası kırmızıya dönüşüyor değil mi? Şimdi çözmemiz gereken başka bir sorun var. Daha önce seçilmiş
+düğmenin arka plan rengini eski haline getirmek. Düğmelerin ön tanımlı arka plan rengi ``[1, 1, 1, 1]`` dir. Bunu yapmak için iki
+yolumuz var, ya açılır kutudaki tüm düğmelerin arka plan rengini önce ``[1, 1, 1, 1]`` yapmak daha sonra, yeni seçilenin 
+arka plan rengini ``[1, 0, 0, 1]`` yapmak. Ya da benim daha çok sevdiğim ikinci yöntem: açılır kutuya ``secim`` özelliği verip, 
+her seçim yapıldığında seçilen nesneyi buraya atamak. Böylelikle daha sonra bir çaılır kutudaki seçilmiş nesneye ait bilgilere de 
+ulaşabilirsiniz (aslında çok basit ikinci yöntemi **Kivy** geliştiricileri neden eklemezler bilmiyorum). Bu ikinci yöntemi uygulamak 
+için açılır kutuyu tanımladığımız satırdan sonra (:numref:`acilir-liste-1`'da 19. satıra) aşağıdaki satırı eklemeliyiz::
+
+
+    self.acilirkutu.secim=None
+    
+Bu durumda ``secim()`` işlevini aşağıdaki gibi değiştirmemiz gerekecek::
+
+
+    def secim(self, nesne):
+        # Önceden seçilmiş bir düğme var ise arka plan rengini
+        # ön tanımlı renge dönüştürelim
+        if self.acilirkutu.secim:
+            self.acilirkutu.secim.background_color= [1, 1, 1, 1]
+            
+        self.acilirkutu.select(nesne.text)
+        self.anadugme.text=nesne.text
+        
+        # secim özelliğine yeni nesneyi ekleyelim ve
+        # arka plan rengini kırmızı yapalım
+        self.acilirkutu.secim=nesne
+        nesne.background_color= 1, 0, 0, 1
+
+Üçüncü çözümü olan var mı?
 
 *devam edecek...*
