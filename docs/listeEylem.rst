@@ -258,6 +258,7 @@ yerine parçacık çizilmeden önce tuvalin (canvas) arka planını boyamamız g
 
 Seçimin Denetlenmesi
 ---------------------
+
 En azından ``ListAdapter`` kullanılan liste görünümlerinde bir seçim yapıldığında, bir eylem gerçekleştirilmek isteniyorsa
 adaptörün :index:`on_selection_change` olayına bir işlev bağlamak gerekir.  :numref:`kitaplar-main`'daki programda seçilen
 seçilen kitaba ait ayrıntıları açılır pencerede görüntülemek üzere ``build()`` işlevinin en altına şu satırı ekleyelim::
@@ -304,6 +305,8 @@ Aşağıdaki satırları programınızın başına yazmayı unutmayın::
 
    Kitap ayrıntılarının görüntülenmesi
 
+
+.. _listeGorunumuIlIlce:
 
 İl-İlçe-Mahalle Seçimi
 ----------------------
@@ -532,6 +535,9 @@ Sakladığımız bu veriyi seçim yaptıktan sonra erişebiliriz. "Başlat" dü�
 görüntülemek istiyorsak::
 
     self.anadugme.text="Adı: %s\nNo: %d" % (nesne.text, nesne.okulNo)
+
+Seçimin Denetlenmesi
+--------------------
     
 Peki seçilmiş maddeyi nasıl belirleyeceğiz. Diğer bir deyişle tekrar seçim yapılacağı zaman daha önce seçilmiş olan düğmeyi nasıl
 göstereceğiz? Liste görünümü (ListView) bunu kendisi yapıyordu, açılır kutuda bunu kendimiz yapmamız gerekecek. Bir seçim yapıldığında,
@@ -571,5 +577,58 @@ Bu durumda ``secim()`` işlevini aşağıdaki gibi değiştirmemiz gerekecek::
         nesne.background_color= 1, 0, 0, 1
 
 Üçüncü çözümü olan var mı?
+
+İller-İlçeler-Semtler: SqLite Veritabanı
+----------------------------------------
+
+İl-ilçe-semt seçimini :ref:`listeGorunumuIlIlce` kesiminde xml ile yapmıştık ve orada bu kadar büyük veriyi xml ile saklamanın çok mantıklı
+olmadığını belirtmiştik. Burada aynı uygulamayı liste görünümü yerine açılır kutu ile yapacağız ve veritabanı olarak xml yerine :index:`SqLite`
+kullanacağız.
+
+SqLite oldukça hızlı, küçük (hafif), büyük veriler ile rahatlıkla başedebilen ve yaygın bir veritabanı sistemidir. Üstelik veri bir dosyada
+tutulduğundan değişik diller ile yazılmış programlar rahatlıkla erişebilir ve ağ üzerinden dağıtılabilir. Python ile SqLite bağlantısı
+``sqlite3`` modülü ile gerçekleştirilir. Önce basitçe kullanımını hatırlayalım. Bu amaçla bir veritabanı oluşturalım ve bağlantısını
+gerçekleştirelim::
+
+    >>> import sqlite3
+    >>> sqlbaglantisi = sqlite3.connect('ogrenciler.db')
+    >>> isaretci = sqlbaglantisi.cursor()
+
+
+``ogrenciler`` tablosunu oluşturalım::
+
+    >>> isaretci.execute('create table ogrenciler (ogr_id integer primary key, ogr_adi varchar(100), ogr_no integer)')
+
+
+tabloya birkaç veri ekleyelim::
+
+    >>> for x, y in (("Mustafa", 9876), ("Dilek", 77192), ("Fatih", 98278), ("Melike", 56765)):
+    ...     isaretci.execute('insert into ogrenciler (ogr_adi, ogr_no) values ("%s", %d)' % (x,y))
+    ... 
+
+Eklediğimiz verinin diske (dosyay) yazılmasını sağlayalım::
+
+    >>> sqlbaglantisi.commit()
+
+Şimdi de eklediğimiz öğrencileri tekrar alalım::
+
+
+    >>> ogrenciler=isaretci.execute("select * from ogrenciler")
+    >>> for ogr in ogrenciler.fetchall():
+    ...     print ogr
+    ... 
+    (1, u'Mustafa', 9876)
+    (2, u'Dilek', 77192)
+    (3, u'Fatih', 98278)
+    (4, u'Melike', 56765)
+
+Veritabanına yapılmış bağlantıyı koparalım::
+
+    >>> sqlbaglantisi.close()
+
+Daha önce size verdiğim ``Il-ilce-Semt-Mahalle-PostaKodu.xml`` dosyasındaki tüm tablo ve verileri SqLite biçimine döndürdüm.
+SqLite dosyasını şu adresten alabilirziniz:
+
+iller.db: https://github.com/mbaser/kivy-tr/blob/master/docs/programlar/listeEylem/programlar/5/iller.db
 
 *devam edecek...*
