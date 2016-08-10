@@ -668,5 +668,47 @@ ve ``kv`` dosyası:
     :tab-width: 4
     :language: python
 
+Eylem Çubuğu
+=============
+
+Mobil programlamada :index:`eylem çubuğu` (:index:`ActionBar`), masaüstü programlardaki menu çubuğu ve/veya araç çubuğuna benzetelebilir (yapısal olarak farklı olasa da).
+Eylem çubuğunu genellikle pencerinin üstüne koyarız ve programın yapılandırılması veya diğer eylemler için birkaç düğme ve/veya düğme grubu 
+koyarız. Böylelikle programın kullanılmasını sağlarız.
+
+Bir eylem çubğu en azından bir :index:`eylem görünümü` (:index:`ActionView`) ve bunun içinde
+:index:`önceki eylem` (:index:`ActionPrevious`) nesnesinden oluşmalıdır. Diğer bir deyişle bir eylem çubuğu oluşturmak için en azından
+``ActionBar``, ``ActionView`` ve ``ActionPrevious`` nesnelerini kullanmamız gerekecek. Bu bilgilerden sonra hemen bir eylem çubuğu 
+oluşturan program yazalım (:numref:`eylemcubugu-1`)
+
+.. literalinclude:: ./programlar/listeEylem/programlar/6/main.py
+    :linenos:
+    :tab-width: 4
+    :caption:  main.py
+    :name: eylemcubugu-1
+    :language: python
+
+
+Burada gördüğünüz gibi öncelikle bir eylem çubuğu (``ActionBar``) oluşturuyoruz. Bu çubuğun, bulunduğu alandaki konumunu üst taraf
+yapmak için :index:`pos_hint` parametresine ``{'top':1}`` değerini veriyoruz. Önceki eylem (``ActionPrevious``) nesnesinin ``title``
+parametresine genellikle programın adını veriririz (unutmayın mobil cihazlarda pencere başlığı olmayacaktır). Yatay yerleşimli
+kutu pencere düzeninin ilk elemanı eylem çubuğu, ikinci elemanı ise bir etiket oldu. İkinci eleman yerine genellikle bir başka pencere
+düzeni koymayı yeğleriz ki, programımızın ana penceresinde görünmesini istediğimiz nesneleri yerleştirelim. Programımızı çalıştırdığımızda
+elde edeceğimiz pencere :numref:`Şekil %s <eylemCubugu-1-img>` 'da verilmiştir.
+
+.. _eylemCubugu-1-img:
+
+.. figure:: ./programlar/listeEylem/programlar/6/eylemCubugu-1.png
+
+   Eylem Çubuğu
+
+Burada başlığın solunda bir simgenin olduğunu görüyorsunuz. Eğer önceki eylem (``ActionPrevious``) nesnesinin :index:`app_icon`
+parametresine bir simge vermez isek ön tanımlı olarak *kivy* simgesi görünür. Bu simgenin nereden geldiğini daha donra açıklayacağız.
+İsterseniz şimdi bu simgeyi değiştirelim. Bunun için ``main.py`` programını kaydettiğiniz yere şu resmi indirin:
+
+document-edit.png: https://raw.githubusercontent.com/mbaser/kivy-tr/master/docs/programlar/listeEylem/programlar/6/document-edit.png
+
+Daha sonra 21. satırdaki ``ActionPrevious`` nesnesinin aşağıdaki gibi ``app_icon`` parametresine ``document-edit.png`` verin::
+
+    oncekieylem=ActionPrevious(title='Eylem Çubuğu', app_icon='document-edit.png')
 
 *devam edecek...*
