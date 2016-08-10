@@ -452,6 +452,15 @@ Programı çalıştıracak olursanız :numref:`Şekil %s <illerIlceler1Img>` de 
 
    İle-ilçe-semt Seçimi
 
+.. note::
+
+   Derleme yaparken (:ref:`paketlemeKismi` kısmında anlatılan) **buildozer** in paketin içine ``Il-ilce-Semt-Mahalle-PostaKodu.xml``
+   dosyasını koyması için ``source.include_exts`` seçeneğinin sonuna *xml* eklenemsi gerekir 
+   (tüm xml uzantılı dosyalar içerilecektir)::
+
+        source.include_exts = py,png,jpg,kv,atlas,xml
+
+
 Benim anlatacaklarım bitti. Şimdi kod yazma sırası size. xml dosyasında her semte ait mahalelerde mevcut. Biz bunları göstermedik. Programa
 mahalle seçimini de yapacağımız eklentileri yapın. Programınız çalıştığında :numref:`Şekil %s <illerIlceler2Img>` deki gibi görünmeldir.
 
@@ -668,6 +677,21 @@ ve ``kv`` dosyası:
     :tab-width: 4
     :language: python
 
+.. note::
+
+   Derleme yaparken (:ref:`paketlemeKismi` kısmında anlatılan) **buildozer** in paketin içine *sqlite* modülünü koyması için ``requirements``
+   seçeneğinin şu şekilde yapılandırılması gerekir::
+        
+        requirements = kivy,sqlite3
+
+
+   Bunun dışında ``iller.db`` dosyasının içerilebilmesi için ``source.include_exts`` seçeneğinin sonuna *db* eklenemsi gerekir 
+   (tüm db uzantılı dosyalar içerilecektir)::
+
+        source.include_exts = py,png,jpg,kv,atlas,db
+
+
+
 Eylem Çubuğu
 =============
 
@@ -711,4 +735,68 @@ Daha sonra 21. satırdaki ``ActionPrevious`` nesnesinin aşağıdaki gibi ``app_
 
     oncekieylem=ActionPrevious(title='Eylem Çubuğu', app_icon='document-edit.png')
 
-*devam edecek...*
+atlas
+------
+
+Yukarıdaki değişikliği yapıp programı çalıştırırsanız soldaki simgenin değiştiğini göreceksiniz. Peki bu ön tanımlı simge nereden geliyor? Cevabını vereyim ``atlas`` dan.
+Gerçekten :index:`atlas` nesnesinden geliyor. ``atlas`` nesnesi programda kullanacağınız simgeleri bir tek resim haline getirip, bunu
+indeksleyip daha sonra bu simgeleri kullanmamızı sağlar. Elbetteki ``atlas`` nesnesinin ön tanımlı bir simge seti var. Kivy'nin
+kurulu olduğu dizindeki ``data/images`` klasöründe (benim Linux'umda tam patika ``/usr/lib/python2.7/dist-packages/kivy/data/images``,
+Windows'umda tam patika ``C:\Python27\Lib\site-packages\kivy\data\images``) bulunan ``defaulttheme-0.png`` dosyası kullanılan
+ön tanımlı simgelerin birleşmesinden oluşan dosya, bu dosyanın ineksi ise ``defaulttheme.atlas`` dosyasında bulunmaktadır.
+``defaulttheme.atlas`` dosyası bildiğimiz Python sözlüğüdür. Bu sözlüğün içinde çeşitli simge gruplarından oluşan
+indeksler bulunur. Örneğin ``defaulttheme-0.png`` anahtarının değeri yine bir szölük ve burada simgelerin konumları bulunmaktadır.
+Bir örnek verecek olursak ``audio-volume-medium`` simgesi ``[52, 171, 48, 48]`` konumunda bulunmaktadır. Bir programı
+apk paketi haline getirdiğinizde atlas'ın ön tanımlı dosyasıda içerisinde bulunduğundan buradaki simgeleri istediğiniz yerde
+kullanabilirsiniz. Şimdi ``document-edit.png`` yerine atlas'ın içerisinde bulunan ``close`` simgesini koyalım, bunun için
+:numref:`eylemcubugu-1` deki 21. satırı aşağıdaki gibi değiştirin::
+
+    oncekieylem=ActionPrevious(title='Eylem Çubuğu', app_icon='atlas://data/images/defaulttheme/close')
+
+
+atlas'ın simgelerinin kullanımını şöyle açıklayabiliriz: */atlas/icin/patika/atlas_dosyasi/simge_adi* Burada şuna dikkat etmelisiniz
+``simge_adi`` sadece ismi içerir, dosya uzantısını içermez. Bu ön tanımlı simgeleri programınıza herhangi bir ekleme yapmadan
+kullanabilir, öylece paketleyebilirsiniz. 
+
+Şimdi kendi atlas'ımızı oluşturalım. Bunun için şu dosyayı indirin ve programınızın (mevcut ``main.py`` dosyasının olduğu) patikaya açın:
+
+simgeler.png: https://raw.githubusercontent.com/mbaser/kivy-tr/master/docs/programlar/listeEylem/programlar/6/simgeler.zip
+
+Şimdi komut satırından (``cmd``) aşağıdaki komutu çalıştırın [#ft1]_ [#ft2]_ ::
+
+    python -m kivy.atlas atlasim 256x256 simgeler/*.png
+
+
+Bu komut bulunduğunuz dizinde iki adet dosya oluşturacaktır. Birincisi atlas indeksi (``atlasim.atlas``), diğeri simgelerin birleştirildiği
+256x256 boyutlarında bir PNG dosyası olan atlas resimidir (``atlasim-0.png``). Çalıştırdığımız komutun ilk kısmını zaten biliyorsunuz, atlas'ın
+nasıl çalıştığını anlatalım:
+
+* İlk aldığı argüman isimdir. Burada ``atlasim`` ismini verdik. Daha sonra kullanırken bu ismi yazacağız.
+* İkinci argüman oluşturulacak atlas resminin boyutlarıdır. Eğer resimleriniz büyükse daha büyük bir boyut kullanabilirsiniz. 
+  enxboy şeklinde yazılır
+* Üçüncü argüman ise atlas'a eklenecek simgelerdir. Burada bulunduğumuz dizindeki ``simgeler`` dizini altındaki tüm PNG dosyalarını
+  eklemesini istedik.
+
+Şimdi oluşturduğumuz atlası :numref:`eylemcubugu-1` deki 21. satırı aşağıdaki gibi değiştirerek kullanalım::
+
+    oncekieylem=ActionPrevious(title='Eylem Çubuğu', app_icon='atlas://atlasim/document-edit')
+    
+Unutmayın ``atlasim-0.png`` ve ``atlasim.atlas`` doslayalrı :numref:`eylemcubugu-1` programının kayıtlı olduğu dizinde olmalıdır.
+Burada ``document-edit.png`` simgesini kullanmak için sadece dosya adını (``document-edit``) yazdığımızıda aklınızdan çıkarmayın.
+
+.. note::
+
+   Derleme yaparken (:ref:`paketlemeKismi` kısmında anlatılan), ``buildozer.spec`` dosyasında herhangi bir değişiklik yapmanıza gerek yok.
+   Çünkü, ``buildozer.spec`` dosyasındaki ``source.include_exts`` yapılandırma seçeneği ön tanımlı olarak  ``atlas`` ve ``png`` doslayarını
+   paketin içerisine koyacak şekilde yapılandırılmıştır.
+
+
+.. rubric:: Dipnotlar
+
+.. [#ft1] Sismteminizde PIL kurulu değil ise komut satırından şu şekilde kurabilirsiniz: ``python -m pip install Pillow``
+.. [#ft2] Windows kullanıcıları ``cmd`` yi yönetici (Administrator) yetkileri ile çalışırmaları gerekebilir. Eğer Windows kullanıcıları
+          patikaya Python'u eklemedilerse tam patikayı yazmalıdırlar. Örneğin: ``C:\Python27\python.exe -m kivy.atlas atlasim 256x256 simgeler/*.png``
+
+   
+   
+*devam edecek...* 

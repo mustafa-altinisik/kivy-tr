@@ -18,8 +18,31 @@ class eylemCubugu(App):
         eylemgorunumu=ActionView()
         eylemcubugu.add_widget(eylemgorunumu)
 
-        oncekieylem=ActionPrevious(title='Eylem Çubuğu', app_icon='document-edit.png')
+        #oncekieylem=ActionPrevious(title='Eylem Çubuğu', app_icon='document-edit.png')
+        #oncekieylem=ActionPrevious(title='Eylem Çubuğu', app_icon='atlas://data/images/defaulttheme/close')
+        oncekieylem=ActionPrevious(title='Eylem Çubuğu', app_icon='atlas://atlasim/document-edit')
         eylemgorunumu.add_widget(oncekieylem)
+        
+        aksiyondugmesi2=ActionButton(icon='atlas://atlasim/document-open')
+        eylemgorunumu.add_widget(aksiyondugmesi2)
+        
+
+        
+        aksiyondugmesi1=ActionButton(icon='atlas://atlasim/document-save')
+        eylemgorunumu.add_widget(aksiyondugmesi1)
+        
+
+        aksiyondugmesi4=ActionButton(icon='atlas://atlasim/document-save-as')
+        eylemgorunumu.add_widget(aksiyondugmesi4)
+        
+        
+        
+        aksiyondugmesi3=ActionButton(icon='atlas://atlasim/document-new')
+        eylemgorunumu.add_widget(aksiyondugmesi3)
+
+        aksiyondugmesi5=ActionButton(icon='atlas://atlasim/application-exit')
+        eylemgorunumu.add_widget(aksiyondugmesi5)
+
         
         duzen = BoxLayout(orientation='vertical')
         duzen.add_widget(eylemcubugu)

@@ -83,7 +83,7 @@ Paket haline getirmek için önce başlatalım:
 
   $ buildozer init
 
-Daha sonra buildozer.spec dosyasını düzenleyelim. Ben sadece aşağıdaki değişiklikleri yaptım:
+Daha sonra ``buildozer.spec`` dosyasını düzenleyelim. Ben sadece aşağıdaki değişiklikleri yaptım:
 
 ::
 
@@ -115,7 +115,7 @@ Daha sonra buildozer.spec dosyasını düzenleyelim. Ben sadece aşağıdaki de�
 	....
 
 
-İlk kez paketleme yapıyorsanız, ANT, SDK, NDK indirilecektir. Lütefn sabırlı olun. Daha sonra paketleme işlemi yapılacaktır. Benim
+İlk kez paketleme yapıyorsanız, ANT, SDK, NDK indirilecektir. Lütfen sabırlı olun. Daha sonra paketleme işlemi yapılacaktır. Benim
 sanal makinamda bu işlem 10 dakikadan fazla sürmektedir. Şu şekilde sonlanması gerekir:
 
 ::
