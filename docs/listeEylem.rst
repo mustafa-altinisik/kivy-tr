@@ -845,8 +845,8 @@ Hiçbir iş yapmayan programımızı çalıştırdığımızda :numref:`Şekil %
 
    Eylem Çubuğu ve Eylem Düğmeleri
 
-Sanırım neden bu düğmeleri seçtiğimizi anladınız. Aslında eylem düğmelerini, normal diğmeleri (Button) kullandığınız yerlerin çoğunda
-kullanma şansınız var. Burada eylem öncesi nesnesinin (ActionPrevious) simgesinin solunda "<" var idi. Bunu kaldırmak için bu bensnenin
+Sanırım neden bu düğmeleri seçtiğimizi anladınız. Aslında eylem düğmelerini, normal düğmeleri (Button) kullandığınız yerlerin çoğunda
+kullanma şansınız var. Burada eylem öncesi nesnesinin (ActionPrevious) simgesinin solunda "<" var idi. Bunu kaldırmak için bu nesnenin
 :index:`with_previous` özelliğine ``False`` değerini verdik.
 
 
@@ -914,11 +914,11 @@ ve bunların yerine ``TextInput:`` satırından önce (``exit_on_escape: False``
                 on_press: app.cik()
 
 ve son olarak ``main.py`` dosyasında çıkış düğmesinin rengini değiştirdiğimiz yerlerde, renk değişikliği yerine simge değişikliği
-yapabilmek için şu satırları yerine::
+yapabilmek için şu satırların yerine::
 
     self.root.ids.cik_dugmesi.background_color = [0, 1, 0, 1]
 
-şu satırı yazın (toplam 4 satır)::
+şu satırı yazın (toplam 4 satır değişikliğ)::
 
     self.root.ids.cik_dugmesi.icon='atlas://atlasim/application-exit'
 
@@ -927,11 +927,11 @@ yapabilmek için şu satırları yerine::
 
     self.root.ids.cik_dugmesi.background_color = [1, 0, 0, 1]
  
-şu satırı yazın (1 satır)::
+şu satırı yazın (1 satır değişikliği)::
  
     self.root.ids.cik_dugmesi.icon='atlas://atlasim/dialog-cancel'
     
-yapacağınız değişikliklerin hepsi bu kadar. Elbetteki ``atlasim.atlas`` ve ``atlasim-0.png`` dosyalarını metin düzenleyici programınızın
+yapacağınız değişikliklerin hepsi bu kadar. Elbetteki ``atlasim.atlas`` ve ``atlasim-0.png`` dosyalarını metin düzenleyici programımızın
 olduğu dizine kopyalamayı unutmayacağız. Şimdi metin düzenleyici programımız daha çekici oldu. Programımızı çalıştırdığımızda
 :numref:`Şekil %s <eylem-cubugu-edit-2-img>` daki görüntüyü elde edeceğiz.
 
