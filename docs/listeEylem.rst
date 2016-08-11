@@ -849,9 +849,121 @@ Sanırım neden bu düğmeleri seçtiğimizi anladınız. Aslında eylem düğme
 kullanma şansınız var. Burada eylem öncesi nesnesinin (ActionPrevious) simgesinin solunda "<" var idi. Bunu kaldırmak için bu bensnenin
 :index:`with_previous` özelliğine ``False`` değerini verdik.
 
-Şimdi hazırladığımız eylem çubuğu ile :ref:`metinDuzenleyiciBolumu` bölümünde hazırladığımız metin düzenleyiciyi
-birleştirelim.
 
+Metin Düzenleyici Yeniden
+-------------------------
+
+Şimdi hazırladığımız eylem çubuğu ile :ref:`metinDuzenleyiciBolumu` bölümünde hazırladığımız metin düzenleyiciyi
+birleştirelim. Öncelikle ``kv`` dosyasını düzenleyelim. Bunun için ``metinduzenleyici.kv`` dosyasındaki  ``<metinDuzenleyici>:``
+formunda (dosyanın başındaki form) aşağıdaki satırları silin::
+
+    BoxLayout:
+        size_hint_y: 10
+        Button:
+            text: "Aç"
+            on_press: app.dosyaAcIsleviDialog()
+        Button:
+            text: "Kaydet"
+            on_press: app.dosyaKaydetIslevi()
+        Button:
+            text: "Farklı Kaydet"
+            on_press: app.farkliKaydetDialog()
+        Button:
+            text: "Yeni"
+            on_press: app.yeniDosyaAcIslevi()
+        Button:
+            id: cik_dugmesi
+            size_hint_x: .15
+            background_color: (0, 1, 0, 1)
+            on_press: app.cik()
+
+ve bunların yerine ``TextInput:`` satırından önce (``exit_on_escape: False`` dan sonra) aşağıdakileri yazın::
+
+    ActionBar:
+        pos_hint:  {'top':1}
+        ActionView:
+            ActionPrevious:
+                title: 'Metin Düzenleyici'
+                id: eylem_oncesi
+                with_previous: False
+                app_icon: 'atlas://atlasim/document-edit'
+            ActionButton:
+                text: 'Aç'
+                id: ac_eylem_dugmesi
+                icon: 'atlas://atlasim/document-open'
+                on_press: app.dosyaAcIsleviDialog()
+            ActionButton:
+                text: 'Kaydet'
+                id: kaydet_eylem_dugmesi
+                icon: 'atlas://atlasim/document-save'
+                on_press: app.dosyaKaydetIslevi()
+            ActionButton:
+                text: 'Farklı Kaydet'
+                id: farklı_kaydet_eylem_dugmesi
+                icon: 'atlas://atlasim/document-save-as'
+                on_press: app.farkliKaydetDialog()
+            ActionButton:
+                text: 'Yeni'
+                id: yeni_eylem_dugmesi
+                icon: 'atlas://atlasim/document-new'
+                on_press: app.yeniDosyaAcIslevi()
+            ActionButton:
+                text: 'Çık'
+                id: cik_dugmesi
+                icon: 'atlas://atlasim/application-exit'
+                on_press: app.cik()
+
+ve son olarak ``main.py`` dosyasında çıkış düğmesinin rengini değiştirdiğimiz yerlerde, renk değişikliği yerine simge değişikliği
+yapabilmek için şu satırları yerine::
+
+    self.root.ids.cik_dugmesi.background_color = [0, 1, 0, 1]
+
+şu satırı yazın (toplam 4 satır)::
+
+    self.root.ids.cik_dugmesi.icon='atlas://atlasim/application-exit'
+
+
+şu satır yerine::
+
+    self.root.ids.cik_dugmesi.background_color = [1, 0, 0, 1]
+ 
+şu satırı yazın (1 satır)::
+ 
+    self.root.ids.cik_dugmesi.icon='atlas://atlasim/dialog-cancel'
+    
+yapacağınız değişikliklerin hepsi bu kadar. Elbetteki ``atlasim.atlas`` ve ``atlasim-0.png`` dosyalarını metin düzenleyici programınızın
+olduğu dizine kopyalamayı unutmayacağız. Şimdi metin düzenleyici programımız daha çekici oldu. Programımızı çalıştırdığımızda
+:numref:`Şekil %s <eylem-cubugu-edit-2-img>` daki görüntüyü elde edeceğiz.
+
+
+.. _eylem-cubugu-edit-2-img:
+
+.. figure:: ./programlar/listeEylem/programlar/8/eylem-cubugu-edit-2-img.png
+
+   Eylem Çubuklu Metin düzenleyici
+
+Programın son halini şuradan alabilirsiniz:
+
+atlasim.atlas:  https://raw.githubusercontent.com/mbaser/kivy-tr/master/docs/programlar/listeEylem/programlar/8/atlasim.atlas
+
+atlasim-0.png:  https://raw.githubusercontent.com/mbaser/kivy-tr/master/docs/programlar/listeEylem/programlar/8/atlasim-0.png
+
+main.py: https://raw.githubusercontent.com/mbaser/kivy-tr/master/docs/programlar/listeEylem/programlar/8/main.py
+
+metinduzenleyici.kv: https://raw.githubusercontent.com/mbaser/kivy-tr/master/docs/programlar/listeEylem/programlar/8/metinduzenleyici.kv
+
+**Soru:** :numref:`Şekil %s <eylem-cubugu-edit-2-img>` deki ekran görüntüsününde eylem öncesi nesnesinin başlığı, açılan (ya da kaydedilen)
+dosyanın dosya adını göstermektedir. Bunu siz de yapabilirmisiniz? *İpucu:* ``self.root.ids.eylem_oncesi.title`` metnini dosya adı yapmalısınız.
+
+Metin düzenleyicinin son halini derledim ve denemeniz için aşağıdaki köprüye koydum:
+
+https://raw.githubusercontent.com/mbaser/kivy-tr/master/docs/programlar/listeEylem/programlar/8/kivymetinduzenleyici-0.3.apk
+
+Programın Android öykünücüdeki çalışan hali ise şöyle:
+
+.. figure:: ./programlar/listeEylem/programlar/8/eylem-cubugu-edit-3-img.png
+
+   Android öykünücüde çalışan Metin Düzenleyici
 
 
 *devam edecek...* 
@@ -860,7 +972,7 @@ birleştirelim.
 
 .. [#ft1] Sismteminizde PIL kurulu değil ise komut satırından şu şekilde kurabilirsiniz: ``python -m pip install Pillow``
 .. [#ft2] Windows kullanıcıları ``cmd`` yi yönetici (Administrator) yetkileri ile çalışırmaları gerekebilir. Eğer Windows kullanıcıları
-          patikaya Python'u eklemedilerse tam patikayı yazmalıdırlar. Örneğin: ``C:\Python27\python.exe -m kivy.atlas atlasim 256x256 simgeler/*.png``
+   patikaya Python'u eklemedilerse tam patikayı yazmalıdırlar. Örneğin: ``C:\Python27\python.exe -m kivy.atlas atlasim 256x256 simgeler/*.png``
 
    
 
