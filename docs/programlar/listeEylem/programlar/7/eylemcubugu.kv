@@ -1,0 +1,34 @@
+<eylemCubugu>:
+BoxLayout:
+    orientation: 'vertical'
+    pos_hint:  {'top':1}
+    
+    ActionBar:
+        ActionView:
+            ActionPrevious:
+                title: 'Metin Düzenleyici'
+                with_previous: False
+                app_icon: 'atlas://atlasim/document-edit'
+            ActionButton:
+                text: 'Aç'
+                id: ac_eylem_dugmesi
+                icon: 'atlas://atlasim/document-open'
+            ActionButton:
+                text: 'Kaydet'
+                id: kaydet_eylem_dugmesi
+                icon: 'atlas://atlasim/document-save'
+            ActionButton:
+                text: 'Farklı Kaydet'
+                id: farklı_kaydet_eylem_dugmesi
+                icon: 'atlas://atlasim/document-save-as'
+            ActionButton:
+                text: 'Yeni'
+                id: yeni_eylem_dugmesi
+                icon: 'atlas://atlasim/document-new'
+            ActionButton:
+                text: 'Çık'
+                id: yeni_eylem_dugmesi
+                icon: 'atlas://atlasim/application-exit'
+                
+    Label:
+        text: 'Ana Alan'

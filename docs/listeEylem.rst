@@ -675,7 +675,7 @@ ve ``kv`` dosyası:
 .. literalinclude:: ./programlar/listeEylem/programlar/5/illerilceleracilirkutu.kv
     :linenos:
     :tab-width: 4
-    :language: python
+
 
 .. note::
 
@@ -762,9 +762,11 @@ kullanabilir, öylece paketleyebilirsiniz.
 
 simgeler.png: https://raw.githubusercontent.com/mbaser/kivy-tr/master/docs/programlar/listeEylem/programlar/6/simgeler.zip
 
-Şimdi komut satırından (``cmd``) aşağıdaki komutu çalıştırın [#ft1]_ [#ft2]_ ::
+Şimdi komut satırından (``cmd``) aşağıdaki komutu çalıştırın [#ft1]_ [#ft2]_ :
 
-    python -m kivy.atlas atlasim 256x256 simgeler/*.png
+.. code-block:: console
+
+    $ python -m kivy.atlas atlasim 256x256 simgeler/*.png
 
 
 Bu komut bulunduğunuz dizinde iki adet dosya oluşturacaktır. Birincisi atlas indeksi (``atlasim.atlas``), diğeri simgelerin birleştirildiği
@@ -784,12 +786,75 @@ nasıl çalıştığını anlatalım:
 Unutmayın ``atlasim-0.png`` ve ``atlasim.atlas`` doslayalrı :numref:`eylemcubugu-1` programının kayıtlı olduğu dizinde olmalıdır.
 Burada ``document-edit.png`` simgesini kullanmak için sadece dosya adını (``document-edit``) yazdığımızıda aklınızdan çıkarmayın.
 
+Oluşturduğumuz ``atlasim.atlas`` ve ``atlasim-0.png`` dosyalarını şuradan indirebilirsiniz:
+
+atlasim.atlas:  https://raw.githubusercontent.com/mbaser/kivy-tr/master/docs/programlar/listeEylem/programlar/6/atlasim.atlas
+
+atlasim-0.png:  https://raw.githubusercontent.com/mbaser/kivy-tr/master/docs/programlar/listeEylem/programlar/6/atlasim-0.png
+
 .. note::
 
    Derleme yaparken (:ref:`paketlemeKismi` kısmında anlatılan), ``buildozer.spec`` dosyasında herhangi bir değişiklik yapmanıza gerek yok.
    Çünkü, ``buildozer.spec`` dosyasındaki ``source.include_exts`` yapılandırma seçeneği ön tanımlı olarak  ``atlas`` ve ``png`` doslayarını
    paketin içerisine koyacak şekilde yapılandırılmıştır.
 
+Eylemler
+---------
+
+Aslında eylem öncesine, tıklandığında eylemlerin gerçekleşeceği birtakım nesnelerin yerleştirilmesi gerekiyor. Bunu bildiğimiz düğmeler
+(Button) kullanarak yapabilirsiniz. Ancak bunun yerine :index:`eylem düğmesi` (:index:`ActionButton`) kullanmanızı tavsiye ederim.
+Eylem düğmeleri, normal bir düğme gibi çalışır. Buna ilaveten bir de simge yerleştirebilirsiniz. Masaüstü programların araç çubuğunda
+bulunan düğmelere benzetebilirsiniz. Şimdi bunlardan birini ekleyelim. Bunun için yapmanız gereken :numref:`eylemcubugu-1` de 
+23. satırdan sonra şunları yazmak::
+
+    ac_eylem_dugmesi=ActionButton(text="Aç", icon='atlas://atlasim/document-open')
+    eylemgorunumu.add_widget(ac_eylem_dugmesi)
+
+
+.. |myopenfile| image:: ./programlar/listeEylem/programlar/6/simgeler/document-open.png
+        :width: 16pt
+        :height: 16pt
+
+
+Bu iki satırı eklediğinizde, eylem çubuğunun sağında üzerinde |myopenfile| simgesinin bulunduğu bir düğme eklenecektir. Elbetteki düğmemizin şimdilik
+bir görevi yok. 
+
+Programımızı ``kv`` dili ile yazıp rahata erelim. Python programı şu şekilde olmalıdır (:numref:`eylem-cubugu-edit-1`):
+
+.. literalinclude:: ./programlar/listeEylem/programlar/7/main.py
+    :linenos:
+    :tab-width: 4
+    :caption:  main.py
+    :name: eylem-cubugu-edit-1
+    :language: python
+
+ve ``kv`` dosyası (:numref:`eylem-cubugu-edit-1-kv`):
+
+.. literalinclude:: ./programlar/listeEylem/programlar/7/eylemcubugu.kv
+    :linenos:
+    :tab-width: 4
+    :caption:  eylemcubugu.kv
+    :name: eylem-cubugu-edit-1-kv
+
+Hiçbir iş yapmayan programımızı çalıştırdığımızda :numref:`Şekil %s <eylem-cubugu-edit-1-img>` daki görüntüyü elde edeceğiz.
+
+
+.. _eylem-cubugu-edit-1-img:
+
+.. figure:: ./programlar/listeEylem/programlar/7/eylem-cubugu-edit-1-img.png
+
+   Eylem Çubuğu ve Eylem Düğmeleri
+
+Sanırım neden bu düğmeleri seçtiğimizi anladınız. Aslında eylem düğmelerini, normal diğmeleri (Button) kullandığınız yerlerin çoğunda
+kullanma şansınız var. Burada eylem öncesi nesnesinin (ActionPrevious) simgesinin solunda "<" var idi. Bunu kaldırmak için bu bensnenin
+:index:`with_previous` özelliğine ``False`` değerini verdik.
+
+Şimdi hazırladığımız eylem çubuğu ile :ref:`metinDuzenleyiciBolumu` bölümünde hazırladığımız metin düzenleyiciyi
+birleştirelim.
+
+
+
+*devam edecek...* 
 
 .. rubric:: Dipnotlar
 
@@ -798,5 +863,4 @@ Burada ``document-edit.png`` simgesini kullanmak için sadece dosya adını (``d
           patikaya Python'u eklemedilerse tam patikayı yazmalıdırlar. Örneğin: ``C:\Python27\python.exe -m kivy.atlas atlasim 256x256 simgeler/*.png``
 
    
-   
-*devam edecek...* 
+
