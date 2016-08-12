@@ -2,47 +2,45 @@
 BoxLayout:
     orientation: "vertical"
     exit_on_escape: False
-    
+
     ActionBar:
-		pos_hint:  {'top':1}
-		ActionView:
-			ActionPrevious:
-				title: 'Metin Düzenleyici'
-				id: eylem_oncesi
-				with_previous: False
-				app_icon: 'atlas://atlasim/document-edit'
-			ActionButton:
-				text: 'Aç'
-				id: ac_eylem_dugmesi
-				icon: 'atlas://atlasim/document-open'
-				on_press: app.dosyaAcIsleviDialog()
-			ActionButton:
-				text: 'Kaydet'
-				id: kaydet_eylem_dugmesi
-				icon: 'atlas://atlasim/document-save'
-				on_press: app.dosyaKaydetIslevi()
-			ActionButton:
-				text: 'Farklı Kaydet'
-				id: farklı_kaydet_eylem_dugmesi
-				icon: 'atlas://atlasim/document-save-as'
-				on_press: app.farkliKaydetDialog()
-			ActionButton:
-				text: 'Yeni'
-				id: yeni_eylem_dugmesi
-				icon: 'atlas://atlasim/document-new'
-				on_press: app.yeniDosyaAcIslevi()
-			ActionButton:
-				text: 'Çık'
-				id: cik_dugmesi
-				icon: 'atlas://atlasim/application-exit'
-				on_press: app.cik()
-    
+        pos_hint:  {'top':1}
+        ActionView:
+            ActionPrevious:
+                title: 'Metin Düzenleyici'
+                id: eylem_oncesi
+                with_previous: False
+                app_icon: 'atlas://atlasim/document-edit'
+            ActionButton:
+                text: 'Aç'
+                id: ac_eylem_dugmesi
+                icon: 'atlas://atlasim/document-open'
+                on_press: app.dosyaAcIsleviDialog()
+            ActionButton:
+                text: 'Kaydet'
+                id: kaydet_eylem_dugmesi
+                icon: 'atlas://atlasim/document-save'
+                on_press: app.dosyaKaydetIslevi()
+            ActionButton:
+                text: 'Farklı Kaydet'
+                id: farklı_kaydet_eylem_dugmesi
+                icon: 'atlas://atlasim/document-save-as'
+                on_press: app.farkliKaydetDialog()
+            ActionButton:
+                text: 'Yeni'
+                id: yeni_eylem_dugmesi
+                icon: 'atlas://atlasim/document-new'
+                on_press: app.yeniDosyaAcIslevi()
+            ActionButton:
+                text: 'Çık'
+                id: cik_dugmesi
+                icon: 'atlas://atlasim/application-exit'
+                on_press: app.cik()
+
     TextInput:
         size_hint_y: 90
         id: metin
         multiline: True
-
-
 
 <farkliKaydetForm>:
     title: "Dosya Kaydet"
@@ -74,29 +72,28 @@ BoxLayout:
             Button:
                 text: "Vazgeç"
                 on_press: root.dismiss()
-                
+
 <dosyaAcForm>:
     title: "Dosya Aç"
     size_hint: (.9, .9)
     BoxLayout:
         orientation: 'vertical'
-        
+
         FileChooserListView:
             size_hint_y: 90
             id: dosya_secim
             filters: ['*.*']
             path: app.son_patika
-    
+
         BoxLayout:
-            size_hint_y: 10            
+            size_hint_y: 10
             Button:
                 text: "Aç"
                 on_press: app.dosyaOku(dosya_secim); root.dismiss()
             Button:
                 text: "Vazgeç"
                 on_press: root.dismiss()
-                
-                
+
 <dosyaKaydedilmediForm>:
     title: 'Mevcut Dosya Kaydedilmedi'
     size_hint: (.9, .9)
@@ -105,10 +102,10 @@ BoxLayout:
 
         Label:
             size_hint_y: 90  
-            text: "Çalıştığınız dosya kaydedilmedi. Kayıt yapılsın mı?"        
+            text: "Çalıştığınız dosya kaydedilmedi. Kayıt yapılsın mı?"
 
         BoxLayout:
-            size_hint_y: 10                
+            size_hint_y: 10
             Button:
                 text: "Kaydet"
                 on_press: app.dosyaKayedilmediKaydet(root)
@@ -118,8 +115,7 @@ BoxLayout:
             Button:
                 text: "Vazgeç"
                 on_press: root.dismiss()
-                
-                
+
 <yeniDosyaForm>:
     title: 'Mevcut Dosya Kaydedilmedi'
     size_hint: (.8, .8)
@@ -129,14 +125,14 @@ BoxLayout:
             size_hint_y: 90  
             text: "Çalıştığınız dosya kaydedilmedi. Yeni dosya açmak istediğinizden emin misiniz?"        
         BoxLayout:
-            size_hint_y: 10                
+            size_hint_y: 10
             Button:
                 text: "Vazgeç"
                 on_press: root.dismiss()
             Button:
                 text: "Evet"
                 on_press: app.yeniDosyaAc(); root.dismiss()
-                
+
 <cikmadanOnceForm>:
     title: 'Mevcut Dosya Kaydedilmedi'
     size_hint: (.8, .8)
@@ -148,12 +144,10 @@ BoxLayout:
             text: "Çalıştığınız dosya kaydedilmedi. Çıkmak istediğinizden emin misiniz?"        
 
         BoxLayout:
-            size_hint_y: 10                
+            size_hint_y: 10
             Button:
                 text: "Vazgeç"
                 on_press: root.dismiss()
             Button:
                 text: "Yinede Çık"
                 on_press: app.stop()
-                                             
-               

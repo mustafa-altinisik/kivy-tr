@@ -5,11 +5,6 @@
 Liste Görünümü ve Eylem Çubuğu
 ################################
 
-.. warning::
-   
-   Bu bölüm tamamlanmamıştır. Zaman buldukça yazıyorum.
-
-
 Bu bölümde Liste Görünümünü, Açılır Kutu (DropDown) ve Eylem Çubuğu'nu anlatacağız. Konuları anlatırken daha önce
 geliştirdiğimiz uygulamalara eklentiler yaparak uygulamasını da göstereceğiz.
 
@@ -965,8 +960,106 @@ Programın Android öykünücüdeki çalışan hali ise şöyle:
 
    Android öykünücüde çalışan Metin Düzenleyici
 
+Eylem Düğmelerini Ayırma ve  Gruplama
+-------------------------------------
 
-*devam edecek...* 
+Eylem düğmeleri arasına :index:`ayıraç` koyarak, tıpkı masaüstü programlarda bulunan araç çubuklarında olduğu gibi, birbirinden ayırabilirsiniz.
+Ayıraç koymak istediğiniz düğmelerin arasına (``kv`` dosyasında) :index:`ActionSeparator` nesnesi koymalısınız. Örneğin "Kaydet" ve "Farklı Kaydet"
+arasına ayıraç koymak için ``metinduzenleyici.kv`` dosyasının ``ActionBar`` kısımını aşağıdaki gibi düzenleyebilirsiniz::
+
+    ActionBar:
+        pos_hint:  {'top':1}
+        ActionView:
+            ActionPrevious:
+                title: 'Metin Düzenleyici'
+                id: eylem_oncesi
+                with_previous: False
+                app_icon: 'atlas://atlasim/document-edit'
+            ActionButton:
+                text: 'Aç'
+                id: ac_eylem_dugmesi
+                icon: 'atlas://atlasim/document-open'
+                on_press: app.dosyaAcIsleviDialog()
+            ActionSeparator:
+            ActionButton:
+                text: 'Kaydet'
+                id: kaydet_eylem_dugmesi
+                icon: 'atlas://atlasim/document-save'
+                on_press: app.dosyaKaydetIslevi()
+            ActionButton:
+                text: 'Farklı Kaydet'
+                id: farklı_kaydet_eylem_dugmesi
+                icon: 'atlas://atlasim/document-save-as'
+                on_press: app.farkliKaydetDialog()
+            ActionSeparator:
+            ActionButton:
+                text: 'Yeni'
+                id: yeni_eylem_dugmesi
+                icon: 'atlas://atlasim/document-new'
+                on_press: app.yeniDosyaAcIslevi()
+            ActionButton:
+                text: 'Çık'
+                id: cik_dugmesi
+                icon: 'atlas://atlasim/application-exit'
+                on_press: app.cik()
+
+
+Eylem düğmelerini :index:`gruplamak` için :index:`ActionGroup` nesnesini kullanabilirsiniz. Bu nesnenin :index:`mode` parametresi
+gruplamanın nasıl yapılacağını belirtir. Ön tanımlı değeri ``normal`` dir ve ekranda yer olmadığı zaman gruplama yapar. Yeteri kadar
+yer var ise gruplamadan gösterir. Değerini ``spinner`` yaparsanız her zaman gruplanır ve simgeler yerine metin gösterilir. Elebetteki
+``text`` parametresine grup metnini belirtmeliyiz. Aşağıda ``metinduzenleyici.kv`` dosyasının ``ActionBar`` kısımında nasıl 
+kullanılacağı gösterilmiştir::
+
+
+    ActionBar:
+        pos_hint:  {'top':1}
+        ActionView:
+            ActionPrevious:
+                title: 'Metin Düzenleyici'
+                id: eylem_oncesi
+                with_previous: False
+                app_icon: 'atlas://atlasim/document-edit'
+            ActionButton:
+                text: 'Aç'
+                id: ac_eylem_dugmesi
+                icon: 'atlas://atlasim/document-open'
+                on_press: app.dosyaAcIsleviDialog()
+            ActionGroup:
+                text: 'Kaydetme'
+                mode: 'normal'
+                ActionButton:
+                    text: 'Kaydet'
+                    id: kaydet_eylem_dugmesi
+                    icon: 'atlas://atlasim/document-save'
+                    on_press: app.dosyaKaydetIslevi()
+                ActionButton:
+                    text: 'Farklı Kaydet'
+                    id: farklı_kaydet_eylem_dugmesi
+                    icon: 'atlas://atlasim/document-save-as'
+                    on_press: app.farkliKaydetDialog()
+            ActionButton:
+                text: 'Yeni'
+                id: yeni_eylem_dugmesi
+                icon: 'atlas://atlasim/document-new'
+                on_press: app.yeniDosyaAcIslevi()
+            ActionButton:
+                text: 'Çık'
+                id: cik_dugmesi
+                icon: 'atlas://atlasim/application-exit'
+                on_press: app.cik()
+
+
+
+:numref:`Şekil %s <eylem-cubugu-edit-4-img>` de üsstteki resimde pencere yeteri kadar genişken eylem düğmelerinin gruplanmamış hali,
+alttaki resimde ise pencere daraltıldığında gruplanmış hali görünüyor. Gruplanmış eylem düğmeleri eylem çubuğunun en sağında yer alır.
+
+
+.. _eylem-cubugu-edit-4-img:
+
+.. figure:: ./programlar/listeEylem/programlar/8/eylem-cubugu-edit-4-img.png
+
+   Üstte gruplanmamış, altta gruplanmış eylem düğmeleri
+
 
 .. rubric:: Dipnotlar
 
